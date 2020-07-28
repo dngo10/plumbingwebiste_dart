@@ -1,11 +1,12 @@
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/other-fixture-cal.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/urinals-cal.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/waterclosets-cal.dart';
 
-import 'bathtubs-shower-cal.dart';
-import 'drinking-fountain-cal.dart';
-import 'lavatories-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/bathtubs-shower-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/drinking-fountain-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/lavatories-cal.dart';
 
 class FixtureUnit {
 
@@ -183,29 +184,30 @@ class FixtureUnit {
         return ans;
     }
 
-    public OtherCal(): number{
-        let ans: number = 0;
-        for (const [k,v] of this.unit) {
-            if(k[0] == table422_1Categories.other){
-                if(k[1] == table422_1Units.servicesinkkOrlaundrytray){
-                    ans += otherFixtures.ServiceSinkOrLaundryTrayOtherFixureNeeded(this.occupancy);
-                } else if(k[1] == table422_1Units.otherMultiple1){
-                    ans += otherFixtures.Multiple1OtherFixureNeeded(this.occupancy, v);
-                } else if(k[1] == table422_1Units.otherMultiple2){
-                    ans += otherFixtures.Multiple2OtherFixureNeeded(this.occupancy, v);
-                }
-            }
-        }
+    int OtherCal(){
+        int ans = 0;
+
+        unit.forEach((key, value) { 
+          if(key.t1 == table422_1Categories.other){
+              if(key.t2 == table422_1Units.servicesinkkOrlaundrytray){
+                  ans += ServiceSinkOrLaundryTrayOtherFixureNeeded(this.occupancy);
+              } else if(key.t2 == table422_1Units.otherMultiple1){
+                  ans += Multiple1OtherFixureNeeded(this.occupancy, value);
+              } else if(key.t2 == table422_1Units.otherMultiple2){
+                  ans += Multiple2OtherFixureNeeded(this.occupancy, value);
+              }
+          }
+        });
         return ans;
     }
 
         Map<table422_1Categories, double> Recalculate(){
-        this.FixtureRequireds[table422_1Categories.drinkingFountains] = DrinkingFoutainsCal;
-        this.FixtureRequireds[table422_1Categories.bathtubsOrShowers] = BathTubShowersCal();
-        this.FixtureRequireds[table422_1Categories.lavatories] = LavatoriesCal();
-        this.FixtureRequireds[table422_1Categories.other] = OtherCal();
-        this.FixtureRequireds[table422_1Categories.urinals] = UrinalsCal();
-        this.FixtureRequireds[table422_1Categories.waterClosets] = WaterclosetCal();
+        this.FixtureRequireds[table422_1Categories.drinkingFountains] = DrinkingFoutainsCal().toDouble();
+        this.FixtureRequireds[table422_1Categories.bathtubsOrShowers] = BathTubShowersCal().toDouble();
+        this.FixtureRequireds[table422_1Categories.lavatories] = LavatoriesCal().toDouble();
+        this.FixtureRequireds[table422_1Categories.other] = OtherCal().toDouble();
+        this.FixtureRequireds[table422_1Categories.urinals] = UrinalsCal().toDouble();
+        this.FixtureRequireds[table422_1Categories.waterClosets] = WaterclosetCal().toDouble();
 
         return this.FixtureRequireds;
     }
