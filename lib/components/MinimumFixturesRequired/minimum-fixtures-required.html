@@ -1,0 +1,28 @@
+
+<div class="minimalInputRequirement">
+    <div class="occupancy_choice">
+        <p>choose your occupancy:</p>
+
+        <material-dropdown-select [buttonText]="var1" materialTooltip="{{chooseOccupancy == null ? 'choose one' : chooseOccupancy.description}}">
+            <material-select-dropdown-item
+               *ngFor="let item of typeOfOccupancy"
+               (trigger) = "runthis(item)"
+               materialTooltip="{{item.description}}"
+            >
+            {{item.type}}
+            {{item.sub_type}}
+            </material-select-dropdown-item>
+        </material-dropdown-select>
+    </div>
+    
+    
+    
+</div>
+
+<!--
+
+    <user-input-based-on-occupancy [occupancy]="chooseOccupancy"></user-input-based-on-occupancy>
+-->
+
+
+

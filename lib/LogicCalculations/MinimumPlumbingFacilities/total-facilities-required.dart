@@ -11,12 +11,10 @@ enum TotMaFe{
 class TotalFacilitiesRequired{
 
     List<FixtureUnit> fixtureUnitArray;
-
     Map<table422_1Categories, double> totalRequiredFixture;
 
     double femaleWaterClosetAddIn;
     double maleUrinalsAllowedToBeAdded;
-
     double userUrinalsAdded;
 
     constructor(){
@@ -72,7 +70,6 @@ class TotalFacilitiesRequired{
           TotMaFe.totalMaleUrinals:  totalMaleUrinals,
         };
     }
-       
 
     AddFixtureOccupancy(FixtureUnit occupancy){
         fixtureUnitArray.add(occupancy);
