@@ -1,0 +1,7 @@
+.mycard{
+    min-width: 200px;
+}
+
+.mycard > *{
+    padding: 10px;
+}

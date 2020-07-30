@@ -7,7 +7,7 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 
-//import 'package:angular_app/components/MinimumFixturesRequired/minimum-fixtures-required.dart';
+
 import 'components/topBar/top-bar.dart';
 
 import 'routes/routes.dart';
@@ -23,7 +23,6 @@ import 'routes/routes.dart';
     MaterialStackableDrawerComponent,
     MaterialToggleComponent,
 
-    //MinimumFixtureRequired,
     TopBar,
   ],
   exports: [RoutePathPlumbing, Routes],

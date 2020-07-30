@@ -57,7 +57,6 @@ class MinimumFixtureRequired implements OnInit{
   runthis(TypeOfOccupancy item){
     var1 = item.type;
     chooseOccupancy = item;
-    print(var1);
   }
 
 }

@@ -1,0 +1,13 @@
+
+
+<section *ngIf="occupancy != null" class="mycard">
+    <div class="mdc-card mdc-card--outlined demo-size">
+      <div class="abc-card__primary">
+        <h2 class="abc-card__title">{{occupancy.type}}</h2>
+        <h3 class="abc-card__subtitle">{{occupancy.sub_type}}</h3>
+      </div>
+      <div class="abc-card__secondary">
+        {{occupancy.description}}
+      </div>
+    </div>
+  </section>

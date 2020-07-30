@@ -43,9 +43,8 @@ class FixtureUnit {
     Set<String> GetUnitsAllowanceStrings(){
         Set<String> ans = Set<String>();
         unit.keys.forEach((element) {
-          ans.add(table422_1CategoriesNames[element]);
+          ans.add(table422_1Units_Names[element.t2]);
         });
-
         return ans;
     }
 

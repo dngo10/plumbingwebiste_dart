@@ -1,6 +1,8 @@
 .minimalInputRequirement{
     margin-left: 3vw;
+    margin-right: 3vw;
     margin-top: 3vh;
+    margin-bottom: 3vh;
     display: flex;
     flex-direction: column;
 }

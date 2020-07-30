@@ -1,0 +1,13 @@
+.infor-only{
+    min-width: 200px;
+}
+
+.float_right{
+    float: right;
+}
+
+.User_input{
+    display: grid;
+    grid-template-rows: 1;
+}
+

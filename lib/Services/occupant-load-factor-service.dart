@@ -63,7 +63,6 @@ class OccupantLoadFactorService {
     this.regexMap.forEach((key, value) {
       RegExp rg = RegExp(key);
       if (rg.hasMatch(type)) {
-        print(value.type);
         return value;
       }
     });
