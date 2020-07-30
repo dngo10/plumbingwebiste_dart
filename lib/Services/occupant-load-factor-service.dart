@@ -43,16 +43,16 @@ class OccupantLoadFactorService {
     RegExp patternR = RegExp(r"^R-[1|2|3|4]$");
     RegExp patternS = RegExp(r"^S-[1|2]$");
 
-    this.regexMap[patternA1.pattern] = this.occupantLoadFactor[0];
-    this.regexMap[patternA2.pattern] = this.occupantLoadFactor[1];
-    this.regexMap[patternA3.pattern] = this.occupantLoadFactor[2];
-    this.regexMap[patternB.pattern] = this.occupantLoadFactor[3];
-    this.regexMap[patternE.pattern] = this.occupantLoadFactor[4];
-    this.regexMap[patternM.pattern] = this.occupantLoadFactor[9];
-    this.regexMap[patternF.pattern] = this.occupantLoadFactor[6];
-    this.regexMap[patternI.pattern] = this.occupantLoadFactor[8];
-    this.regexMap[patternR.pattern] = this.occupantLoadFactor[10];
-    this.regexMap[patternS.pattern] = this.occupantLoadFactor[11];
+    regexMap[patternA1.pattern] = occupantLoadFactor[0];
+    regexMap[patternA2.pattern] = occupantLoadFactor[1];
+    regexMap[patternA3.pattern] = occupantLoadFactor[2];
+    regexMap[patternB.pattern] =  occupantLoadFactor[3];
+    regexMap[patternE.pattern] =  occupantLoadFactor[4];
+    regexMap[patternM.pattern] =  occupantLoadFactor[9];
+    regexMap[patternF.pattern] =  occupantLoadFactor[6];
+    regexMap[patternI.pattern] =  occupantLoadFactor[8];
+    regexMap[patternR.pattern] =  occupantLoadFactor[10];
+    regexMap[patternS.pattern] =  occupantLoadFactor[11];
   }
 
   List<OccupantLoadFactor> getOccupantLoadFactor() {
@@ -60,13 +60,14 @@ class OccupantLoadFactorService {
   }
 
   OccupantLoadFactor getLoadFactor(String type) {
+    OccupantLoadFactor ans;
     this.regexMap.forEach((key, value) {
       RegExp rg = RegExp(key);
       if (rg.hasMatch(type)) {
-        return value;
+        ans = value;
       }
     });
 
-    return null;
+    return ans;
   }
 }

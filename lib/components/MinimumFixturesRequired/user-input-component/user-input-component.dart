@@ -26,6 +26,7 @@ class UserInputBasedOnOccupancy implements AfterChanges{
   FixtureUnit fixtureUnit;
   Set<table422_1Units> allowedUnits;
   Set<String> allowedUnitsString;
+  
   LinkedHashMap<table422_1Units,double> abc;
   LinkedHashMap<table422_1Units,double>old_abc;
 

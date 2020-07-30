@@ -1,19 +1,23 @@
+<div *ngIf="hasLoadFactor">
+    <material-input floatingLabel [(ngModel)]="person" label="Area" type="number"></material-input>
+</div>
+
 <div class="maleFemaleInput">
-    <div>
+    <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
         <material-input floatingLabel [(ngModel)]="person" label="Person" type="number"></material-input>
         <material-fab mini class="green">
             <material-icon icon="refresh"></material-icon>
         </material-fab>
     </div>
 
-    <div>
+    <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
         <material-input floatingLabel [(ngModel)]="male" label="Male" type="number"></material-input>
         <material-fab mini class="green">
             <material-icon icon="refresh"></material-icon>
         </material-fab>
     </div>
 
-    <div>
+    <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
         <material-input floatingLabel [(ngModel)]="female" label="Female" type="number"></material-input>
         <material-fab mini class="green">
             <material-icon icon="refresh"></material-icon>
@@ -23,14 +27,7 @@
 
     <section *ngFor="let item of commonInput" >
         <material-input floatingLabel [(ngModel)]="female" label="{{unitMap[item]}}"  type="number"></material-input>
-        <material-fab mini class="green">
-            <material-icon icon="refresh"></material-icon>
-        </material-fab>
     </section>
 
 
 </div>
-
-<!--
-
--->
