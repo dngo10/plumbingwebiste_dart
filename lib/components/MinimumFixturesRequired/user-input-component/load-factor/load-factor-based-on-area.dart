@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:angular/angular.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/Interfaces/occupant-load-factor.dart';
+import 'package:angular_app/Services/occupant-load-factor-service.dart';
 
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_toggle/material_toggle.dart';
 
 @Component(
   selector: 'load-factor-based-on-area',
@@ -19,9 +23,51 @@ import 'package:angular_components/material_icon/material_icon.dart';
                MaterialFabComponent,
                MaterialIconComponent,
                materialInputDirectives,
-               materialNumberInputDirectives, 
-  ]
+               materialNumberInputDirectives,
+               MaterialToggleComponent,
+  ],
+  providers: [ClassProvider(OccupantLoadFactorService)]
 )
-class LoadFactorBasedOnArea{
-  @Input() FixtureUnit fixtureUnit;
+class LoadFactorBasedOnArea implements AfterChanges, AfterContentChecked {
+  
+  double areaReturn;
+
+  final _occupantLoadFactor = StreamController<OccupantLoadFactor>();
+  @Output() Stream<OccupantLoadFactor> get areaOutput => _occupantLoadFactor.stream; 
+  
+  @Input() OccupantLoadFactor occupantLoadFactor;
+
+  OccupantLoadFactorService loadProviderService;
+  String toggleLabel = "Use Load Factor?";
+  bool hasLoadFactor = false;
+  bool usingSlider = false ;
+
+  LoadFactorBasedOnArea(this.loadProviderService){
+    usingSlider = false;
+  }
+
+  @override
+  void ngAfterChanges() {
+    
+
+    if(occupantLoadFactor != null){
+      
+      if(occupantLoadFactor != null){
+        hasLoadFactor = true;
+      }else{
+        hasLoadFactor = false;
+      }
+    }
+  }
+
+  @override
+  void ngAfterContentChecked() {
+    // TODO: implement ngAfterContentChecked
+    if(!usingSlider && occupantLoadFactor != null){
+      occupantLoadFactor.areaEntered = 0;
+    }
+  }
+
+
+
 }

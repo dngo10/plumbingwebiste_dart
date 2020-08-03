@@ -1,3 +1,29 @@
-<div *ngIf="hasLoadFactor">
-    <material-input floatingLabel [(ngModel)]="person" label="Area" type="number"></material-input>
+<div class="loadFactorBox" *ngIf="occupantLoadFactor != null && hasLoadFactor">
+    <h3>Load Factor: </h3>
+    <div class="toggle1">
+        <material-toggle 
+        label = "Use Load Factor?"
+        [(checked)] = "usingSlider"
+        >
+        </material-toggle>
+
+        <p *ngIf="occupantLoadFactor != null">Load factor: <b>{{occupantLoadFactor.occupant_load_factor}}</b> sqft/person </p>
+    </div>
+    <div class="toggle1">
+        <div>
+            <material-input
+                [disabled]="!usingSlider"
+                floatingLabel
+                [(ngModel)]="occupantLoadFactor.areaEntered"
+                label="Area"
+                type="number"
+                trailingText="sqft"
+            ></material-input>
+        </div>
+
+        <p *ngIf="occupantLoadFactor != null"> Persons equivalent: <b>{{occupantLoadFactor.GetPersonsOutOfLoadFactor(occupantLoadFactor.areaEntered)}}</b> </p>
+
+    </div>
+
 </div>
+

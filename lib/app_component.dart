@@ -26,7 +26,9 @@ import 'routes/routes.dart';
     TopBar,
   ],
   exports: [RoutePathPlumbing, Routes],
-  styleUrls:['package:angular_components/app_layout/layout.scss.css'],
+  styleUrls:[
+    'app_component.css',
+    'package:angular_components/app_layout/layout.scss.css'],
 )
 class AppComponent {
   var name = 'Angular';

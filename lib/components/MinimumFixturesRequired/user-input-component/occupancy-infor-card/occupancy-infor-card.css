@@ -1,7 +1,9 @@
 .mycard{
     min-width: 200px;
+    border-bottom: 1px solid rgb(204, 204, 204);
 }
 
 .mycard > *{
     padding: 10px;
+    border: 0px white solid;
 }

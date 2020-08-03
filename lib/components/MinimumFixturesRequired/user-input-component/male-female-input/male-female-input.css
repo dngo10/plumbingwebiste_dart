@@ -4,7 +4,20 @@
     float: left;
 }
 
+.spacer{
+    margin-top: 5vh;
+}
 
-.maleFemaleInput{
+.input1{
+    padding: 10px;
+}
 
+.correct{
+    color: green;
+    font-size: bold;
+}
+
+.notCorrect{
+    color: red;
+    font-size: bold;
 }

@@ -3,7 +3,7 @@
     <div class="occupancy_choice">
         <p>choose your occupancy:</p>
 
-        <material-dropdown-select [buttonText]="var1" materialTooltip="{{chooseOccupancy == null ? 'choose one' : chooseOccupancy.description}}">
+        <material-dropdown-select [buttonText]="var1">
             <material-select-dropdown-item
                *ngFor="let item of typeOfOccupancy"
                (trigger) = "runthis(item)"
