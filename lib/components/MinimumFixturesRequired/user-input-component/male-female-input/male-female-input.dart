@@ -11,6 +11,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_button/material_button.dart';
 
 @Component(
   selector: 'male-female-input-plumbing',
@@ -23,13 +24,14 @@ import 'package:angular_components/material_icon/material_icon.dart';
                MaterialInputComponent,
                MaterialFabComponent,
                MaterialIconComponent,
+               MaterialButtonComponent,
                materialInputDirectives,
                materialNumberInputDirectives,
                LoadFactorBasedOnArea,
   ],
   providers: [ClassProvider(OccupantLoadFactorService)]
 )
-class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
+class MaleFemaleInput implements AfterChanges, OnInit{
   Set<table422_1Units> allowedSet;
   @Input() FixtureUnit fixtureUnit;
 
@@ -47,7 +49,6 @@ class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
   var efemale = table422_1Units.female;
   var eperson = table422_1Units.person;
 
-  bool isCorrect = true;
 
   Map<String, bool>  currentClasses;
 
@@ -58,23 +59,16 @@ class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
   bool hasLoadFactor = false;
 
   MaleFemaleInput(this.occupantLoadFactorService){
-    currentClasses = {
-      'correct': isCorrect,
-      'notCorrect' : !isCorrect
-    };
+
   }
 
   @override
   void ngOnInit() {
-    // TODO: implement ngOnInit
     unitMap = table422_1Units_Names;
   }
 
-  
-
   @override
   void ngAfterChanges() {
-    // TODO: implement ngAfterChanges
     if(fixtureUnit != null){
       allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
       amountReturn = Map<table422_1Units,double>();
@@ -117,14 +111,6 @@ class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
     return false;
   }
 
-  @override
-  void ngAfterContentChecked() {
-    if(occupantLoadFactor != null){
-      person = occupantLoadFactor.GetPersonsOutOfLoadFactor(occupantLoadFactor.areaEntered).toDouble();
-      female = (person/2.0).ceil().toDouble();
-      male = person - female;
-    }
-  }
 
   void personTriggered(){
     if(person == null){
@@ -132,7 +118,6 @@ class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
       male = 0;
       female = 0;
     } else{
-      person = occupantLoadFactor.GetPersonsOutOfLoadFactor(occupantLoadFactor.areaEntered).toDouble();
       female = (person/2.0).ceil().toDouble();
       male = person - female;      
     }
@@ -141,45 +126,40 @@ class MaleFemaleInput implements AfterChanges, OnInit, AfterContentChecked{
   void maleTriggered(){
     if(person == null && female != null){
       person = male + female;
-      isCorrect = true;
     }else if(person != null && female == null){
       if(person > male){
         female = person - male;
-        isCorrect = true;
       } else{
-        isCorrect = false;
       }
     }else if(person != null && female != null){
       if(male > person || female > person){
-        isCorrect = false;
       } else{
         female = person - male;
-        isCorrect = true;
       }
     }
-    isCorrect = false;
   }
 
   void femaleTriggered(){
     if(person == null && male != null){
       person = female + male;
-      isCorrect = true;
     }else if(person != null && male == null){
       if(person > female){
         male = person - female;
-        isCorrect = true;
       } else{
-        isCorrect = false;
       }
     }else if(person != null && male != null){
       if(female > person || male > person){
-        isCorrect = false;
       } else{
         male = person - female;
-        isCorrect = true;
       }
     }
-    isCorrect = false;
+  }
+
+  void upDate(){
+    if(occupantLoadFactor != null){
+      person = occupantLoadFactor.persons;
+      personTriggered();
+    }
   }
 
 

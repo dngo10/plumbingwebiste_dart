@@ -29,13 +29,12 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
   providers: [ClassProvider(OccupantLoadFactorService)]
 )
 class LoadFactorBasedOnArea implements AfterChanges, AfterContentChecked {
-  
-  double areaReturn;
 
   final _occupantLoadFactor = StreamController<OccupantLoadFactor>();
   @Output() Stream<OccupantLoadFactor> get areaOutput => _occupantLoadFactor.stream; 
   
   @Input() OccupantLoadFactor occupantLoadFactor;
+  @Input() double person;
 
   OccupantLoadFactorService loadProviderService;
   String toggleLabel = "Use Load Factor?";
@@ -62,12 +61,13 @@ class LoadFactorBasedOnArea implements AfterChanges, AfterContentChecked {
 
   @override
   void ngAfterContentChecked() {
-    // TODO: implement ngAfterContentChecked
-    if(!usingSlider && occupantLoadFactor != null){
-      occupantLoadFactor.areaEntered = 0;
+    if(usingSlider && occupantLoadFactor != null){
+      occupantLoadFactor.GetPersonsOutOfLoadFactor();
+    }else{
+      if(occupantLoadFactor != null){
+        occupantLoadFactor.areaEntered = 0;
+        occupantLoadFactor.persons = 0;
+      }
     }
   }
-
-
-
 }

@@ -1,3 +1,4 @@
+<material-button></material-button>
 <div class="input1" >
     <load-factor-based-on-area
         *ngIf="checkAvailability()"
@@ -7,23 +8,30 @@
 
     <div class="spacer">  </div>
 
+    <material-button *ngIf="occupantLoadFactor != null" (click)="upDate()" icon>
+        <material-icon icon="low_priority"></material-icon>
+        Update Load Factor
+    </material-button>
+
+    <div class="spacer">  </div>
+
     <div class="maleFemaleInput">
         <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
-            <material-input [ngClass]="currentClasses" floatingLabel [(ngModel)]="person" label="Person" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="person" label="Person" type="number"></material-input>
             <material-fab mini (trigger)="personTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
-            <material-input [ngClass]="currentClasses" floatingLabel [(ngModel)]="male" label="Male" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="male" label="Male" type="number"></material-input>
             <material-fab mini (trigger)="maleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
-            <material-input [ngClass]="currentClasses" floatingLabel [(ngModel)]="female" label="Female" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="female" label="Female" type="number"></material-input>
             <material-fab mini (trigger)="femaleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>

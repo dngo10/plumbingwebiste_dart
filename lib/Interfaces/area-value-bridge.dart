@@ -1,0 +1,3 @@
+class AreaValueBridge{
+  double area;
+}

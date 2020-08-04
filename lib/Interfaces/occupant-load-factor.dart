@@ -2,16 +2,18 @@ class OccupantLoadFactor{
   String type;
   String description;
   double areaEntered = 0;
+  double persons = 0;
   int occupant_load_factor;
 
   OccupantLoadFactor(this.type, this.occupant_load_factor, this.description);
 
-  int GetPersonsOutOfLoadFactor(double area){
-    if(occupant_load_factor != null && area > 0){
-      areaEntered = area;
-      return (area/occupant_load_factor.toDouble()).ceil();
+  void GetPersonsOutOfLoadFactor(){
+    if(occupant_load_factor != null && areaEntered > 0){
+      persons = (areaEntered/occupant_load_factor.toDouble()).ceil().toDouble();
+      return;
     }
+    persons = 0;
     areaEntered = 0;
-    return 0;
+    return;
   }
 }
