@@ -1,0 +1,10 @@
+<div>
+    <div class="common_input" *ngIf="commonSet != null">
+        <material-input *ngFor="let item of commonSet"
+            floatingLabel
+            [(ngModel)]="fixtureUnit.inputUnit[item]"
+            label="{{unitMap[item]}}"
+            type="number">
+        </material-input>
+    </div>
+</div>

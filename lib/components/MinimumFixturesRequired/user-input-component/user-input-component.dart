@@ -4,8 +4,10 @@ import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/patient-room-input/patient-room-input.dart';
 import 'package:angular_components/material_button/material_button.dart';
 
+import 'common-input/common-input.dart';
 import 'male-female-input/male-female-input.dart';
 import 'occupancy-infor-card/occupancy-infor-card.dart';
 
@@ -19,6 +21,8 @@ import 'occupancy-infor-card/occupancy-infor-card.dart';
                OccupancyInforCard,
                MaterialButtonComponent,
                MaleFemaleInput,
+               PatientRoomInput,
+               CommonInput,
   ]
 )
 class UserInputBasedOnOccupancy implements AfterChanges{

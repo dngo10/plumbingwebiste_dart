@@ -47,7 +47,7 @@ class LoadFactorBasedOnArea implements AfterChanges, AfterContentChecked {
 
   @override
   void ngAfterChanges() {
-    
+    usingSlider = false;
 
     if(occupantLoadFactor != null){
       

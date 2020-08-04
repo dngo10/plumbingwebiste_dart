@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
@@ -25,9 +23,9 @@ import 'package:angular_components/material_button/material_button.dart';
                MaterialFabComponent,
                MaterialIconComponent,
                MaterialButtonComponent,
+               LoadFactorBasedOnArea,
                materialInputDirectives,
                materialNumberInputDirectives,
-               LoadFactorBasedOnArea,
   ],
   providers: [ClassProvider(OccupantLoadFactorService)]
 )
@@ -35,12 +33,9 @@ class MaleFemaleInput implements AfterChanges, OnInit{
   Set<table422_1Units> allowedSet;
   @Input() FixtureUnit fixtureUnit;
 
-  final _amountReturn = StreamController<Map<String, double>>();
-  @Output() Stream<Map<String, double>> get streamOutput => _amountReturn.stream;
-
   double area =  0;
 
-  Map<table422_1Units, double> amountReturn;
+  //Map<table422_1Units, double> amountReturn;
   Set<table422_1Units> commonInput;
 
   var unitMap;
@@ -52,11 +47,15 @@ class MaleFemaleInput implements AfterChanges, OnInit{
 
   Map<String, bool>  currentClasses;
 
-  double male = 0, female = 0, person = 0;
+  //double male = 0, female = 0, person = 0;
   OccupantLoadFactorService occupantLoadFactorService;
   OccupantLoadFactor occupantLoadFactor;
 
   bool hasLoadFactor = false;
+
+  bool hasp = false; // has person in fixture unit
+  bool hasm = false; // has male in fixture unit
+  bool hasf = false; // has female in fixture unit
 
   MaleFemaleInput(this.occupantLoadFactorService){
 
@@ -69,9 +68,22 @@ class MaleFemaleInput implements AfterChanges, OnInit{
 
   @override
   void ngAfterChanges() {
+
+    //This MUST RUN MUST to add person or NOT
     if(fixtureUnit != null){
+      hasm = fixtureUnit.inputUnit.containsKey(emale);
+      hasf = fixtureUnit.inputUnit.containsKey(efemale);
+
+      if(hasm && hasf){
+        fixtureUnit.inputUnit[eperson] = 0;
+        hasp = true;
+      }else{
+        hasp = fixtureUnit.inputUnit.containsKey(eperson);
+        
+      }
+      //===== END MANDATORY ===== 
+
       allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
-      amountReturn = Map<table422_1Units,double>();
       commonInput = Set<table422_1Units>();
 
       occupantLoadFactor = occupantLoadFactorService.getLoadFactor(fixtureUnit.occupancy.type);
@@ -82,30 +94,21 @@ class MaleFemaleInput implements AfterChanges, OnInit{
       }
 
       allowedSet.forEach((element) {
-        if(element == table422_1Units.male){
-          amountReturn[table422_1Units.male] = male==null ? 0 : male;
-        } else if(element == table422_1Units.female){
-          amountReturn[table422_1Units.female] = female ==null ? 0 : female;
-        } else if(element == table422_1Units.person){
-          amountReturn[table422_1Units.person] = person ==null ? 0 : person;
-        }
-        else{
+        if(element != emale &&
+           element != efemale &&
+           element != eperson
+        ){
           commonInput.add(element);
         }
       });
-
-      
-
     }
-
   }
 
   bool checkAvailability(){
-    if(allowedSet.contains(table422_1Units.male) &&
-       allowedSet.contains(table422_1Units.female)){
+    if(hasm && hasf){
          return true;
        }
-    else if(allowedSet.contains(table422_1Units.person)){
+    else if(hasp){
       return true;
     }
     return false;
@@ -113,55 +116,46 @@ class MaleFemaleInput implements AfterChanges, OnInit{
 
 
   void personTriggered(){
-    if(person == null){
-      person = 0;
-      male = 0;
-      female = 0;
-    } else{
-      female = (person/2.0).ceil().toDouble();
-      male = person - female;      
-    }
+    if(hasm) fixtureUnit.inputUnit[efemale] = (fixtureUnit.inputUnit[eperson]/2.0).ceil().toDouble();
+    if(hasf) fixtureUnit.inputUnit[emale] = fixtureUnit.inputUnit[eperson] - fixtureUnit.inputUnit[efemale];      
   }
 
   void maleTriggered(){
-    if(person == null && female != null){
-      person = male + female;
-    }else if(person != null && female == null){
-      if(person > male){
-        female = person - male;
+    if(hasp && hasf){
+      fixtureUnit.inputUnit[eperson] = fixtureUnit.inputUnit[emale] + fixtureUnit.inputUnit[efemale];
+    }else if(hasp && hasf){
+      if(fixtureUnit.inputUnit[eperson] > fixtureUnit.inputUnit[emale]){
+        fixtureUnit.inputUnit[efemale] = fixtureUnit.inputUnit[eperson] - fixtureUnit.inputUnit[emale];
       } else{
       }
-    }else if(person != null && female != null){
-      if(male > person || female > person){
+    }else if(fixtureUnit.inputUnit[eperson] != null && fixtureUnit.inputUnit[efemale] != null){
+      if(fixtureUnit.inputUnit[emale] > fixtureUnit.inputUnit[eperson] || fixtureUnit.inputUnit[efemale] > fixtureUnit.inputUnit[eperson]){
       } else{
-        female = person - male;
+        fixtureUnit.inputUnit[efemale] = fixtureUnit.inputUnit[eperson] - fixtureUnit.inputUnit[emale];
       }
     }
   }
 
   void femaleTriggered(){
-    if(person == null && male != null){
-      person = female + male;
-    }else if(person != null && male == null){
-      if(person > female){
-        male = person - female;
+    if(fixtureUnit.inputUnit[eperson] == null && fixtureUnit.inputUnit[emale] != null){
+      fixtureUnit.inputUnit[eperson] = fixtureUnit.inputUnit[efemale] + fixtureUnit.inputUnit[emale];
+    }else if(fixtureUnit.inputUnit[eperson] != null && fixtureUnit.inputUnit[emale] == null){
+      if(fixtureUnit.inputUnit[eperson] > fixtureUnit.inputUnit[efemale]){
+        fixtureUnit.inputUnit[emale] = fixtureUnit.inputUnit[eperson] - fixtureUnit.inputUnit[efemale];
       } else{
       }
-    }else if(person != null && male != null){
-      if(female > person || male > person){
+    }else if(fixtureUnit.inputUnit[eperson] != null && fixtureUnit.inputUnit[emale] != null){
+      if(fixtureUnit.inputUnit[efemale] > fixtureUnit.inputUnit[eperson] || fixtureUnit.inputUnit[emale] > fixtureUnit.inputUnit[eperson]){
       } else{
-        male = person - female;
+        fixtureUnit.inputUnit[emale] = fixtureUnit.inputUnit[eperson] - fixtureUnit.inputUnit[efemale];
       }
     }
   }
 
   void upDate(){
-    if(occupantLoadFactor != null){
-      person = occupantLoadFactor.persons;
+    if(occupantLoadFactor != null && fixtureUnit.inputUnit.containsKey(eperson)){
+      fixtureUnit.inputUnit[eperson] = occupantLoadFactor.persons;
       personTriggered();
     }
   }
-
-
-
 }

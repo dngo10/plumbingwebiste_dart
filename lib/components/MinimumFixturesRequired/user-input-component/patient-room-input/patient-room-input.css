@@ -1,0 +1,13 @@
+.patientRoomInput > *{
+    margin-right: 1vw;
+    margin-bottom: 0;
+    float: left
+}
+
+.spacer{
+    margin-top: 5vh;
+}
+
+.input1{
+    padding: 10px;
+}

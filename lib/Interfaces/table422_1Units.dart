@@ -73,6 +73,7 @@ class PairEntry{
   PairEntry(this.t1, this.t2);
 }
 
+///PairEntry is: <table422_1Categories,table422_1Units>
  Map<PairEntry, List<table422_1Ids>> typeAndAllowance = {
     PairEntry(table422_1Categories.waterClosets, table422_1Units.person): [table422_1Ids.I3_2],
     PairEntry(table422_1Categories.waterClosets, table422_1Units.male): [

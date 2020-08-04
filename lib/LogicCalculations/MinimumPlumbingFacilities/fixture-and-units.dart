@@ -12,8 +12,10 @@ class FixtureUnit {
 
     TypeOfOccupancy occupancy;
 
-    // This is UNIT INPUT
+    ///PairEntry is: <table422_1Categories,table422_1Units>
     Map<PairEntry , double> unit;
+
+    Map<table422_1Units, double> inputUnit;
 
     // This is UNIT OUTPUT
     Map<table422_1Categories, double> FixtureRequireds;
@@ -21,7 +23,11 @@ class FixtureUnit {
     //Employee
     FixtureUnit(TypeOfOccupancy occupancy) {
         this.occupancy = occupancy;
+
+        
         this.unit = Map<PairEntry , double>();
+        this.inputUnit = Map<table422_1Units, double>();
+
         this.InitUnitMapAndAmmountMap();
 
         this.FixtureRequireds = Map<table422_1Categories, double>();
@@ -36,24 +42,21 @@ class FixtureUnit {
         typeAndAllowance.forEach((key, value) {
           if(value.contains(this.occupancy.id)){
             this.unit[key] = 0;
+            inputUnit[key.t2] = 0;
           }
         });
     }
 
     Set<String> GetUnitsAllowanceStrings(){
         Set<String> ans = Set<String>();
-        unit.keys.forEach((element) {
-          ans.add(table422_1Units_Names[element.t2]);
+        inputUnit.keys.forEach((element) {
+          ans.add(table422_1Units_Names[element]);
         });
         return ans;
     }
 
     Set<table422_1Units> GetUnitsAllowanceEnum(){
-        Set<table422_1Units> ans = Set<table422_1Units>();
-        unit.forEach((key, value) {
-          ans.add(key.t2);
-        });
-        return ans;
+        return inputUnit.keys.toSet();
     }
 
     Set<table422_1Units> GetUnitsByCategories(table422_1Categories tableCat){

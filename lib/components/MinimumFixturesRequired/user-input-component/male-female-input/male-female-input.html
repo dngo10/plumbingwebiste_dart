@@ -1,4 +1,3 @@
-<material-button></material-button>
 <div class="input1" >
     <load-factor-based-on-area
         *ngIf="checkAvailability()"
@@ -8,7 +7,7 @@
 
     <div class="spacer">  </div>
 
-    <material-button *ngIf="occupantLoadFactor != null" (click)="upDate()" icon>
+    <material-button *ngIf="occupantLoadFactor != null && checkAvailability()" (click)="upDate()" icon>
         <material-icon icon="low_priority"></material-icon>
         Update Load Factor
     </material-button>
@@ -17,32 +16,25 @@
 
     <div class="maleFemaleInput">
         <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
-            <material-input floatingLabel [(ngModel)]="person" label="Person" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[eperson]" label="{{unitMap[eperson]}}" type="number"></material-input>
             <material-fab mini (trigger)="personTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
-            <material-input floatingLabel [(ngModel)]="male" label="Male" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[emale]" label="{{unitMap[emale]}}" type="number"></material-input>
             <material-fab mini (trigger)="maleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
-            <material-input floatingLabel [(ngModel)]="female" label="Female" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[efemale]" label="{{unitMap[efemale]}}" type="number"></material-input>
             <material-fab mini (trigger)="femaleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
-
-
-        <section *ngFor="let item of commonInput" >
-            <material-input floatingLabel [(ngModel)]="female" label="{{unitMap[item]}}"  type="number"></material-input>
-        </section>
-
-
     </div>
 </div>
 

@@ -1,21 +1,33 @@
 <!-- if this is male -- female -- person -->
 <div class="User_input" *ngIf="occupancy != null" >
+
     <div class="infor-only">
         <occupancy-infor-card [occupancy] = "occupancy"></occupancy-infor-card>
     </div>
     <div>
         <male-female-input-plumbing
-            [fixtureUnit] = "fixtureUnit"
-            (streamOutput) = "runthis($event)"
+            [(fixtureUnit)] = "fixtureUnit"
         >
         
         </male-female-input-plumbing>
         
     </div>
     <div>
+        <patient-room-input
+        [(fixtureUnit)] = "fixtureUnit"
+    >
+    </patient-room-input>
+    </div>
+
+    <div>
+        <common-input-app
+        [(fixtureUnit)] = "fixtureUnit"
+        ></common-input-app>
+    </div>
+
+    <div>
         <material-button raised class="dense-example float_right">add</material-button>
     </div>
-    
 </div>
 
 
