@@ -1,0 +1,18 @@
+.cardGroup > div{
+    max-width: 20vw;
+    min-width: 200px;
+    float: left;
+    margin-right: 2vw;
+    width: 12vw;
+    padding: 10px;
+}
+
+.mdc-card__media{
+    width: 10vw;
+    margin: auto;
+}
+
+.demo-card__subtitle{
+    margin-left: 0;
+    text-overflow: clip;
+}

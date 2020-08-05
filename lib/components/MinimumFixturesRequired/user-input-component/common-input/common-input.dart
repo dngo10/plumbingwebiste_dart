@@ -39,6 +39,9 @@ class CommonInput implements AfterChanges{
                    table422_1Units.male,
                    table422_1Units.patient,
                    table422_1Units.room,
+                   table422_1Units.otherMultiple1,
+                   table422_1Units.otherMultiple2,
+                   table422_1Units.servicesinkkOrlaundrytray,
     };
   }
 
@@ -48,10 +51,18 @@ class CommonInput implements AfterChanges{
       allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
       unitMap = table422_1Units_Names;
 
+      bool isMustChoose = allowedSet.contains(table422_1Units.room) &&
+                          allowedSet.contains(table422_1Units.patient);
+
       commonSet = Set<table422_1Units>();
 
       allowedSet.forEach((element) {
         if(!restrictedSet.contains(element)){
+          commonSet.add(element);
+        }else if(!isMustChoose &&
+            (element == table422_1Units.room || 
+            element == table422_1Units.patient)
+        ){
           commonSet.add(element);
         }
       });

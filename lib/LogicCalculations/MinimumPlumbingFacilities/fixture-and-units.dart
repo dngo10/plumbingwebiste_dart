@@ -203,7 +203,18 @@ class FixtureUnit {
         return ans;
     }
 
-        Map<table422_1Categories, double> Recalculate(){
+    void MergeInputValueToUnit(){
+      inputUnit.forEach((keyI, valueI) {
+        unit.forEach((keyU, valueU) {
+          if(keyU.t2 == keyI){
+            unit[keyU] = valueI;
+          }
+        });
+      });
+    }
+
+    Map<table422_1Categories, double> Recalculate(){
+      MergeInputValueToUnit();
         this.FixtureRequireds[table422_1Categories.drinkingFountains] = DrinkingFoutainsCal().toDouble();
         this.FixtureRequireds[table422_1Categories.bathtubsOrShowers] = BathTubShowersCal().toDouble();
         this.FixtureRequireds[table422_1Categories.lavatories] = LavatoriesCal().toDouble();
@@ -212,5 +223,6 @@ class FixtureUnit {
         this.FixtureRequireds[table422_1Categories.waterClosets] = WaterclosetCal().toDouble();
 
         return this.FixtureRequireds;
+        
     }
 }

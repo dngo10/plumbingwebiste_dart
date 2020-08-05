@@ -17,6 +17,8 @@ int MaleUrinalsCount(TypeOfOccupancy typeOfOccupancy, double numOfMale) {
            }
     }else if(typeOfOccupancy.id == table422_1Ids.E){
         return (numOfMale/100.0).ceil();
+    }else if(typeOfOccupancy.id == table422_1Ids.I1){
+        return (numOfMale/15).ceil();
     }else if(typeOfOccupancy.id == table422_1Ids.M){
         if(1 <= numOfMale && numOfMale <= 200) return 0;
         else if(201 <= numOfMale && numOfMale <= 400) return 400;

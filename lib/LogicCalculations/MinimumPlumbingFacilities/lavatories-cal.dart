@@ -27,7 +27,7 @@ int MaleLavatoriesCount(TypeOfOccupancy typeOfOccupancy, double numOfMale){
         else if(201 <= numOfMale && numOfMale <= 400) return 2;
         else if(401 <= numOfMale && numOfMale <= 600) return 3;
         else if(numOfMale > 600){
-            return 3 + ((numOfMale- 6000)/250.0).ceil();
+            return 3 + ((numOfMale- 600)/250.0).ceil();
         }
     }else if(typeOfOccupancy.id == table422_1Ids.B){
         if(1 <= numOfMale && numOfMale <= 75) return 1;
