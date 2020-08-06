@@ -7,7 +7,7 @@
 
     <div class="spacer">  </div>
 
-    <material-button *ngIf="occupantLoadFactor != null && checkAvailability()" (click)="upDate()" icon>
+    <material-button raised *ngIf="occupantLoadFactor != null && checkAvailability()" (click)="upDate()" >
         <material-icon icon="low_priority"></material-icon>
         Update Load Factor
     </material-button>
@@ -16,21 +16,21 @@
 
     <div class="maleFemaleInput">
         <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
-            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[eperson]" label="{{unitMap[eperson]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.person" label="{{unitMap[eperson]}}" type="number"></material-input>
             <material-fab mini (trigger)="personTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
-            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[emale]" label="{{unitMap[emale]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.male" label="{{unitMap[emale]}}" type="number"></material-input>
             <material-fab mini (trigger)="maleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
-            <material-input floatingLabel [(ngModel)]="fixtureUnit.inputUnit[efemale]" label="{{unitMap[efemale]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.female" label="{{unitMap[efemale]}}" type="number"></material-input>
             <material-fab mini (trigger)="femaleTriggered">
                 <material-icon icon="refresh"></material-icon>
             </material-fab>

@@ -20,8 +20,8 @@
         [(fixtureUnit)] = "fixtureUnit"
     ></user-input-based-on-occupancy>
     
-    <div>
-        <material-button raised class="dense-example float_right" (click)="addFixture()">ADD</material-button>
+    <div *ngIf="fixtureUnit != null">
+        <material-button dense raised class="dense-example float_right" (click)="addFixture()">ADD</material-button>
     </div>
 
     <hr>

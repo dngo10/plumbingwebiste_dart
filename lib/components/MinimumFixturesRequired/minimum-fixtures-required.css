@@ -21,3 +21,9 @@
     display: grid;
     grid-template-rows: 1;
 }
+
+.dense-example{
+    background-color: #3f51b5;
+    color: white;
+    font-weight: bold;
+}

@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
+import 'package:angular_app/Interfaces/table422_1Units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_app/Services/occupant-load-factor-service.dart';
+import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/male-female-input/male-female-input.dart';
 
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -28,46 +31,46 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
   ],
   providers: [ClassProvider(OccupantLoadFactorService)]
 )
-class LoadFactorBasedOnArea implements AfterChanges, AfterContentChecked {
-
-  final _occupantLoadFactor = StreamController<OccupantLoadFactor>();
-  @Output() Stream<OccupantLoadFactor> get areaOutput => _occupantLoadFactor.stream; 
+class LoadFactorBasedOnArea implements AfterChanges { 
   
   @Input() OccupantLoadFactor occupantLoadFactor;
-  @Input() double person;
+
+  @Input() Pfm gen ;
 
   OccupantLoadFactorService loadProviderService;
   String toggleLabel = "Use Load Factor?";
   bool hasLoadFactor = false;
-  bool usingSlider = false ;
+  bool _usingSlider = false ;
+
+  bool get usingSlider{return _usingSlider;}
+  void set usingSlider(bool value){
+    _usingSlider = value;
+    if(_usingSlider == false){
+      if(occupantLoadFactor != null && gen != null){
+        gen.person = 0;
+        occupantLoadFactor.areaEntered = 0;
+        occupantLoadFactor.GetPersonsOutOfLoadFactor();
+      }
+    }
+  }
 
   LoadFactorBasedOnArea(this.loadProviderService){
-    usingSlider = false;
+    _usingSlider = false;
   }
 
   @override
   void ngAfterChanges() {
-    usingSlider = false;
+    
+    _usingSlider = false;
 
-    if(occupantLoadFactor != null){
+    if(occupantLoadFactor != null && gen != null){
       
       if(occupantLoadFactor != null){
         hasLoadFactor = true;
       }else{
         hasLoadFactor = false;
       }
-    }
-  }
 
-  @override
-  void ngAfterContentChecked() {
-    if(usingSlider && occupantLoadFactor != null){
-      occupantLoadFactor.GetPersonsOutOfLoadFactor();
-    }else{
-      if(occupantLoadFactor != null){
-        occupantLoadFactor.areaEntered = 0;
-        occupantLoadFactor.persons = 0;
-      }
     }
   }
 }

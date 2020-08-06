@@ -1,14 +1,13 @@
 .cardGroup > div{
-    max-width: 20vw;
-    min-width: 100px;
     float: left;
     margin-right: 2vw;
-    width: 200px;
-    padding: 10px;
+    width: 180px;
+    padding: 5px;
+    height: 200px;
 }
 
 .mdc-card__media{
-    width: 180px;
+    width: 150px;
     margin: auto;
 }
 
@@ -20,8 +19,13 @@
 
 .mdc-card{
     margin-bottom: 5vh;
+    width: 200px;
 }
 
 .demo-card__title{
     text-align: center;
+}
+
+.container{
+    padding: 10px;
 }

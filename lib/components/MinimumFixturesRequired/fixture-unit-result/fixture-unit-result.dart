@@ -22,7 +22,7 @@ import 'package:angular_forms/angular_forms.dart';
   ],
   pipes: [commonPipes]
 )
-class FixtureUnitResult implements AfterChanges, OnInit, AfterContentChecked {
+class FixtureUnitResult implements AfterChanges, OnInit {
   @Input() FixtureUnit fixtureUnit;
   Map<table422_1Categories, String> catMap;
   Map<table422_1Categories, String> iconUrl;
@@ -44,10 +44,10 @@ class FixtureUnitResult implements AfterChanges, OnInit, AfterContentChecked {
     }
   }
 
-  @override
-  void ngAfterContentChecked() {
-    if(fixtureUnit != null){
-      fixtureUnit.Recalculate();
-    }
-  }
+  //@override
+  //void ngAfterContentChecked() {
+  //  if(fixtureUnit != null){
+  //    fixtureUnit.Recalculate();
+  //  }
+  //}
 }
