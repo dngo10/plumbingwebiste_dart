@@ -17,7 +17,7 @@ class TotalFacilitiesRequired{
     double maleUrinalsAllowedToBeAdded;
     double userUrinalsAdded;
 
-    constructor(){
+    TotalFacilitiesRequired(){
         fixtureUnitArray = List<FixtureUnit>();
         totalRequiredFixture = Map<table422_1Categories, double>();
 
@@ -72,7 +72,8 @@ class TotalFacilitiesRequired{
     }
 
     AddFixtureOccupancy(FixtureUnit occupancy){
-        fixtureUnitArray.add(occupancy);
+        FixtureUnit newFu = occupancy.clone();
+        fixtureUnitArray.add(newFu);
     }
 
     RemoveFixtureOccupancy(FixtureUnit occupancy){
@@ -91,7 +92,9 @@ class TotalFacilitiesRequired{
     AddToTotalFixtureRequired(Map<table422_1Categories, double> item){
       item.forEach((key, v) {
         if(totalRequiredFixture.containsKey(key)){
-          totalRequiredFixture.update(key, (value) => totalRequiredFixture[key] + v);
+          totalRequiredFixture[key] +=  v;
+        }else{
+          totalRequiredFixture[key] = v;
         }
       });
     }

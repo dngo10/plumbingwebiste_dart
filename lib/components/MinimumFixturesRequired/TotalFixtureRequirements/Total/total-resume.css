@@ -1,0 +1,28 @@
+.iconFixture{
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    color: blue;
+}
+
+.detailsList{
+    width: 300px;
+}
+
+.cardDisplay{
+    float: left;
+    margin-right: 1vw;
+}
+
+.cardDisplay > *{
+    margin: auto;
+    text-align: center;
+}
+
+.listItemContainer > div:nth-child(2){
+    margin-left: 100 px;
+}
+
+.listItem{
+    margin-left: 100px;
+}

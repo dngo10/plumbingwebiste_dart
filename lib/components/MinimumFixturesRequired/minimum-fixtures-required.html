@@ -3,10 +3,10 @@
     <div class="occupancy_choice">
         <p>choose your occupancy:</p>
 
-        <material-dropdown-select [buttonText]="var1">
+        <material-dropdown-select [(buttonText)]="var1">
             <material-select-dropdown-item
                *ngFor="let item of typeOfOccupancy"
-               (trigger) = "runthis(item)"
+               (trigger) = "getItem(item)"
                materialTooltip="{{item.description}}"
             >
             {{item.type}}
@@ -15,7 +15,20 @@
         </material-dropdown-select>
     </div>
     
-    <user-input-based-on-occupancy [occupancy]="chooseOccupancy"></user-input-based-on-occupancy>
+    <user-input-based-on-occupancy
+        [occupancy]="chooseOccupancy"
+        [(fixtureUnit)] = "fixtureUnit"
+    ></user-input-based-on-occupancy>
+    
+    <div>
+        <material-button raised class="dense-example float_right" (click)="addFixture()">ADD</material-button>
+    </div>
+
+    <hr>
+
+    <total-fixture-requirement-app
+        [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
+    ></total-fixture-requirement-app>
 
 </div>
 

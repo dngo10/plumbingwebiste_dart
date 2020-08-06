@@ -1,0 +1,19 @@
+.iconFixture{
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+}
+
+.detailsList{
+    width: 300px;
+}
+
+.cardDisplay{
+    float: left;
+    margin-right: 1vw;
+}
+
+.cardDisplay > *{
+    margin: auto;
+    text-align: center;
+}

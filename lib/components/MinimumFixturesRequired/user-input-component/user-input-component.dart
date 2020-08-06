@@ -29,7 +29,8 @@ import 'occupancy-infor-card/occupancy-infor-card.dart';
 )
 class UserInputBasedOnOccupancy implements AfterChanges{
   @Input() TypeOfOccupancy occupancy;
-  FixtureUnit fixtureUnit;
+  @Input() FixtureUnit fixtureUnit;
+
   Set<table422_1Units> allowedUnits;
   Set<String> allowedUnitsString;
   
@@ -38,8 +39,7 @@ class UserInputBasedOnOccupancy implements AfterChanges{
 
   @override
   void ngAfterChanges() {
-    if(occupancy != null){
-      fixtureUnit = FixtureUnit(occupancy);
+    if(fixtureUnit != null){
 
       allowedUnits = fixtureUnit.GetUnitsAllowanceEnum();
       allowedUnitsString = fixtureUnit.GetUnitsAllowanceStrings();

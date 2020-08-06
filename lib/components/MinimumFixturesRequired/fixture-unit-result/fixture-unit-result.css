@@ -1,18 +1,27 @@
 .cardGroup > div{
     max-width: 20vw;
-    min-width: 200px;
+    min-width: 100px;
     float: left;
     margin-right: 2vw;
-    width: 12vw;
+    width: 200px;
     padding: 10px;
 }
 
 .mdc-card__media{
-    width: 10vw;
+    width: 180px;
     margin: auto;
 }
 
 .demo-card__subtitle{
     margin-left: 0;
     text-overflow: clip;
+    text-align: center;
+}
+
+.mdc-card{
+    margin-bottom: 5vh;
+}
+
+.demo-card__title{
+    text-align: center;
 }

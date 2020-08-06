@@ -1,0 +1,26 @@
+.itemList{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vh;
+}
+
+.deleteButton{
+    color: red;
+}
+
+.deleteButton > material-icon{
+    color: white;
+}
+
+.listItemContainer{
+    margin-top: 5vh;
+    border-top: 1px solid rgb(156, 156, 156);
+}
+
+.listItemContainer > div{
+    margin-right: 2vw;
+}
+
+.listItemContainer > div:nth-child(2){
+    margin-left: 100 px;
+}

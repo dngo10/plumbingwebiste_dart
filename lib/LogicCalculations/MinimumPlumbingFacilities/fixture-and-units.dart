@@ -37,6 +37,15 @@ class FixtureUnit {
         });
     }
 
+    FixtureUnit clone(){
+      FixtureUnit fixtureUnit = FixtureUnit(this.occupancy.clone());
+      fixtureUnit.unit = Map<PairEntry, double>.from(this.unit);
+      fixtureUnit.inputUnit = Map<table422_1Units, double>.from(this.inputUnit);
+      fixtureUnit.FixtureRequireds =  Map<table422_1Categories, double>.from(this.FixtureRequireds);
+
+      return fixtureUnit;
+    }
+
     InitUnitMapAndAmmountMap(){
         //Check which units a
         typeAndAllowance.forEach((key, value) {
@@ -45,6 +54,19 @@ class FixtureUnit {
             inputUnit[key.t2] = 0;
           }
         });
+    }
+
+    bool IsAddable(){
+      bool ans = false;
+      FixtureRequireds.forEach((key, value) {
+        if(key != table422_1Categories.other){
+          if(value > 0) {
+            ans = true;
+          }
+        }
+      });
+
+      return ans;
     }
 
     Set<String> GetUnitsAllowanceStrings(){

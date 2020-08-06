@@ -7,4 +7,9 @@ class TypeOfOccupancy {
   String description;
 
   TypeOfOccupancy(this.id, this.type, this.sub_type, this.description);
+
+  TypeOfOccupancy clone(){
+    TypeOfOccupancy typeOfOccupancy = TypeOfOccupancy(this.id, this.type, this.sub_type, this.description);
+    return typeOfOccupancy;
+  }
 }

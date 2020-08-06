@@ -1,0 +1,11 @@
+<div *ngIf="items != null">
+    <div *ngFor="let item of items.keys" class="detailsList">
+        <div class="cardDisplay">
+            <div [style.background-image]= "'url(' + urlMap[item] + ')'" [style.background-size]="'contain'" class="iconFixture" >
+            </div>
+            <div class="value">
+                {{items[item]}}
+            </div>
+        </div>
+    </div>
+</div>
