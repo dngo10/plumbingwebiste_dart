@@ -14,6 +14,9 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_radio/material_radio.dart';
 import 'package:angular_components/material_radio/material_radio_group.dart';
 
+import '../../../../Interfaces/table422_1Units.dart';
+import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+
 @Component(
   selector: 'patient-room-input',
   templateUrl: 'patient-room-input.html',
@@ -45,7 +48,7 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
   List<Option> choice;
   Option selected;
   OccupantLoadFactorService loadFactorUnit;
-
+  PatientRoom pt;
 
   table422_1Units ePatient, eRoom;
 
@@ -84,6 +87,8 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
          ];
 
          selected = choice.firstWhere((o) => o.selected);
+
+         pt = PatientRoom(fixtureUnit);
       }
     }
 
@@ -94,6 +99,7 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
         }else if(selected.unit == ePatient){
           fixtureUnit.inputUnit[eRoom] = 0;
         }
+        fixtureUnit.Recalculate();
       }
     }
   }
@@ -105,4 +111,48 @@ class Option {
     bool disabled;
 
     Option(this.label, this.selected, this.disabled, this.unit);
+}
+
+class PatientRoom{
+    FixtureUnit fixtureUnit;
+
+    PatientRoom(this.fixtureUnit){}
+
+    double _numOfRoom = 0, _numOfPatient = 0;
+
+    double get numOfRoom{return _numOfRoom;}
+    void set numOfRoom(double value){
+      if(value != null &&
+         value >= 0 &&
+         value != _numOfRoom &&
+         fixtureUnit != null){
+          if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
+            _numOfRoom = value;
+            fixtureUnit.inputUnit[table422_1Units.room] = value;
+            if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
+              fixtureUnit.inputUnit[table422_1Units.patient] = 0;
+              _numOfPatient = 0;
+            }
+            fixtureUnit.Recalculate();
+          }
+      }
+    }
+
+    double get numOfPatient{return _numOfPatient;}
+    void set numOfPatient(double value){
+      if(value != null &&
+         value >= 0 &&
+         value != _numOfPatient &&
+         fixtureUnit != null){
+          if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
+            _numOfPatient = value;
+            fixtureUnit.inputUnit[table422_1Units.patient] = value;
+            if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
+              fixtureUnit.inputUnit[table422_1Units.room] = 0;
+              _numOfRoom = 0;
+            }
+            fixtureUnit.Recalculate();
+          }
+      }
+    }
 }

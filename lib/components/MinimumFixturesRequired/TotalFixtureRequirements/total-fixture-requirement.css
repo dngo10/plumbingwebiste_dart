@@ -1,7 +1,21 @@
 .itemList{
-    display: flex;
-    flex-direction: row;
     margin-bottom: 2vh;
+    width: 800px;
+}
+
+.text1{
+    margin-right: 20px;
+    width: 50px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.itemList > *{
+    float: left;
+}
+
+.container_ITEM{
+    display: grid;
+    grid-template-rows: 1fr;
 }
 
 .deleteButton{
@@ -14,7 +28,7 @@
 
 .listItemContainer{
     margin-top: 5vh;
-    border-top: 1px solid rgb(156, 156, 156);
+    border-top: 1px solid #e0e0e0;
 }
 
 .listItemContainer > div{
@@ -22,5 +36,11 @@
 }
 
 .listItemContainer > div:nth-child(2){
-    margin-left: 100 px;
+    margin-left: 50 px;
+}
+
+.Total_Container{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 90vw;
 }

@@ -8,40 +8,41 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 
+import '../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'FixtureUnitDisplay/fixture-unit-display.dart';
 import 'Total/total-resume.dart';
 
 @Component(
-  selector:    'total-fixture-requirement-app',
-  templateUrl: 'total-fixture-requirement.html',
-  styleUrls: [ 'total-fixture-requirement.css',
-               'package:angular_components/app_layout/layout.scss.css'
-             ],
-  directives: [coreDirectives,
-               formDirectives,
-               MaterialInputComponent,
-               MaterialFabComponent,
-               MaterialIconComponent,
-               MaterialButtonComponent,
-               materialInputDirectives,
-               materialNumberInputDirectives,
-               FixtureUnitDisplay,
-               TotalResume,
-              ]
-)
-class TotalFixtureRequirement implements OnInit{
-  
-  @Input() TotalFacilitiesRequired totalFacilitiesRequired;
+    selector: 'total-fixture-requirement-app',
+    templateUrl: 'total-fixture-requirement.html',
+    styleUrls: [
+      'total-fixture-requirement.css',
+      'package:angular_components/app_layout/layout.scss.css'
+    ],
+    directives: [
+      coreDirectives,
+      formDirectives,
+      MaterialInputComponent,
+      MaterialFabComponent,
+      MaterialIconComponent,
+      MaterialButtonComponent,
+      materialInputDirectives,
+      materialNumberInputDirectives,
+      FixtureUnitDisplay,
+      TotalResume,
+    ])
+class TotalFixtureRequirement implements OnInit {
+  @Input()
+  TotalFacilitiesRequired totalFacilitiesRequired;
 
   //CanvasElement canvas;
-  
-  TotalFixtureRequirement(){}
+
+  TotalFixtureRequirement() {}
 
   @override
-  void ngOnInit() {
-  }
+  void ngOnInit() {}
 
-  deleteItem(FixtureUnit item){
+  deleteItem(FixtureUnit item) {
     totalFacilitiesRequired.fixtureUnitArray.remove(item);
     totalFacilitiesRequired.Recalculate();
   }

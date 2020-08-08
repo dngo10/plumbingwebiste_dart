@@ -1,10 +1,10 @@
-<div class="loadFactorBox" *ngIf="occupantLoadFactor != null && gen != null && hasLoadFactor">
+<div class="loadFactorBox" *ngIf="occupantLoadFactor != null && hasLoadFactor">
     <h3>Load Factor: </h3>
     <div class="toggle1">
         <material-toggle 
         label = "Use Load Factor?"
         [(checked)] = "usingSlider"
-        [(gen)] = "gen"
+        
         >
         </material-toggle>
 
@@ -24,7 +24,7 @@
             
         </div>
 
-        <p> Persons equivalent: <b>{{gen.person}}</b> </p>
+        <p> Persons equivalent: <b>{{occupantLoadFactor.gen.person}}</b> </p>
 
     </div>
 

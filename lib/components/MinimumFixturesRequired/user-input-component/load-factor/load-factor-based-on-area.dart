@@ -35,8 +35,6 @@ class LoadFactorBasedOnArea implements AfterChanges {
   
   @Input() OccupantLoadFactor occupantLoadFactor;
 
-  @Input() Pfm gen ;
-
   OccupantLoadFactorService loadProviderService;
   String toggleLabel = "Use Load Factor?";
   bool hasLoadFactor = false;
@@ -46,8 +44,8 @@ class LoadFactorBasedOnArea implements AfterChanges {
   void set usingSlider(bool value){
     _usingSlider = value;
     if(_usingSlider == false){
-      if(occupantLoadFactor != null && gen != null){
-        gen.person = 0;
+      if(occupantLoadFactor != null && occupantLoadFactor.gen != null){
+        occupantLoadFactor.gen.person = 0;
         occupantLoadFactor.areaEntered = 0;
         occupantLoadFactor.GetPersonsOutOfLoadFactor();
       }
@@ -63,7 +61,7 @@ class LoadFactorBasedOnArea implements AfterChanges {
     
     _usingSlider = false;
 
-    if(occupantLoadFactor != null && gen != null){
+    if(occupantLoadFactor != null && occupantLoadFactor.gen != null){
       
       if(occupantLoadFactor != null){
         hasLoadFactor = true;

@@ -6,12 +6,12 @@
 }
 
 .detailsList{
-    width: 300px;
+    width: 500px;
 }
 
 .cardDisplay{
     float: left;
-    margin-right: 1vw;
+    margin-right: 20px;
 }
 
 .cardDisplay > *{

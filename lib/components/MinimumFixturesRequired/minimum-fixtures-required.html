@@ -23,9 +23,7 @@
     <div *ngIf="fixtureUnit != null">
         <material-button dense raised class="dense-example float_right" (click)="addFixture()">ADD</material-button>
     </div>
-
-    <hr>
-
+    
     <total-fixture-requirement-app
         [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
     ></total-fixture-requirement-app>

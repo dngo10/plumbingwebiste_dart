@@ -1,9 +1,12 @@
+import '../components/MinimumFixturesRequired/user-input-component/male-female-input/male-female-input.dart';
+
 class OccupantLoadFactor{
   String type;
   String description;
   double _areaEntered = 0;
   double persons = 0;
   int occupant_load_factor;
+  Pfm gen;
 
   double get areaEntered{
     return _areaEntered;
@@ -15,6 +18,9 @@ class OccupantLoadFactor{
     } else{
       _areaEntered = value;
       GetPersonsOutOfLoadFactor();
+      if(gen != null){
+        gen.person = persons;
+      }
     }
   }
 

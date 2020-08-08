@@ -14,10 +14,10 @@
     <div class="spacer"></div>
 
     <div>
-        <material-input *ngIf="selected.unit == eRoom" floatingLabel [(ngModel)]="fixtureUnit.inputUnit[eRoom]" label="{{unitMap[eRoom]}}" type="number"></material-input>
+        <material-input *ngIf="selected.unit == eRoom" floatingLabel [(ngModel)]="pt.numOfRoom" label="{{unitMap[eRoom]}}" type="number"></material-input>
     </div>
 
     <div>
-        <material-input  *ngIf="selected.unit == ePatient" floatingLabel [(ngModel)]="fixtureUnit.inputUnit[ePatient]" label="{{unitMap[ePatient]}}" type="number"></material-input>
+        <material-input  *ngIf="selected.unit == ePatient" floatingLabel [(ngModel)]="pt.numOfPatient" label="{{unitMap[ePatient]}}" type="number"></material-input>
     </div>
 </div>
