@@ -60,6 +60,8 @@ class MinimumFixtureRequired implements OnInit{
   List<TypeOfOccupancy> typeOfOccupancy;
   TypeOfOccupancy chooseOccupancy;
 
+  EditAddChoice adc;
+
   // TOP LEVEL -- will be shared among child components.
   FixtureUnit fixtureUnit;
   
@@ -68,7 +70,9 @@ class MinimumFixtureRequired implements OnInit{
   String var1 = "choose occupancy type";
 
 
-  MinimumFixtureRequired(this.occupancies){}
+  MinimumFixtureRequired(this.occupancies){
+    adc = EditAddChoice();
+  }
 
   @override
   void ngOnInit() {
@@ -92,4 +96,24 @@ class MinimumFixtureRequired implements OnInit{
     }
   }
 
+  saveFixture(){
+    totalFacilitiesRequired.SaveBackFixtureRequired();
+    totalFacilitiesRequired.Recalculate();
+  }
+
+  cancelFixture(){
+    totalFacilitiesRequired.CancelFixtureEdit();
+  }
+}
+
+enum Choice{
+  isEdit,
+  isAdd,
+}
+class EditAddChoice{
+  Choice choice;
+
+  EditAddChoice(){
+    choice = Choice.isAdd;
+  }
 }

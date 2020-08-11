@@ -3,14 +3,10 @@ import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_app/Services/occupant-load-factor-service.dart';
-import 'package:angular_app/components/MinimumFixturesRequired/fixture-unit-result/fixture-unit-result.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/load-factor/load-factor-based-on-area.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
-import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_button/material_button.dart';
 
 @Component(
     selector: 'male-female-input-plumbing',
@@ -22,10 +18,6 @@ import 'package:angular_components/material_button/material_button.dart';
     directives: [
       coreDirectives,
       formDirectives,
-      MaterialInputComponent,
-      MaterialFabComponent,
-      MaterialIconComponent,
-      MaterialButtonComponent,
       LoadFactorBasedOnArea,
       materialInputDirectives,
       materialNumberInputDirectives,
@@ -164,7 +156,12 @@ class Pfm {
   double _male = 0, _female = 0, _person = 0;
   FixtureUnit fixtureUnit;
 
-  Pfm(this.fixtureUnit);
+  bool hasm, hasf;
+
+  Pfm(this.fixtureUnit){
+      hasm = fixtureUnit.inputUnit.containsKey(emale);
+      hasf = fixtureUnit.inputUnit.containsKey(efemale);
+  }
 
   var emale = table422_1Units.male;
   var efemale = table422_1Units.female;
@@ -208,8 +205,14 @@ class Pfm {
       _person = value;
       if (fixtureUnit != null) {
         fixtureUnit.inputUnit[eperson] = _person;
+        personTriggered();
         fixtureUnit.Recalculate();
       }
     }
+  }
+
+    void personTriggered() {
+    if (hasm) female = (person / 2.0).ceil().toDouble();
+    if (hasf) male = person - female;
   }
 }

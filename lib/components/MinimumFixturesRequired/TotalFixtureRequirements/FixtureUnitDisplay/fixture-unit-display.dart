@@ -3,9 +3,6 @@ import 'package:angular_app/Interfaces/fixture-icons-url.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
-import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -17,10 +14,6 @@ import 'package:angular_forms/angular_forms.dart';
              ],
   directives: [coreDirectives,
                formDirectives,
-               MaterialInputComponent,
-               MaterialFabComponent,
-               MaterialIconComponent,
-               MaterialButtonComponent,
                materialInputDirectives,
                materialNumberInputDirectives,
               ]

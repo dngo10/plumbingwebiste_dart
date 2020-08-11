@@ -10,6 +10,9 @@ enum TotMaFe{
 
 class TotalFacilitiesRequired{
 
+    FixtureUnit fixtureUnitForEdit;
+    FixtureUnit outItem;
+
     List<FixtureUnit> fixtureUnitArray;
     Map<table422_1Categories, double> totalRequiredFixture;
 
@@ -72,7 +75,7 @@ class TotalFacilitiesRequired{
     }
 
     AddFixtureOccupancy(FixtureUnit occupancy){
-        FixtureUnit newFu = occupancy.clone();
+        FixtureUnit newFu = occupancy.Clone();
         fixtureUnitArray.add(newFu);
     }
 
@@ -85,7 +88,7 @@ class TotalFacilitiesRequired{
 
         fixtureUnitArray.forEach((element) {
           element.Recalculate();
-          AddToTotalFixtureRequired(element.FixtureRequireds);
+          AddToTotalFixtureRequired(element.fixtureRequired);
         });
     }
 
@@ -97,6 +100,20 @@ class TotalFacilitiesRequired{
           totalRequiredFixture[key] = v;
         }
       });
+    }
+
+    //Implement stag here.
+    SaveBackFixtureRequired(){
+      int index = fixtureUnitArray.indexOf(fixtureUnitForEdit);
+      if(index < 0){return;}
+
+      fixtureUnitArray.removeAt(index);
+      fixtureUnitArray.insert(index, outItem.Clone());
+    }
+
+    CancelFixtureEdit(){
+      outItem = fixtureUnitForEdit.Clone();
+      fixtureUnitForEdit = fixtureUnitForEdit.Clone();
     }
 
     

@@ -7,3 +7,8 @@
 .loadFactorBox{
     border-bottom: 1px solid rgb(204, 204, 204);
 }
+
+.material-toggle.checked .tgl-btn-container {
+    width: 36px;
+    color: #2600ff;
+  }

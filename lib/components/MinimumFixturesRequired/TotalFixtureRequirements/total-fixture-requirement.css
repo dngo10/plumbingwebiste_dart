@@ -1,6 +1,6 @@
 .itemList{
     margin-bottom: 2vh;
-    width: 800px;
+    padding: 10px;
 }
 
 .text1{
@@ -43,4 +43,9 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
     width: 90vw;
+}
+
+.itemList:hover{
+    cursor: pointer;
+    background-color: aliceblue;
 }

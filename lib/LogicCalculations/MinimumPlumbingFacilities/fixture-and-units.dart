@@ -37,7 +37,7 @@ class FixtureUnit {
         this.unit = Map<PairEntry , double>();
         this.inputUnit = Map<table422_1Units, double>();
 
-        this.InitUnitMapAndAmmountMap();
+        this._InitUnitMapAndAmmountMap();
 
         this.fixtureRequired = Map<table422_1Categories, double>();
 
@@ -46,7 +46,7 @@ class FixtureUnit {
         });
     }
 
-    FixtureUnit clone(){
+    FixtureUnit Clone(){
       FixtureUnit fixtureUnit = FixtureUnit(this.occupancy.clone());
       fixtureUnit.unit = Map<PairEntry, double>.from(this.unit);
       fixtureUnit.inputUnit = Map<table422_1Units, double>.from(this.inputUnit);
@@ -55,7 +55,14 @@ class FixtureUnit {
       return fixtureUnit;
     }
 
-    InitUnitMapAndAmmountMap(){
+    void Merge(FixtureUnit fixtureUnit){
+      this.occupancy.Merge(fixtureUnit.occupancy);
+      this.unit = fixtureUnit.unit;
+      this.inputUnit = fixtureUnit.inputUnit;
+      this.fixtureRequired = fixtureUnit.fixtureRequired;
+    }
+
+    _InitUnitMapAndAmmountMap(){
         //Check which units a
         typeAndAllowance.forEach((key, value) {
           if(value.contains(this.occupancy.id)){
@@ -100,7 +107,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int WaterclosetCal(){
+    int _WaterclosetCal(){
         int ans = 0;
 
         unit.forEach((key, value) {
@@ -130,7 +137,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int UrinalsCal(){
+    int _UrinalsCal(){
         int ans = 0;
         unit.forEach((key, value) {
           if(key.t1 == table422_1Categories.urinals){
@@ -142,7 +149,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int LavatoriesCal(){
+    int _LavatoriesCal(){
 
         int ans = 0;
         unit.forEach((key, value) {
@@ -172,7 +179,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int BathTubShowersCal(){
+    int _BathTubShowersCal(){
         int ans = 0;
 
         unit.forEach((key, value) {
@@ -196,7 +203,7 @@ class FixtureUnit {
         return ans;       
     }
 
-    int DrinkingFoutainsCal(){
+    int _DrinkingFoutainsCal(){
         int ans = 0;
 
         unit.forEach((key, value) {
@@ -217,7 +224,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int OtherCal(){
+    int _OtherCal(){
         int ans = 0;
 
         unit.forEach((key, value) { 
@@ -234,7 +241,7 @@ class FixtureUnit {
         return ans;
     }
 
-    void MergeInputValueToUnit(){
+    void _MergeInputValueToUnit(){
       inputUnit.forEach((keyI, valueI) {
         unit.forEach((keyU, valueU) {
           if(keyU.t2 == keyI){
@@ -245,15 +252,16 @@ class FixtureUnit {
     }
 
     Map<table422_1Categories, double> Recalculate(){
-      MergeInputValueToUnit();
-        this.fixtureRequired[table422_1Categories.drinkingFountains] = DrinkingFoutainsCal().toDouble();
-        this.fixtureRequired[table422_1Categories.bathtubsOrShowers] = BathTubShowersCal().toDouble();
-        this.fixtureRequired[table422_1Categories.lavatories] = LavatoriesCal().toDouble();
-        this.fixtureRequired[table422_1Categories.other] = OtherCal().toDouble();
-        this.fixtureRequired[table422_1Categories.urinals] = UrinalsCal().toDouble();
-        this.fixtureRequired[table422_1Categories.waterClosets] = WaterclosetCal().toDouble();
+      _MergeInputValueToUnit();
+        this.fixtureRequired[table422_1Categories.drinkingFountains] = _DrinkingFoutainsCal().toDouble();
+        this.fixtureRequired[table422_1Categories.bathtubsOrShowers] = _BathTubShowersCal().toDouble();
+        this.fixtureRequired[table422_1Categories.lavatories] = _LavatoriesCal().toDouble();
+        this.fixtureRequired[table422_1Categories.other] = _OtherCal().toDouble();
+        this.fixtureRequired[table422_1Categories.urinals] = _UrinalsCal().toDouble();
+        this.fixtureRequired[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
 
-        return this.fixtureRequired;
-        
+        return this.fixtureRequired; 
     }
+
+
 }

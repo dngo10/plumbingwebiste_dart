@@ -1,17 +1,10 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
-import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_app/Services/occupant-load-factor-service.dart';
-import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/male-female-input/male-female-input.dart';
 
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
-import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 
 @Component(
@@ -22,13 +15,11 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
   ],
   directives: [coreDirectives,
                formDirectives,
-               MaterialInputComponent,
-               MaterialFabComponent,
-               MaterialIconComponent,
                materialInputDirectives,
                materialNumberInputDirectives,
                MaterialToggleComponent,
   ],
+  
   providers: [ClassProvider(OccupantLoadFactorService)]
 )
 class LoadFactorBasedOnArea implements AfterChanges { 
@@ -38,7 +29,7 @@ class LoadFactorBasedOnArea implements AfterChanges {
   OccupantLoadFactorService loadProviderService;
   String toggleLabel = "Use Load Factor?";
   bool hasLoadFactor = false;
-  bool _usingSlider = false ;
+  bool _usingSlider = true ;
 
   bool get usingSlider{return _usingSlider;}
   void set usingSlider(bool value){
@@ -53,13 +44,13 @@ class LoadFactorBasedOnArea implements AfterChanges {
   }
 
   LoadFactorBasedOnArea(this.loadProviderService){
-    _usingSlider = false;
+    _usingSlider = true;
   }
 
   @override
   void ngAfterChanges() {
     
-    _usingSlider = false;
+    usingSlider = true;
 
     if(occupantLoadFactor != null && occupantLoadFactor.gen != null){
       

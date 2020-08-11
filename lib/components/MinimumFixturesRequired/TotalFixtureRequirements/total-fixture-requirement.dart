@@ -32,8 +32,9 @@ import 'Total/total-resume.dart';
       TotalResume,
     ])
 class TotalFixtureRequirement implements OnInit {
-  @Input()
-  TotalFacilitiesRequired totalFacilitiesRequired;
+  @Input() TotalFacilitiesRequired totalFacilitiesRequired;
+
+  @Input() FixtureUnit fixtureUnit;
 
   //CanvasElement canvas;
 
@@ -43,7 +44,13 @@ class TotalFixtureRequirement implements OnInit {
   void ngOnInit() {}
 
   deleteItem(FixtureUnit item) {
+    if(item == fixtureUnit) return;
     totalFacilitiesRequired.fixtureUnitArray.remove(item);
     totalFacilitiesRequired.Recalculate();
+  }
+
+  changeFixtureUnit(FixtureUnit item){
+    totalFacilitiesRequired.fixtureUnitForEdit = item;
+    totalFacilitiesRequired.outItem = item.Clone();
   }
 }

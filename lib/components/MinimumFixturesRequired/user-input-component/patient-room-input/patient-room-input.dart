@@ -11,8 +11,6 @@ import 'package:angular_components/material_input/material_number_accessor.dart'
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_radio/material_radio.dart';
-import 'package:angular_components/material_radio/material_radio_group.dart';
 
 import '../../../../Interfaces/table422_1Units.dart';
 import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
@@ -32,8 +30,6 @@ import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-unit
                MaterialButtonComponent,
                materialInputDirectives,
                materialNumberInputDirectives,
-               MaterialRadioComponent,
-               MaterialRadioGroupComponent,
   ],
   providers: [ClassProvider(OccupantLoadFactorService)],
 )
