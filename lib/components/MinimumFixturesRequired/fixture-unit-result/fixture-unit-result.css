@@ -1,13 +1,14 @@
 .cardGroup > div{
     float: left;
     margin-right: 2vw;
-    width: 180px;
+    width: 140px;
     padding: 5px;
     height: 200px;
 }
 
 .mdc-card__media{
-    width: 150px;
+    width: 50px;
+    height: 50px;
     margin: auto;
 }
 
@@ -19,7 +20,7 @@
 
 .mdc-card{
     margin-bottom: 5vh;
-    width: 200px;
+    width: 10vw;
 }
 
 .demo-card__title{

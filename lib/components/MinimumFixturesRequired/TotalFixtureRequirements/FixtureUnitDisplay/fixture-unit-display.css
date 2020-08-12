@@ -1,16 +1,18 @@
-.iconFixture{
-    width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
-}
-
 .detailsList{
     width: 250px;
 }
 
 .cardDisplay{
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
     float: left;
     margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin-top: 16px;
 }
 
 .cardDisplay > *{

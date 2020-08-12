@@ -1,16 +1,17 @@
 .itemList{
-    margin-bottom: 2vh;
-    padding: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
 }
 
 .text1{
     margin-right: 20px;
-    width: 50px;
+    width: 40px;
     border-right: 1px solid #e0e0e0;
 }
 
 .itemList > *{
     float: left;
+    align-items: center;
 }
 
 .container_ITEM{
@@ -18,34 +19,52 @@
     grid-template-rows: 1fr;
 }
 
-.deleteButton{
+.hightLight:hover{
     color: red;
-}
-
-.deleteButton > material-icon{
-    color: white;
 }
 
 .listItemContainer{
     margin-top: 5vh;
     border-top: 1px solid #e0e0e0;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
 }
 
 .listItemContainer > div{
     margin-right: 2vw;
+    align-items: center;
 }
 
-.listItemContainer > div:nth-child(2){
-    margin-left: 50 px;
-}
 
 .Total_Container{
     display: grid;
     grid-template-rows: 1fr 1fr;
-    width: 90vw;
+    width: 100%;
 }
 
 .itemList:hover{
     cursor: pointer;
     background-color: aliceblue;
+    
+}
+
+.totalSum{
+    border-top: 1px solid gray;
+}
+
+.cardDisplay{
+    margin-left: 70px;
+}
+
+.iconFixture{
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    float: left;
+    margin-right: 10px;
+}
+
+.container_ITEM{
+    align-items: center;
 }

@@ -18,19 +18,46 @@ class FixtureUnit {
     Map<table422_1Units, double> inputUnit;
 
     // This is UNIT OUTPUT
-    Map<table422_1Categories, double> fixtureRequired;
+    Map<table422_1Categories, double> _fixtureRequired;
 
-    Map<table422_1Categories, double> get FixtureRequireds{
-      return fixtureRequired;
+    Map<table422_1Categories, double> get fixtureRequireds{
+      return _fixtureRequired;
     }
 
-    void set FixtureRequireds(Map<table422_1Categories, double> item){
-      fixtureRequired = item;
+    void set fixtureRequireds(Map<table422_1Categories, double> item){
+      _fixtureRequired = item;
       Recalculate();
     }
-    
-    //Employee
+
     FixtureUnit(TypeOfOccupancy occupancy) {
+        this.occupancy = occupancy.clone();
+
+        this.unit = Map<PairEntry , double>();
+        this.inputUnit = Map<table422_1Units, double>();
+
+        this._InitUnitMapAndAmmountMap();
+
+        this._fixtureRequired = Map<table422_1Categories, double>();
+
+        table422_1CategoriesNames.forEach((key, value) {
+          this._fixtureRequired[key] = 0;
+        });
+    }
+
+    FixtureUnit.Void(){ 
+        this.unit = Map<PairEntry , double>();
+        this.inputUnit = Map<table422_1Units, double>();
+
+        this._InitUnitMapAndAmmountMap();
+
+        this._fixtureRequired = Map<table422_1Categories, double>();
+
+        table422_1CategoriesNames.forEach((key, value) {
+          this._fixtureRequired[key] = 0;
+        });
+    }
+
+    void Init(TypeOfOccupancy occupancy){
         this.occupancy = occupancy;
 
         
@@ -39,30 +66,35 @@ class FixtureUnit {
 
         this._InitUnitMapAndAmmountMap();
 
-        this.fixtureRequired = Map<table422_1Categories, double>();
+        this._fixtureRequired = Map<table422_1Categories, double>();
 
         table422_1CategoriesNames.forEach((key, value) {
-          this.fixtureRequired[key] = 0;
-        });
+          this._fixtureRequired[key] = 0;
+        });      
     }
 
     FixtureUnit Clone(){
+      
       FixtureUnit fixtureUnit = FixtureUnit(this.occupancy.clone());
       fixtureUnit.unit = Map<PairEntry, double>.from(this.unit);
       fixtureUnit.inputUnit = Map<table422_1Units, double>.from(this.inputUnit);
-      fixtureUnit.fixtureRequired =  Map<table422_1Categories, double>.from(this.fixtureRequired);
+      fixtureUnit._fixtureRequired =  Map<table422_1Categories, double>.from(this._fixtureRequired);
 
       return fixtureUnit;
     }
 
+    //MERGE AND CLONE looks similar, but they are SUPER DIFFERENT
     void Merge(FixtureUnit fixtureUnit){
+      if(occupancy == null) return;
+
       this.occupancy.Merge(fixtureUnit.occupancy);
-      this.unit = fixtureUnit.unit;
-      this.inputUnit = fixtureUnit.inputUnit;
-      this.fixtureRequired = fixtureUnit.fixtureRequired;
+      this.unit = Map<PairEntry, double>.from(fixtureUnit.unit);
+      this.inputUnit = Map<table422_1Units,double>.from(fixtureUnit.inputUnit);
+      this._fixtureRequired = Map<table422_1Categories,double>.from(fixtureUnit.fixtureRequireds);
     }
 
     _InitUnitMapAndAmmountMap(){
+        if(occupancy == null) return;
         //Check which units a
         typeAndAllowance.forEach((key, value) {
           if(value.contains(this.occupancy.id)){
@@ -74,7 +106,7 @@ class FixtureUnit {
 
     bool IsAddable(){
       bool ans = false;
-      fixtureRequired.forEach((key, value) {
+      _fixtureRequired.forEach((key, value) {
         if(key != table422_1Categories.other){
           if(value > 0) {
             ans = true;
@@ -253,14 +285,14 @@ class FixtureUnit {
 
     Map<table422_1Categories, double> Recalculate(){
       _MergeInputValueToUnit();
-        this.fixtureRequired[table422_1Categories.drinkingFountains] = _DrinkingFoutainsCal().toDouble();
-        this.fixtureRequired[table422_1Categories.bathtubsOrShowers] = _BathTubShowersCal().toDouble();
-        this.fixtureRequired[table422_1Categories.lavatories] = _LavatoriesCal().toDouble();
-        this.fixtureRequired[table422_1Categories.other] = _OtherCal().toDouble();
-        this.fixtureRequired[table422_1Categories.urinals] = _UrinalsCal().toDouble();
-        this.fixtureRequired[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
+        this._fixtureRequired[table422_1Categories.drinkingFountains] = _DrinkingFoutainsCal().toDouble();
+        this._fixtureRequired[table422_1Categories.bathtubsOrShowers] = _BathTubShowersCal().toDouble();
+        this._fixtureRequired[table422_1Categories.lavatories] = _LavatoriesCal().toDouble();
+        this._fixtureRequired[table422_1Categories.other] = _OtherCal().toDouble();
+        this._fixtureRequired[table422_1Categories.urinals] = _UrinalsCal().toDouble();
+        this._fixtureRequired[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
 
-        return this.fixtureRequired; 
+        return this._fixtureRequired; 
     }
 
 

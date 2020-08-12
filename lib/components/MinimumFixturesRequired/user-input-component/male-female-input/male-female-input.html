@@ -1,4 +1,4 @@
-<div class="input1" >
+<div class="input1" *ngIf="gen != null && gen.isValid()">
     <load-factor-based-on-area
         *ngIf="checkAvailability()"
         [(occupantLoadFactor)] = "occupantLoadFactor"
@@ -7,29 +7,34 @@
 
     <div class="spacer">  </div>
 
-    <div class="spacer">  </div>
-
     <div class="maleFemaleInput">
         <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
             <material-input floatingLabel [(ngModel)]="gen.person" label="{{unitMap[eperson]}}" type="number"></material-input>
-            <material-fab mini (trigger)="personTriggered">
-                <material-icon icon="refresh"></material-icon>
-            </material-fab>
+
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
             <material-input floatingLabel [(ngModel)]="gen.male" label="{{unitMap[emale]}}" type="number"></material-input>
-            <material-fab mini (trigger)="maleTriggered">
-                <material-icon icon="refresh"></material-icon>
-            </material-fab>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
             <material-input floatingLabel [(ngModel)]="gen.female" label="{{unitMap[efemale]}}" type="number"></material-input>
-            <material-fab mini (trigger)="femaleTriggered">
-                <material-icon icon="refresh"></material-icon>
-            </material-fab>
         </div>
     </div>
 </div>
+
+<!--
+            <material-fab mini (trigger)="personTriggered">
+                <material-icon icon="refresh"></material-icon>
+            </material-fab>
+
+                        <material-fab mini (trigger)="personTriggered">
+                <material-icon icon="refresh"></material-icon>
+            </material-fab>
+
+                        <material-fab mini (trigger)="femaleTriggered">
+                <material-icon icon="refresh"></material-icon>
+            </material-fab>
+
+-->
 

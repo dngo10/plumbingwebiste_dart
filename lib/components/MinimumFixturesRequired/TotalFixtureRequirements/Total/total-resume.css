@@ -6,12 +6,13 @@
 }
 
 .detailsList{
-    width: 500px;
+    width: 100%;
+    min-width: 350px;
 }
 
 .cardDisplay{
     float: left;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .cardDisplay > *{
@@ -20,7 +21,7 @@
 }
 
 .listItemContainer > div:nth-child(2){
-    margin-left: 100 px;
+    margin-left: 70 px;
 }
 
 .listItem{

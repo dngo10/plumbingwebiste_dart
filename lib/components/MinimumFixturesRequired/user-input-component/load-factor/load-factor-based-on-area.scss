@@ -1,0 +1,31 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_toggle/mixins';
+
+.theme-red {
+  @include material-toggle-theme($primary-color: $mat-blue-800);
+  @include flip-toggle-label-position();
+}
+
+.theme-purple {
+  @include material-toggle-theme($primary-color: $mat-purple-500);
+}
+
+.custom-theme {
+  @include material-toggle-theme(
+    $primary-color: $mat-light-green-500,
+    $off-btn-color: $mat-lime-500);
+}
+
+.flip-label {
+  @include flip-toggle-label-position();
+}
+
+.toggle1 > *{
+    display: inline-block;
+    margin-right: 3vw;
+    margin-top: 0;
+}
+
+.loadFactorBox{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}

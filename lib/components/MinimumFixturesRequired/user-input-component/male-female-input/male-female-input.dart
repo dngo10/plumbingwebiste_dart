@@ -1,12 +1,17 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_app/Services/occupant-load-factor-service.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/load-factor/load-factor-based-on-area.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
+
+import 'package:angular_components/material_button/material_fab.dart';
+import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 
 @Component(
     selector: 'male-female-input-plumbing',
@@ -19,6 +24,9 @@ import 'package:angular_components/material_input/material_number_accessor.dart'
       coreDirectives,
       formDirectives,
       LoadFactorBasedOnArea,
+      MaterialFabComponent,
+      MaterialButtonComponent,
+      MaterialIconComponent,
       materialInputDirectives,
       materialNumberInputDirectives,
     ],
@@ -27,8 +35,9 @@ import 'package:angular_components/material_input/material_number_accessor.dart'
     ])
 class MaleFemaleInput implements AfterChanges, OnInit {
   Set<table422_1Units> allowedSet;
-  @Input()
-  FixtureUnit fixtureUnit;
+
+  @Input() FixtureUnit fixtureUnit;
+  @Input() OccupantLoadFactor occupantLoadFactor;
 
   //class below
   Pfm gen;
@@ -54,7 +63,7 @@ class MaleFemaleInput implements AfterChanges, OnInit {
 
   //double male = 0, female = 0, person = 0;
   OccupantLoadFactorService occupantLoadFactorService;
-  OccupantLoadFactor occupantLoadFactor;
+  
 
   bool hasLoadFactor = false;
 
@@ -82,10 +91,10 @@ class MaleFemaleInput implements AfterChanges, OnInit {
       allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
       commonInput = Set<table422_1Units>();
 
-      occupantLoadFactor = occupantLoadFactorService.getLoadFactor(fixtureUnit.occupancy.type);
-      if (occupantLoadFactor != null) {
+      occupantLoadFactorService.mergeLoadFactor(fixtureUnit.occupancy.type, occupantLoadFactor);
+      occupantLoadFactor.gen = gen;
+      if (occupantLoadFactor != null && !occupantLoadFactor.isNull()) {
         hasLoadFactor = true;
-        occupantLoadFactor.gen = gen;
       } else {
         hasLoadFactor = false;
       }
@@ -141,78 +150,6 @@ class MaleFemaleInput implements AfterChanges, OnInit {
       }
     }
   }
-
-  void upDate() {
-    if (occupantLoadFactor != null &&
-        fixtureUnit.inputUnit.containsKey(eperson)) {
-      gen.person = occupantLoadFactor.persons;
-      personTriggered();
-    }
-  }
 }
 
 /// Person - Male -Female class, use it to do binary binding
-class Pfm {
-  double _male = 0, _female = 0, _person = 0;
-  FixtureUnit fixtureUnit;
-
-  bool hasm, hasf;
-
-  Pfm(this.fixtureUnit){
-      hasm = fixtureUnit.inputUnit.containsKey(emale);
-      hasf = fixtureUnit.inputUnit.containsKey(efemale);
-  }
-
-  var emale = table422_1Units.male;
-  var efemale = table422_1Units.female;
-  var eperson = table422_1Units.person;
-
-  double get male {
-    return _male;
-  }
-
-  double get female {
-    return _female;
-  }
-
-  double get person {
-    return _person;
-  }
-
-  // This folder is intended for setting male, female, person.
-  void set male(double value) {
-    if (value != null && value >= 0 && _male != value) {
-      _male = value;
-      if (fixtureUnit != null) {
-        fixtureUnit.inputUnit[emale] = _male;
-        fixtureUnit.Recalculate();
-      }
-    }
-  }
-
-  void set female(double value) {
-    if (value != null && value >= 0 && _female != value) {
-      _female = value;
-      if (fixtureUnit != null) {
-        fixtureUnit.inputUnit[efemale] = _female;
-        fixtureUnit.Recalculate();
-      }
-    }
-  }
-
-  void set person(double value) {
-    if (value != null && value >= 0 && _female != value) {
-      _person = value;
-      if (fixtureUnit != null) {
-        fixtureUnit.inputUnit[eperson] = _person;
-        personTriggered();
-        fixtureUnit.Recalculate();
-      }
-    }
-  }
-
-    void personTriggered() {
-    if (hasm) female = (person / 2.0).ceil().toDouble();
-    if (hasf) male = person - female;
-  }
-}

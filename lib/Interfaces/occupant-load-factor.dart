@@ -1,4 +1,4 @@
-import '../components/MinimumFixturesRequired/user-input-component/male-female-input/male-female-input.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
 
 class OccupantLoadFactor{
   String type;
@@ -6,7 +6,12 @@ class OccupantLoadFactor{
   double _areaEntered = 0;
   double persons = 0;
   int occupant_load_factor;
+  // gen MUST BE ASSIGNED LATER, NOT IN CONSTRUCTOR
   Pfm gen;
+
+  bool isNull(){
+    return occupant_load_factor == null || occupant_load_factor == 0;
+  }
 
   double get areaEntered{
     return _areaEntered;
@@ -24,7 +29,21 @@ class OccupantLoadFactor{
     }
   }
 
-  OccupantLoadFactor(this.type, this.occupant_load_factor, this.description);
+  void reset(){
+    areaEntered = 0;
+  }
+
+  void merge(OccupantLoadFactor occupantLoadFactor){
+    if(occupantLoadFactor == null) return;
+    this.type = occupantLoadFactor.type;
+    this.description = occupantLoadFactor.description;
+    this. areaEntered = occupantLoadFactor.areaEntered;
+    this.occupant_load_factor = occupantLoadFactor.occupant_load_factor;
+  }
+
+  OccupantLoadFactor(this.type, this.occupant_load_factor, this.description, this.gen);
+
+  OccupantLoadFactor.Init();
 
   void GetPersonsOutOfLoadFactor(){
     //Fixed, make sure persons always % 2 == 0

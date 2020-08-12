@@ -1,19 +1,15 @@
 
 
 import 'package:angular/angular.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/PatientRoom.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
-import 'package:angular_app/Services/occupant-load-factor-service.dart';
 
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
-import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_button/material_button.dart';
-
-import '../../../../Interfaces/table422_1Units.dart';
-import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_components/material_radio/material_radio.dart';
+import 'package:angular_components/material_radio/material_radio_group.dart';
 
 @Component(
   selector: 'patient-room-input',
@@ -22,18 +18,15 @@ import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-unit
               'package:angular_components/app_layout/layout.scss.css'
              ],
   directives: [
-    coreDirectives,
+               coreDirectives,
                formDirectives,
-               MaterialInputComponent,
-               MaterialFabComponent,
-               MaterialIconComponent,
-               MaterialButtonComponent,
                materialInputDirectives,
                materialNumberInputDirectives,
+               MaterialRadioComponent,
+               MaterialRadioGroupComponent,
   ],
-  providers: [ClassProvider(OccupantLoadFactorService)],
 )
-class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
+class PatientRoomInput implements OnInit, AfterChanges {
   @Input() FixtureUnit fixtureUnit;
   bool checkAvailable = false;
   Set<table422_1Units> allowedSet;
@@ -43,12 +36,12 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
 
   List<Option> choice;
   Option selected;
-  OccupantLoadFactorService loadFactorUnit;
   PatientRoom pt;
 
   table422_1Units ePatient, eRoom;
 
-  PatientRoomInput(this.loadFactorUnit){
+  PatientRoomInput(){
+    pt = PatientRoom.Init();
     ePatient = table422_1Units.patient;
     eRoom = table422_1Units.room;
     unitMap = table422_1Units_Names;
@@ -59,15 +52,8 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
 
   }
 
-  @override
-  void ngAfterContentChecked() {
-
-
-  }
-
     @override
     void ngAfterChanges() {
-    // TODO: implement ngAfterChanges
       if(fixtureUnit != null){
         allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
 
@@ -84,7 +70,7 @@ class PatientRoomInput implements OnInit, AfterChanges ,AfterContentChecked {
 
          selected = choice.firstWhere((o) => o.selected);
 
-         pt = PatientRoom(fixtureUnit);
+         pt.fixtureUnit = fixtureUnit;
       }
     }
 
@@ -107,48 +93,4 @@ class Option {
     bool disabled;
 
     Option(this.label, this.selected, this.disabled, this.unit);
-}
-
-class PatientRoom{
-    FixtureUnit fixtureUnit;
-
-    PatientRoom(this.fixtureUnit){}
-
-    double _numOfRoom = 0, _numOfPatient = 0;
-
-    double get numOfRoom{return _numOfRoom;}
-    void set numOfRoom(double value){
-      if(value != null &&
-         value >= 0 &&
-         value != _numOfRoom &&
-         fixtureUnit != null){
-          if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
-            _numOfRoom = value;
-            fixtureUnit.inputUnit[table422_1Units.room] = value;
-            if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
-              fixtureUnit.inputUnit[table422_1Units.patient] = 0;
-              _numOfPatient = 0;
-            }
-            fixtureUnit.Recalculate();
-          }
-      }
-    }
-
-    double get numOfPatient{return _numOfPatient;}
-    void set numOfPatient(double value){
-      if(value != null &&
-         value >= 0 &&
-         value != _numOfPatient &&
-         fixtureUnit != null){
-          if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
-            _numOfPatient = value;
-            fixtureUnit.inputUnit[table422_1Units.patient] = value;
-            if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
-              fixtureUnit.inputUnit[table422_1Units.room] = 0;
-              _numOfRoom = 0;
-            }
-            fixtureUnit.Recalculate();
-          }
-      }
-    }
 }

@@ -12,6 +12,7 @@ class TotalFacilitiesRequired{
 
     FixtureUnit fixtureUnitForEdit;
     FixtureUnit outItem;
+    bool isEditing =  false;
 
     List<FixtureUnit> fixtureUnitArray;
     Map<table422_1Categories, double> totalRequiredFixture;
@@ -47,7 +48,6 @@ class TotalFacilitiesRequired{
     ReducableFixture(){
         Map<TotMaFe, double> totalResult  = this.GetTotalMaleFemaleClosetUrinals();
         maleUrinalsAllowedToBeAdded = totalResult[TotMaFe.totalMaleCloset] * 2.0/3.0;
-
     }
 
     Map<TotMaFe,double> GetTotalMaleFemaleClosetUrinals(){
@@ -88,7 +88,7 @@ class TotalFacilitiesRequired{
 
         fixtureUnitArray.forEach((element) {
           element.Recalculate();
-          AddToTotalFixtureRequired(element.fixtureRequired);
+          AddToTotalFixtureRequired(element.fixtureRequireds);
         });
     }
 
@@ -102,18 +102,25 @@ class TotalFacilitiesRequired{
       });
     }
 
+    PrepareForEdit(FixtureUnit fu, FixtureUnit item){
+      fixtureUnitForEdit = item;
+      fu.Merge(fixtureUnitForEdit);
+      isEditing = true;
+    }
+
     //Implement stag here.
-    SaveBackFixtureRequired(){
+    SaveBackFixtureRequired(FixtureUnit fu){
       int index = fixtureUnitArray.indexOf(fixtureUnitForEdit);
       if(index < 0){return;}
 
       fixtureUnitArray.removeAt(index);
-      fixtureUnitArray.insert(index, outItem.Clone());
+      fixtureUnitArray.insert(index, fu.Clone());
+      isEditing =  false;
     }
 
-    CancelFixtureEdit(){
-      outItem = fixtureUnitForEdit.Clone();
-      fixtureUnitForEdit = fixtureUnitForEdit.Clone();
+    CancelFixtureEdit(FixtureUnit fu){
+      fu.Merge(fixtureUnitForEdit.Clone());
+      isEditing = false;
     }
 
     

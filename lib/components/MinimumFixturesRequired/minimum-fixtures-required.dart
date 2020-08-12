@@ -1,4 +1,8 @@
 import 'package:angular/angular.dart';
+import 'package:angular_app/Interfaces/occupant-load-factor.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/PatientRoom.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/common-input.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/total-facilities-required.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/user-input-component.dart';
@@ -13,7 +17,6 @@ import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
 
 
@@ -60,23 +63,38 @@ class MinimumFixtureRequired implements OnInit{
   List<TypeOfOccupancy> typeOfOccupancy;
   TypeOfOccupancy chooseOccupancy;
 
-  EditAddChoice adc;
-
   // TOP LEVEL -- will be shared among child components.
   FixtureUnit fixtureUnit;
-  
   TotalFacilitiesRequired totalFacilitiesRequired;
+  OccupantLoadFactor occupantLoadFactor;
+
+  //Sub classes:
+  Pfm gen;
+  PatientRoom pt;
+  CommonInputList fakemap;
+
 
   String var1 = "choose occupancy type";
 
 
   MinimumFixtureRequired(this.occupancies){
-    adc = EditAddChoice();
+    totalFacilitiesRequired = TotalFacilitiesRequired();
+    occupantLoadFactor = OccupantLoadFactor.Init();
+    fixtureUnit = FixtureUnit.Void();
+
+    gen = Pfm.Init();
+    gen.fixtureUnit = fixtureUnit;
+
+    pt = PatientRoom.Init();
+    pt.fixtureUnit = fixtureUnit;
+
+    fakemap = CommonInputList.Init();
+    fakemap.fixtureUnit = fixtureUnit;
+
   }
 
   @override
   void ngOnInit() {
-    totalFacilitiesRequired = TotalFacilitiesRequired();
     typeOfOccupancy = occupancies.getTypeOfOccupancy();
     typeOfOccupancy.forEach((element) {
     });
@@ -86,7 +104,12 @@ class MinimumFixtureRequired implements OnInit{
   getItem(TypeOfOccupancy item){
     var1 = item.type;
     chooseOccupancy = item;
-    fixtureUnit = FixtureUnit(chooseOccupancy);
+    fixtureUnit = FixtureUnit(item);
+    gen = Pfm(fixtureUnit);
+    pt = PatientRoom(fixtureUnit);
+    fakemap = CommonInputList(fixtureUnit);
+    occupantLoadFactor.gen = gen;
+
   }
 
   addFixture(){
@@ -94,26 +117,5 @@ class MinimumFixtureRequired implements OnInit{
       totalFacilitiesRequired.AddFixtureOccupancy(fixtureUnit);
       totalFacilitiesRequired.Recalculate();
     }
-  }
-
-  saveFixture(){
-    totalFacilitiesRequired.SaveBackFixtureRequired();
-    totalFacilitiesRequired.Recalculate();
-  }
-
-  cancelFixture(){
-    totalFacilitiesRequired.CancelFixtureEdit();
-  }
-}
-
-enum Choice{
-  isEdit,
-  isAdd,
-}
-class EditAddChoice{
-  Choice choice;
-
-  EditAddChoice(){
-    choice = Choice.isAdd;
   }
 }

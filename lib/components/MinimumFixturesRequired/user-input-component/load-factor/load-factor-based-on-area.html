@@ -1,6 +1,6 @@
-<div class="loadFactorBox" *ngIf="occupantLoadFactor != null && hasLoadFactor">
+<div class="loadFactorBox" *ngIf="occupantLoadFactor != null && !occupantLoadFactor.isNull() && hasLoadFactor">
     <h3>Load Factor: </h3>
-    <div class="toggle1">
+    <div class="toggle1 theme-red">
         <material-toggle 
         label = "Use Load Factor?"
         [(checked)] = "usingSlider"
@@ -13,6 +13,7 @@
     <div class="toggle1">
         <div>
             <material-input
+                
                 [disabled]="!usingSlider"
                 floatingLabel
                 [(ngModel)]="occupantLoadFactor.areaEntered"

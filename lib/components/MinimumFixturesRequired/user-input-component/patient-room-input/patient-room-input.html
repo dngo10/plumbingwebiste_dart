@@ -1,4 +1,4 @@
-<div class="patientRoomInput" *ngIf="checkAvailable && allowedSet != null && allowedSet.contains(eRoom) && allowedSet.contains(ePatient)">
+<div class="patientRoomInput" *ngIf="pt != null && pt.isValid()">
 
     <material-radio-group [(ngModel)]="selected">
         <material-radio

@@ -34,7 +34,7 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
   @override
   void ngAfterChanges() {
     if(fixtureUnit != null){
-      items = fixtureUnit.fixtureRequired;
+      items = fixtureUnit.fixtureRequireds;
     }
   }
 

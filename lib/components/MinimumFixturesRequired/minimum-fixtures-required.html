@@ -1,36 +1,46 @@
 
 <div class="minimalInputRequirement">
-    <div class="occupancy_choice">
-        <p>choose your occupancy:</p>
-
-        <material-dropdown-select [(buttonText)]="var1">
-            <material-select-dropdown-item
-               *ngFor="let item of typeOfOccupancy"
-               (trigger) = "getItem(item)"
-               materialTooltip="{{item.description}}"
-            >
-            {{item.type}}
-            {{item.sub_type}}
-            </material-select-dropdown-item>
-        </material-dropdown-select>
+    <div class="vertical1">
+        <div class="occupancy_choice">
+            <p>choose your occupancy:</p>
+    
+            <material-dropdown-select [buttonText]="var1">
+                <material-select-dropdown-item
+                   *ngFor="let item of typeOfOccupancy"
+                   (trigger) = "getItem(item)"
+                   materialTooltip="{{item.description}}"
+                >
+                {{item.type}}
+                {{item.sub_type}}
+                </material-select-dropdown-item>
+            </material-dropdown-select>
+        </div>
+        
+        <user-input-based-on-occupancy
+            [occupancy]="chooseOccupancy"
+            [(fixtureUnit)] = "fixtureUnit"
+            [(occupantLoadFactor)] = "occupantLoadFactor"
+            [(gen)] = "gen"
+            [(pt)] = "pt"
+            [(fakemap)] = "fakemap"
+        ></user-input-based-on-occupancy>
+        
+        <div *ngIf="fixtureUnit != null && totalFacilitiesRequired != null">
+            <material-button *ngIf="!totalFacilitiesRequired.isEditing" dense raised class="dense-example float_right" (click)="addFixture()" icon>
+                <material-icon icon="add"></material-icon>
+            </material-button>
+        </div>
     </div>
-    
-    <user-input-based-on-occupancy
-        [occupancy]="chooseOccupancy"
-        [(fixtureUnit)] = "fixtureUnit"
-    ></user-input-based-on-occupancy>
-    
-    <div *ngIf="fixtureUnit != null">
-        <material-button dense raised class="dense-example float_right" (click)="addFixture()">ADD</material-button>
-        <material-button dense raised class="dense-example float_right" (click)="saveFixture()">Save</material-button>
-        <material-button dense raised class="dense-example float_right" (click)="cancelFixture()">Cancel</material-button>
-    </div>
-    
-    <total-fixture-requirement-app
+    <div>
+        <total-fixture-requirement-app
         [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
         [(fixtureUnit)] = "fixtureUnit"
-    ></total-fixture-requirement-app>
-
+        [(occupantLoadFactor)] = "occupantLoadFactor"
+        [(gen)] = "gen"
+        [(pt)] = "pt"
+        [(fakemap)] = "fakemap"
+        ></total-fixture-requirement-app>
+    </div>
 </div>
 
 <!--
