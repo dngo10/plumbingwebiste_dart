@@ -1,4 +1,4 @@
-.itemList{
+.itemList1{
     margin-bottom: 5px;
     padding: 5px;
 }
@@ -9,7 +9,7 @@
     border-right: 1px solid #e0e0e0;
 }
 
-.itemList > *{
+.itemList1 > *{
     float: left;
     align-items: center;
 }
@@ -23,7 +23,7 @@
     color: red;
 }
 
-.listItemContainer{
+.listItemContainer1{
     margin-top: 5vh;
     border-top: 1px solid #e0e0e0;
     width: 100%;
@@ -31,7 +31,7 @@
     grid-template-rows: 1fr;
 }
 
-.listItemContainer > div{
+.listItemContainer1 > div{
     margin-right: 2vw;
     align-items: center;
 }
@@ -39,7 +39,7 @@
 
 .Total_Container{
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     width: 100%;
 }
 
@@ -49,12 +49,10 @@
     
 }
 
-.totalSum{
-    border-top: 1px solid gray;
-}
 
 .cardDisplay{
     margin-left: 70px;
+    display: inline;
 }
 
 .iconFixture{
@@ -67,4 +65,8 @@
 
 .container_ITEM{
     align-items: center;
+}
+
+.spacer{
+    margin-bottom: 2vh;
 }

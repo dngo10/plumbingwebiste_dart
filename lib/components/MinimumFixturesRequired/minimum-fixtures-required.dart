@@ -101,7 +101,7 @@ class MinimumFixtureRequired implements OnInit{
     // TODO: implement ngOnInit
   }
 
-  getItem(TypeOfOccupancy item){
+  getItem(TypeOfOccupancy item){   
     var1 = item.type;
     chooseOccupancy = item;
     fixtureUnit = FixtureUnit(item);

@@ -1,5 +1,5 @@
 <div class="Total_Container">
-    <div class="listItemContainer">
+    <div class="listItemContainer1">
         <div><h3>Details: </h3></div>
         <div class="cardDisplay">
             <div *ngFor="let value of urlMap.values">
@@ -7,8 +7,9 @@
                 </div>                    
             </div>
         </div>
+        <div class="spacer"></div>
         <div class="container_ITEM">
-            <div *ngFor="let item of totalFacilitiesRequired.fixtureUnitArray" class="itemList">
+            <div *ngFor="let item of totalFacilitiesRequired.fixtureUnitArray" class="itemList1">
                 <h4 class="text1">{{item.occupancy.type}}</h4>
                 <div>
                     <fixture-unit-display-app
@@ -20,15 +21,12 @@
                     <material-fab class="hightLight" dense compact icon (click)="deleteItem(item)">
                         <material-icon [icon]="'clear'"></material-icon>
                     </material-fab>
-                </div>
-
-
-                
+                </div>         
             </div>
         </div>
     </div>
     
-    <div class="totalSum">
+    <div>
         <total-resume-app
             [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
         ></total-resume-app>

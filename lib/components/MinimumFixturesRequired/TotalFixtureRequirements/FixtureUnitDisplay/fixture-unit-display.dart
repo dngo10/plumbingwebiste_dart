@@ -25,6 +25,13 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
   Map<table422_1Categories, double> items;
   Map<table422_1Categories, String> catMap = table422_1CategoriesNames;
   Map<table422_1Categories, String> urlMap =  fixtureIconUrl;
+  Map<table422_1Units, String> unitMap = table422_1Units_Names;
+
+  table422_1Categories otherEnum = table422_1Categories.other;
+
+  Set<table422_1Units> allowedUnit;
+
+  String other = "";
 
   @override
   void ngOnInit() {
@@ -35,6 +42,16 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
   void ngAfterChanges() {
     if(fixtureUnit != null){
       items = fixtureUnit.fixtureRequireds;
+      fixtureUnit.GetUnitsAllowanceEnum();
+      allowedUnit = fixtureUnit.GetUnitsAllowanceEnum();
+
+      if(allowedUnit.contains(table422_1Units.otherMultiple1)){
+        other = unitMap[table422_1Units.otherMultiple1];
+      }else if(allowedUnit.contains(table422_1Units.otherMultiple2)){
+        other = unitMap[table422_1Units.otherMultiple2];
+      }else if(allowedUnit.contains(table422_1Units.servicesinkkOrlaundrytray)){
+        other = unitMap[table422_1Units.servicesinkkOrlaundrytray];
+      }
     }
   }
 

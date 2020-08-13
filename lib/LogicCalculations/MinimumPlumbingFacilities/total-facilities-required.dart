@@ -1,5 +1,7 @@
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/waterclosets-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/urinals-cal.dart';
 
 enum TotMaFe{
     totalFemaleCloset,
@@ -10,6 +12,7 @@ enum TotMaFe{
 
 class TotalFacilitiesRequired{
 
+
     FixtureUnit fixtureUnitForEdit;
     FixtureUnit outItem;
     bool isEditing =  false;
@@ -17,9 +20,19 @@ class TotalFacilitiesRequired{
     List<FixtureUnit> fixtureUnitArray;
     Map<table422_1Categories, double> totalRequiredFixture;
 
+    Map<table422_1Categories, double> totalRequiredFixturePredict;
+
     double femaleWaterClosetAddIn;
     double maleUrinalsAllowedToBeAdded;
     double userUrinalsAdded;
+
+    int sliderValue = 0; // This is for slider;
+
+    Map<TotMaFe, double> totalFixtureBasedOnGender = <TotMaFe, double>{
+      TotMaFe.totalFemaleCloset : 0 ,
+      TotMaFe.totalMaleCloset : 0,
+      TotMaFe.totalMaleUrinals : 0
+    };
 
     TotalFacilitiesRequired(){
         fixtureUnitArray = List<FixtureUnit>();
@@ -32,46 +45,44 @@ class TotalFacilitiesRequired{
 
     // This is to make sure it will complide to Note 3, of the Table 422_1.
     AddFemaleWaterCloset(){
-        Map<TotMaFe, double> totalResult = this.GetTotalMaleFemaleClosetUrinals();
-        if(totalResult[TotMaFe.totalFemaleCloset] <= 
-            totalResult[TotMaFe.totalMaleCloset] + 
-            totalResult[TotMaFe.totalMaleUrinals]
+        this.GetTotalMaleFemaleClosetUrinals();
+        if(totalFixtureBasedOnGender[TotMaFe.totalFemaleCloset] <= 
+            totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] + 
+            totalFixtureBasedOnGender[TotMaFe.totalMaleUrinals]
         ){
             this.femaleWaterClosetAddIn = 
-            totalResult[TotMaFe.totalMaleCloset]  + 
-            totalResult[TotMaFe.totalMaleUrinals] -
-            totalResult[TotMaFe.totalFemaleCloset];
+            totalFixtureBasedOnGender[TotMaFe.totalMaleCloset]  + 
+            totalFixtureBasedOnGender[TotMaFe.totalMaleUrinals] -
+            totalFixtureBasedOnGender[TotMaFe.totalFemaleCloset];
         }
     }
 
     // This is to make it will compli to Note 4 of Table 422_1.
     ReducableFixture(){
-        Map<TotMaFe, double> totalResult  = this.GetTotalMaleFemaleClosetUrinals();
-        maleUrinalsAllowedToBeAdded = totalResult[TotMaFe.totalMaleCloset] * 2.0/3.0;
+        GetTotalMaleFemaleClosetUrinals();
+        maleUrinalsAllowedToBeAdded = (totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] * 2.0/3.0).floor().toDouble();
     }
 
-    Map<TotMaFe,double> GetTotalMaleFemaleClosetUrinals(){
-        double totalMaleUrinals = 0;
-        double totalFemaleCloset = 0;
-        double totalMaleCloset = 0;
+    void GetTotalMaleFemaleClosetUrinals(){
+        _ResetTotalBasedGender();
 
         fixtureUnitArray.forEach((element) {
           element.unit.forEach((key, value) {
             if(key.t1 == table422_1Categories.urinals && key.t2 == table422_1Units.male){
-              totalMaleUrinals += value;
+              totalFixtureBasedOnGender[TotMaFe.totalMaleUrinals] += MaleUrinalsCount(element.occupancy, value);
             }else if(key.t1 == table422_1Categories.waterClosets && key.t2 == table422_1Units.male){
-              totalMaleCloset += value;
+              totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] += MaleWaterClosetsCount(element.occupancy, value);
             } else if(key.t1 == table422_1Categories.waterClosets && key.t2 == table422_1Units.female){
-              totalFemaleCloset += value;
+              totalFixtureBasedOnGender[TotMaFe.totalFemaleCloset] += FemaleWaterClosetsCount(element.occupancy, value);
             }
           });
         });
+    }
 
-        return {
-          TotMaFe.totalFemaleCloset : totalFemaleCloset,
-          TotMaFe.totalMaleCloset:   totalMaleCloset,
-          TotMaFe.totalMaleUrinals:  totalMaleUrinals,
-        };
+    _ResetTotalBasedGender(){
+      totalFixtureBasedOnGender.forEach((key, value) {
+        totalFixtureBasedOnGender[key] = 0;
+      });
     }
 
     AddFixtureOccupancy(FixtureUnit occupancy){
@@ -81,15 +92,21 @@ class TotalFacilitiesRequired{
 
     RemoveFixtureOccupancy(FixtureUnit occupancy){
         fixtureUnitArray.remove(occupancy);
+        sliderValue = 0;
     }
 
     Recalculate(){
+        sliderValue = 0;
         totalRequiredFixture.clear();
 
         fixtureUnitArray.forEach((element) {
           element.Recalculate();
           AddToTotalFixtureRequired(element.fixtureRequireds);
         });
+
+        ReducableFixture();
+        AddFemaleWaterCloset();
+        totalRequiredFixturePredict = Map<table422_1Categories, double>.from(totalRequiredFixture);
     }
 
     AddToTotalFixtureRequired(Map<table422_1Categories, double> item){

@@ -1,3 +1,4 @@
+import 'package:angular_app/Interfaces/fixture-icons-url.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/other-fixture-cal.dart';
@@ -29,6 +30,13 @@ class FixtureUnit {
       Recalculate();
     }
 
+    String otherFixtureString = "";
+    Map<table422_1Categories, String> _catMap = table422_1CategoriesNames;
+    Map<table422_1Categories, String> _urlMap =  fixtureIconUrl;
+    Map<table422_1Units, String> _unitMap = table422_1Units_Names;
+
+
+
     FixtureUnit(TypeOfOccupancy occupancy) {
         this.occupancy = occupancy.clone();
 
@@ -42,6 +50,16 @@ class FixtureUnit {
         table422_1CategoriesNames.forEach((key, value) {
           this._fixtureRequired[key] = 0;
         });
+
+      Set<table422_1Units> allowed = GetUnitsAllowanceEnum();
+
+      if(allowed.contains(table422_1Units.otherMultiple1)){
+        otherFixtureString = _unitMap[table422_1Units.otherMultiple1];
+      }else if(allowed.contains(table422_1Units.otherMultiple2)){
+        otherFixtureString = _unitMap[table422_1Units.otherMultiple2];
+      }else if(allowed.contains(table422_1Units.servicesinkkOrlaundrytray)){
+        otherFixtureString = _unitMap[table422_1Units.servicesinkkOrlaundrytray];
+      }
     }
 
     FixtureUnit.Void(){ 

@@ -12,6 +12,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
 import 'package:angular_components/material_radio/material_radio.dart';
 import 'package:angular_components/material_radio/material_radio_group.dart';
+import 'package:angular_components/material_slider/material_slider.dart';
 
 import 'components/topBar/top-bar.dart';
 
@@ -31,31 +32,30 @@ import 'routes/routes.dart';
     formDirectives,
     MaterialInputComponent,
     MaterialFabComponent,
-    MaterialIconComponent,
-    MaterialButtonComponent,
     MaterialRadioComponent,
     MaterialRadioGroupComponent,
+    MaterialSliderComponent,
     materialInputDirectives,
     materialNumberInputDirectives,
 
     TopBar,
   ],
-  exports: [RoutePathPlumbing, Routes,
+  exports: [
+    RoutePathPlumbing, Routes,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialStackableDrawerComponent,
     MaterialToggleComponent,
-    coreDirectives,
-    formDirectives,
     MaterialInputComponent,
     MaterialFabComponent,
-    MaterialIconComponent,
-    MaterialButtonComponent,
-    materialInputDirectives,
-    materialNumberInputDirectives,
+    MaterialSliderComponent,
     MaterialRadioComponent,
     MaterialRadioGroupComponent,
+    coreDirectives,
+    formDirectives,
+    materialInputDirectives,
+    materialNumberInputDirectives,
   ],
   styleUrls:[
     'app_component.css',

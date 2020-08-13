@@ -1,6 +1,8 @@
 <div class="listItemContainer">
-    <div>
-        <h3>SUM: </h3>
+    <div class="title">
+        <div></div>
+        <h3>Total: </h3>
+
     </div>
     
     <div *ngIf="items != null" class="listItem">
@@ -13,5 +15,19 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="items != null">
+
+            <p>Total Female Closet: {{totalFacilitiesRequired.totalFixtureBasedOnGender[cFemale]}}</p>
+            <p>Total Male Closet: {{totalFacilitiesRequired.totalFixtureBasedOnGender[cMale]}}</p>
+            <p>Total Male Urinals: {{totalFacilitiesRequired.totalFixtureBasedOnGender[uMale]}}</p>
+            <p class="femaleCloset">Female Closet Must Add In: {{totalFacilitiesRequired.femaleWaterClosetAddIn}}</p>
+            <p>Male Urinals Allowed to be Added: {{totalFacilitiesRequired.maleUrinalsAllowedToBeAdded}}</p>
+
+        <note-checking-slider-app
+            [(totalFacilitiesRequired)]="totalFacilitiesRequired"
+        >
+
+        </note-checking-slider-app>
     </div>
 </div>

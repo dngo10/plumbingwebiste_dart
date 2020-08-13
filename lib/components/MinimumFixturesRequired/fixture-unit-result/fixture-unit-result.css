@@ -16,6 +16,7 @@
     margin-left: 0;
     text-overflow: clip;
     text-align: center;
+    height: 30px;
 }
 
 .mdc-card{
@@ -25,8 +26,15 @@
 
 .demo-card__title{
     text-align: center;
+    height: 20px;
 }
 
 .container{
     padding: 10px;
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+.otherText{
+    color: #3f51b5;
 }

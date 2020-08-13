@@ -1,0 +1,55 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_slider/mixins';
+
+:host {
+  material-slider {
+    display: inline-block;
+    width: 20vw;
+    min-width: 200px;
+  }
+
+  @include slider-thumb-color('material-slider.custom-colors', #3f51b5);
+  @include slider-track-color(
+    'material-slider.custom-colors', #3f51b5 , #e0e0e0);
+}
+
+.iconFixture{
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  color: blue;
+}
+
+.detailsList{
+  width: 100%;
+  min-width: 350px;
+}
+
+.cardDisplay{
+  float: left;
+  margin-right: 10px;
+}
+
+.cardDisplay > *{
+  margin: auto;
+  text-align: center;
+}
+
+.listItemContainer{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.listItemContainer > div:nth-child(1){
+  width: 100%;
+}
+
+.listItem{
+  margin-left: 60px;
+}
+
+.title >div{
+  width: 400px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 10px;
+}

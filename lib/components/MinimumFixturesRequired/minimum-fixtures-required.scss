@@ -1,0 +1,74 @@
+@import 'package:angular_components/material_select/mixins';
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_list/mixins';
+@import 'package:angular_components/css/material/shadow';
+
+.minimalInputRequirement{
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    /*display: flex;
+    flex-direction: column;
+    */
+}
+
+.vertical1{
+    display: flex;
+    flex-direction: column;
+    margin-right: 3vw;
+}
+
+.occupancy_choice > *{
+    float: left;
+    margin-top: 0;
+    margin-right: 1vw;
+}
+
+.float_right{
+    float: right;
+    margin-right: 2vw;
+}
+
+.User_input{
+    display: grid;
+    grid-template-rows: 1;
+}
+
+.dense-example{
+    background-color: #3f51b5;
+    color: white;
+    font-weight: bold;
+}
+
+material-dropdown-select { max-width: 448px; }
+
+.type{
+    width: 30px;
+    margin-right: 5px;
+    color: blue;
+    font-weight: bold;
+}
+
+.has_sub_type > .sub_type{
+    width: 300px;
+    overflow: scroll;
+    margin-right: 10px;
+    color: gray;
+}
+
+.has_sub_type > .description{
+    width: 100px;
+    overflow: scroll;
+}
+
+.no_sub_type > .description{
+    width: 413px;
+    overflow: scroll;
+}
+
+
+

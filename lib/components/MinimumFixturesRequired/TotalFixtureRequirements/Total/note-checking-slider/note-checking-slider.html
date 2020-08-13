@@ -1,0 +1,32 @@
+<div class="listItemContainer" *ngIf="totalFacilitiesRequired != null">
+    
+    <h3>Acceptable Results: </h3>
+    <div>
+        <material-slider *ngIf="totalFacilitiesRequired.maleUrinalsAllowedToBeAdded > 0" class="custom-colors"
+            [(value)]="totalFacilitiesRequired.sliderValue"
+            [min]="0"
+            [step]="1"
+            [max]="totalFacilitiesRequired.maleUrinalsAllowedToBeAdded"
+            [disabled]="disabled">
+        </material-slider>
+    </div>
+
+    <div *ngIf="totalFacilitiesRequired.totalRequiredFixture != null" class="listItem">
+        <div *ngFor="let item of totalFacilitiesRequired.totalRequiredFixture.keys" class="detailsList">
+            <div class="cardDisplay">
+                <div [style.background-image]= "'url(' + urlMap[item] + ')'" [style.background-size]="'contain'" class="iconFixture" >
+                </div>
+                <div *ngIf="item != urinal && item != waterCloset " class="value">
+                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item]}}
+                </div>
+                <div *ngIf="item == urinal"  class="value">
+                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item] + totalFacilitiesRequired.sliderValue}}
+                </div>
+                <div *ngIf="item == waterCloset" class="value">
+                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item] - totalFacilitiesRequired.sliderValue +  totalFacilitiesRequired.femaleWaterClosetAddIn}}
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+

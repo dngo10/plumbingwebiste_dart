@@ -2,7 +2,7 @@
 @import 'package:angular_components/material_toggle/mixins';
 
 .theme-red {
-  @include material-toggle-theme($primary-color: $mat-blue-800);
+  @include material-toggle-theme($primary-color: #3f51b5);
   @include flip-toggle-label-position();
 }
 

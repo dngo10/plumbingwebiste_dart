@@ -6,13 +6,17 @@
     
             <material-dropdown-select [buttonText]="var1">
                 <material-select-dropdown-item
+                    ng-style="{'max-height': '400px', 'max-width': '448px'. 'background' : 'red'}"
                    *ngFor="let item of typeOfOccupancy"
                    (trigger) = "getItem(item)"
-                   materialTooltip="{{item.description}}"
+                   [class.has_sub_type] = "item.sub_type != null"
+                   [class.no_sub_type] = "item.sub_type == null"
                 >
-                {{item.type}}
-                {{item.sub_type}}
+                <p class="type">{{item.type}} </p>
+                <p class="sub_type">{{item.sub_type}}</p>
+                <p class="description">{{item.description}}</p>
                 </material-select-dropdown-item>
+
             </material-dropdown-select>
         </div>
         
@@ -47,6 +51,8 @@
 
     
 -->
+
+<!--materialTooltip="{{item.description}}"-->
 
 
 
