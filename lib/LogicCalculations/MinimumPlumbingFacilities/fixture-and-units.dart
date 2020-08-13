@@ -266,8 +266,6 @@ class FixtureUnit {
                     ans += CellBlockFloorDrinkingFountainsCounts(this.occupancy, value);
                 } else if(key.t2 == table422_1Units.room){
                     ans += RoomsDrinkingFountainsCounts(this.occupancy, value);
-                } else if(key.t2 == table422_1Units.servicesinkkOrlaundrytray){
-                    ans += ServiceAndLaundryDrinkingFountainsCounts(this.occupancy);
                 }
             }          
         });
@@ -309,9 +307,6 @@ class FixtureUnit {
         this._fixtureRequired[table422_1Categories.other] = _OtherCal().toDouble();
         this._fixtureRequired[table422_1Categories.urinals] = _UrinalsCal().toDouble();
         this._fixtureRequired[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
-
         return this._fixtureRequired; 
     }
-
-
 }
