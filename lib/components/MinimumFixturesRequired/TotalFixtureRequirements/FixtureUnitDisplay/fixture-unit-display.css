@@ -1,5 +1,4 @@
 .detailsList{
-    display: inline;
     width: 250px;
 }
 
@@ -28,9 +27,10 @@
 .otherText{
     font-weight: lighter;
     color: #adadad;
+    width: 300px;
 }
 
-.details1{
+.container{
     display: grid;
-    grid-row: 1fr;
+    grid-template-columns: 1fr;
 }
