@@ -42,7 +42,6 @@ class UserInputBasedOnOccupancy implements AfterChanges{
   @Input() CommonInputList fakemap;
 
   Set<table422_1Units> allowedUnits;
-  Set<String> allowedUnitsString;
   
   LinkedHashMap<table422_1Units,double> abc;
   LinkedHashMap<table422_1Units,double>old_abc;
@@ -52,7 +51,6 @@ class UserInputBasedOnOccupancy implements AfterChanges{
     if(fixtureUnit != null){
       
       allowedUnits = fixtureUnit.GetUnitsAllowanceEnum();
-      allowedUnitsString = fixtureUnit.GetUnitsAllowanceStrings();
       old_abc = abc;
     }
     // TODO: implement ngAfterChanges

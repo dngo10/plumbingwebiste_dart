@@ -41,10 +41,7 @@ class CommonInput implements AfterChanges {
       table422_1Units.female,
       table422_1Units.male,
       table422_1Units.patient,
-      table422_1Units.room,
-      table422_1Units.otherMultiple1,
-      table422_1Units.otherMultiple2,
-      table422_1Units.servicesinkkOrlaundrytray,
+      table422_1Units.room
     };
   }
 

@@ -11,21 +11,53 @@ enum table422_1Units{
     cell,
     sleepingroom,
     patient,
-    servicesink,
-    laundrytray,
-    kitchensink,
-    automaticclotheswasherconnection,
-
+    none // No unit specified.
 }
 
-enum table422_1Categories{
+Set<table422_1Units> InputSet = {
+  table422_1Units.person,
+  table422_1Units.male,
+  table422_1Units.female,
+  table422_1Units.apartment,
+  table422_1Units.floor,
+  table422_1Units.floorOrcellBlock,
+  table422_1Units.room,
+  table422_1Units.cell,
+  table422_1Units.sleepingroom,
+  table422_1Units.patient,
+  table422_1Units.none
+};
+
+enum table422_1Categories{ // this is also outputset
     waterClosets,
     urinals,
     lavatories,
     bathtubsOrShowers,
     drinkingFountains,
-    other
+    servicesink,
+    laundrytray,
+    kitchensink,
+    automaticclotheswasherconnection,
 }
+
+Set<table422_1Categories> OtherSet = {
+    table422_1Categories.servicesink,
+    table422_1Categories.laundrytray,
+    table422_1Categories.kitchensink,
+    table422_1Categories.automaticclotheswasherconnection,
+};
+
+Set<table422_1Categories> OutputSet = {
+  table422_1Categories.waterClosets,
+  table422_1Categories.automaticclotheswasherconnection,
+  table422_1Categories.bathtubsOrShowers,
+  table422_1Categories.drinkingFountains,
+  table422_1Categories.kitchensink,
+  table422_1Categories.laundrytray,
+  table422_1Categories.lavatories,
+  table422_1Categories.servicesink,
+  table422_1Categories.urinals,
+};
 
 Map<table422_1Categories, String> table422_1CategoriesNames  = {  
   table422_1Categories.waterClosets: "WATER CLOSETS",
@@ -33,16 +65,10 @@ Map<table422_1Categories, String> table422_1CategoriesNames  = {
   table422_1Categories.lavatories: "LAVATORIES ",
   table422_1Categories.bathtubsOrShowers: "BATHTUBS OR SHOWERS",
   table422_1Categories.drinkingFountains: "DRINKING FOUNTAINS/ FACILITIES",
-  table422_1Categories.other: "OTHER",
-};
-
-Set<table422_1Categories> table422_1CategoriesSet = {
-  table422_1Categories.drinkingFountains,
-  table422_1Categories.bathtubsOrShowers,
-  table422_1Categories.lavatories,
-  table422_1Categories.other,
-  table422_1Categories.urinals,
-  table422_1Categories.waterClosets,
+  table422_1Categories.servicesink: "SERVICE SINK",
+  table422_1Categories.laundrytray: "LAUNDRY TRAY",
+  table422_1Categories.kitchensink: "KITCHEN SINK",
+  table422_1Categories.automaticclotheswasherconnection: "AUTOMATIC CLOTHES WASHER CONNECTION",
 };
 
 enum table422_1Ids{
@@ -63,9 +89,6 @@ Map<table422_1Units, String> table422_1Units_Names = {
   table422_1Units.cell: "cell",
   table422_1Units.familydwelling: "family dwelling",
   table422_1Units.sleepingroom: "sleeping room",
-  table422_1Units.kitchensink: "kitchen sink",
-  table422_1Units.laundrytray: "laundry tray",
-  table422_1Units.automaticclotheswasherconnection: "automatic clothes washer connection",
 };
 
 class PairEntry{
@@ -150,7 +173,7 @@ class PairEntry{
     PairEntry(table422_1Categories.drinkingFountains, table422_1Units.floor): [table422_1Ids.I3_2],
     PairEntry(table422_1Categories.drinkingFountains, table422_1Units.room): [table422_1Ids.I2_2],
 
-    PairEntry(table422_1Categories.other, table422_1Units.servicesink): [
+    PairEntry(table422_1Categories.servicesink, table422_1Units.none): [
       table422_1Ids.A1, table422_1Ids.A2, table422_1Ids.A3, table422_1Ids.A4,
       table422_1Ids.A5, table422_1Ids.B, table422_1Ids.E, table422_1Ids.F1,
       table422_1Ids.F2, table422_1Ids.I1, table422_1Ids.I2_1, table422_1Ids.I3_2,
@@ -159,23 +182,24 @@ class PairEntry{
       table422_1Ids.S2
     ],
 
-    //it has R2_3 compared to servicesink
-    PairEntry(table422_1Categories.other, table422_1Units.laundrytray):[
+    PairEntry(table422_1Categories.laundrytray, table422_1Units.none):[
       table422_1Ids.A1, table422_1Ids.A2, table422_1Ids.A3, table422_1Ids.A4,
       table422_1Ids.A5, table422_1Ids.B, table422_1Ids.E, table422_1Ids.F1,
       table422_1Ids.F2, table422_1Ids.I1, table422_1Ids.I2_1, table422_1Ids.I3_2,
       table422_1Ids.I4, table422_1Ids.M, table422_1Ids.R1, table422_1Ids.R2_1,
-      table422_1Ids.R2_2, table422_1Ids.R2_3, table422_1Ids.R3_1, table422_1Ids.R4, 
-      table422_1Ids.S1, table422_1Ids.S2
+      table422_1Ids.R2_2, table422_1Ids.R3_1, table422_1Ids.R4, table422_1Ids.S1,
+      table422_1Ids.S2
     ],
 
-    PairEntry(table422_1Categories.other, table422_1Units.automaticclotheswasherconnection): [
-      table422_1Ids.R2_3, table422_1Ids.R3_2
-    ],
+    PairEntry(table422_1Categories.laundrytray, table422_1Units.apartment):[table422_1Ids.R2_3],
 
-    PairEntry(table422_1Categories.other, table422_1Units.kitchensink):[
-      table422_1Ids.R2_3, table422_1Ids.R3_2,
-    ]
+    PairEntry(table422_1Categories.kitchensink, table422_1Units.apartment): [table422_1Ids.R2_3],
+
+    PairEntry(table422_1Categories.kitchensink, table422_1Units.familydwelling):[table422_1Ids.R3_2],
+
+    PairEntry(table422_1Categories.automaticclotheswasherconnection, table422_1Units.apartment): [table422_1Ids.R2_3],
+    
+    PairEntry(table422_1Categories.automaticclotheswasherconnection, table422_1Units.familydwelling):[table422_1Ids.R3_2],
 };
 
 

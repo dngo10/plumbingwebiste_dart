@@ -1,13 +1,11 @@
-import 'package:angular_app/Interfaces/fixture-icons-url.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/other-fixture-cal.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/urinals-cal.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/waterclosets-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/urinals-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/waterclosets-cal.dart';
 
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/bathtubs-shower-cal.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/drinking-fountain-cal.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/lavatories-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/bathtubs-shower-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/drinking-fountain-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/lavatories-cal.dart';
 
 class FixtureUnit {
 
@@ -16,24 +14,12 @@ class FixtureUnit {
     ///PairEntry is: <table422_1Categories,table422_1Units>
     Map<PairEntry , double> unit;
 
-    Map<table422_1Units, double> inputUnit;
+    Map<table422_1Units, double> inputUnits;
+    Map<table422_1Categories, double> outputUnits;
 
-    // This is UNIT OUTPUT
-    Map<table422_1Categories, double> _fixtureRequired;
-
-    Map<table422_1Categories, double> get fixtureRequireds{
-      return _fixtureRequired;
-    }
-
-    void set fixtureRequireds(Map<table422_1Categories, double> item){
-      _fixtureRequired = item;
-      Recalculate();
-    }
-
-    String otherFixtureString = "";
-    Map<table422_1Categories, String> _catMap = table422_1CategoriesNames;
-    Map<table422_1Categories, String> _urlMap =  fixtureIconUrl;
-    Map<table422_1Units, String> _unitMap = table422_1Units_Names;
+    //Map<table422_1Categories, String> _catMap = table422_1CategoriesNames;
+    //Map<table422_1Categories, String> _urlMap =  fixtureIconUrl;
+    //Map<table422_1Units, String> _unitMap = table422_1Units_Names;
 
 
 
@@ -41,62 +27,28 @@ class FixtureUnit {
         this.occupancy = occupancy.clone();
 
         this.unit = Map<PairEntry , double>();
-        this.inputUnit = Map<table422_1Units, double>();
+        this.inputUnits = Map<table422_1Units, double>();
+        this.outputUnits = Map<table422_1Categories, double>();
 
         this._InitUnitMapAndAmmountMap();
 
-        this._fixtureRequired = Map<table422_1Categories, double>();
-
-        table422_1CategoriesNames.forEach((key, value) {
-          this._fixtureRequired[key] = 0;
-        });
-
-      Set<table422_1Units> allowed = GetUnitsAllowanceEnum();
-
-      if(allowed.contains(table422_1Units.otherMultiple1)){
-        otherFixtureString = _unitMap[table422_1Units.otherMultiple1];
-      }else if(allowed.contains(table422_1Units.otherMultiple2)){
-        otherFixtureString = _unitMap[table422_1Units.otherMultiple2];
-      }else if(allowed.contains(table422_1Units.servicesinkkOrlaundrytray)){
-        otherFixtureString = _unitMap[table422_1Units.servicesinkkOrlaundrytray];
-      }
+        GetUnitsAllowanceEnum();
     }
 
     FixtureUnit.Void(){ 
         this.unit = Map<PairEntry , double>();
-        this.inputUnit = Map<table422_1Units, double>();
+        this.inputUnits = Map<table422_1Units, double>();
+        this.outputUnits = Map<table422_1Categories, double>();
 
         this._InitUnitMapAndAmmountMap();
-
-        this._fixtureRequired = Map<table422_1Categories, double>();
-
-        table422_1CategoriesNames.forEach((key, value) {
-          this._fixtureRequired[key] = 0;
-        });
     }
 
-    void Init(TypeOfOccupancy occupancy){
-        this.occupancy = occupancy;
-
-        
-        this.unit = Map<PairEntry , double>();
-        this.inputUnit = Map<table422_1Units, double>();
-
-        this._InitUnitMapAndAmmountMap();
-
-        this._fixtureRequired = Map<table422_1Categories, double>();
-
-        table422_1CategoriesNames.forEach((key, value) {
-          this._fixtureRequired[key] = 0;
-        });      
-    }
-
-    FixtureUnit Clone(){
+    FixtureUnit clone(){
       
       FixtureUnit fixtureUnit = FixtureUnit(this.occupancy.clone());
       fixtureUnit.unit = Map<PairEntry, double>.from(this.unit);
-      fixtureUnit.inputUnit = Map<table422_1Units, double>.from(this.inputUnit);
-      fixtureUnit._fixtureRequired =  Map<table422_1Categories, double>.from(this._fixtureRequired);
+      fixtureUnit.inputUnits = Map<table422_1Units, double>.from(this.inputUnits);
+      fixtureUnit.outputUnits = Map<table422_1Categories, double>.from(this.outputUnits);
 
       return fixtureUnit;
     }
@@ -107,8 +59,8 @@ class FixtureUnit {
 
       this.occupancy.Merge(fixtureUnit.occupancy);
       this.unit = Map<PairEntry, double>.from(fixtureUnit.unit);
-      this.inputUnit = Map<table422_1Units,double>.from(fixtureUnit.inputUnit);
-      this._fixtureRequired = Map<table422_1Categories,double>.from(fixtureUnit.fixtureRequireds);
+      this.inputUnits = Map<table422_1Units,double>.from(fixtureUnit.inputUnits);
+      this.outputUnits = Map<table422_1Categories, double>.from(fixtureUnit.outputUnits);
     }
 
     _InitUnitMapAndAmmountMap(){
@@ -117,35 +69,35 @@ class FixtureUnit {
         typeAndAllowance.forEach((key, value) {
           if(value.contains(this.occupancy.id)){
             this.unit[key] = 0;
-            inputUnit[key.t2] = 0;
+            if(OutputSet.contains(key.t1)){
+              this.outputUnits[key.t1] = 0;
+            }
+            if(InputSet.contains(key.t2)){
+              this.inputUnits[key.t2] = 0;
+            }    
           }
         });
     }
 
     bool IsAddable(){
       bool ans = false;
-      _fixtureRequired.forEach((key, value) {
-        if(key != table422_1Categories.other){
+      outputUnits.forEach((key, value) {
+        if(!OtherSet.contains(key)){
           if(value > 0) {
             ans = true;
           }
         }
       });
-
       return ans;
-    }
-
-    Set<String> GetUnitsAllowanceStrings(){
-        Set<String> ans = Set<String>();
-        inputUnit.keys.forEach((element) {
-          ans.add(table422_1Units_Names[element]);
-        });
-        return ans;
     }
 
     Set<table422_1Units> GetUnitsAllowanceEnum(){
         return inputUnit.keys.toSet();
-    }
+    }  
+
+    Set<table422_1Units> GetUnitsAllowanceEnum(){
+        return inputUnit.keys.toSet();
+    }  
 
     Set<table422_1Units> GetUnitsByCategories(table422_1Categories tableCat){
         Set<table422_1Units> ans = Set<table422_1Units>();
@@ -277,12 +229,18 @@ class FixtureUnit {
 
         unit.forEach((key, value) { 
           if(key.t1 == table422_1Categories.other){
-              if(key.t2 == table422_1Units.servicesinkkOrlaundrytray){
-                  ans += ServiceSinkOrLaundryTrayOtherFixureNeeded(this.occupancy);
-              } else if(key.t2 == table422_1Units.otherMultiple1){
-                  ans += Multiple1OtherFixureNeeded(this.occupancy, value);
-              } else if(key.t2 == table422_1Units.otherMultiple2){
-                  ans += Multiple2OtherFixureNeeded(this.occupancy, value);
+              if(key.t2 == table422_1Units.servicesink){
+                  ans += ServiceSinkOtherFixureNeeded(this.occupancy);
+              }else if(key.t2 == table422_1Units.laundrytray){
+                  ans += LaundryOtherFixureNeeded(this.occupancy);
+                  ans += Laundrytray_ApartmentOtherFixtureNeeded(this.occupancy, value);
+                  ans += Laundrytray_ApartmentOtherFixtureNeededOp2(this.occupancy, value);
+              }else if(key.t2 == table422_1Units.kitchensink){
+                  ans += Kitchensink_ApartmentOtherFixtureNeeded(this.occupancy, value);
+                  ans += Kitchensink_FamilyDwellingOtherFixtureNeeded(this.occupancy, value);
+              }else if(key.t2 == table422_1Units.automaticclotheswasherconnection){
+                  ans += AutomaticClothesWasher_ApartmentOtherFixtureNeeded(this.occupancy, value);
+                  ans += AutomaticClothesWasher_FamilyDwellingOtherFixtureNeeded(this.occupancy, value);
               }
           }
         });
