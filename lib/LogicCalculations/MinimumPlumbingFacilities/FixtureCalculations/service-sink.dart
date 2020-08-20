@@ -1,7 +1,7 @@
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 
-int ServiceSinkOtherFixureNeeded(TypeOfOccupancy typeOfOccupancy) {
+int None_ServiceSinkFixureNeeded(TypeOfOccupancy typeOfOccupancy) {
     if(typeOfOccupancy.id == table422_1Ids.A1 ||
        typeOfOccupancy.id == table422_1Ids.A2 ||    
        typeOfOccupancy.id == table422_1Ids.A3 ||    

@@ -1,5 +1,5 @@
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 
 
 class Pfm {
@@ -25,9 +25,9 @@ class Pfm {
   }
 
   void setHasmHasf(){
-      hasm = fixtureUnit.inputUnit.containsKey(emale);
-      hasf = fixtureUnit.inputUnit.containsKey(efemale);
-      hasp = fixtureUnit.inputUnit.containsKey(eperson);
+      hasm = fixtureUnit.inputUnits.containsKey(emale);
+      hasf = fixtureUnit.inputUnits.containsKey(efemale);
+      hasp = fixtureUnit.inputUnits.containsKey(eperson);
   }
 
   bool isValid(){
@@ -35,7 +35,7 @@ class Pfm {
       setHasmHasf();
       if(hasm && hasf){
         return true;
-      }else if(fixtureUnit.inputUnit.containsKey(eperson)){
+      }else if(fixtureUnit.inputUnits.containsKey(eperson)){
         return true;
       }else{
         return false;
@@ -92,14 +92,14 @@ class Pfm {
 
   void _assign(){
     if(fixtureUnit != null){
-      if(fixtureUnit.inputUnit.containsKey(eperson)){
-        fixtureUnit.inputUnit[eperson] = _person;
+      if(fixtureUnit.inputUnits.containsKey(eperson)){
+        fixtureUnit.inputUnits[eperson] = _person;
       }
-      if(fixtureUnit.inputUnit.containsKey(efemale)){
-        fixtureUnit.inputUnit[efemale] = _female;
+      if(fixtureUnit.inputUnits.containsKey(efemale)){
+        fixtureUnit.inputUnits[efemale] = _female;
       }
-      if(fixtureUnit.inputUnit.containsKey(eperson)){
-        fixtureUnit.inputUnit[emale] = _male;
+      if(fixtureUnit.inputUnits.containsKey(eperson)){
+        fixtureUnit.inputUnits[emale] = _male;
       }
     }
   }

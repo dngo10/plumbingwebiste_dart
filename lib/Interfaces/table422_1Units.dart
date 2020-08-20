@@ -77,6 +77,8 @@ enum table422_1Ids{
     R1,R2_1,R2_2,R2_3,R3_1,R3_2,R4,S1,S2
 }
 
+
+
 Map<table422_1Units, String> table422_1Units_Names = {
   table422_1Units.patient: "patient",
   table422_1Units.apartment: "apartment",
@@ -201,6 +203,79 @@ class PairEntry{
     
     PairEntry(table422_1Categories.automaticclotheswasherconnection, table422_1Units.familydwelling):[table422_1Ids.R3_2],
 };
+
+// Service Sink or Laundry Tray
+List<table422_1Categories> _ss = [table422_1Categories.servicesink];
+List<table422_1Categories> _lt = [table422_1Categories.laundrytray];
+
+// Combo 1 For R2-3
+List<table422_1Categories> _cb1 = [table422_1Categories.kitchensink,
+                                  table422_1Categories.laundrytray,
+                                 ];
+
+List<table422_1Categories> _cb2 = [table422_1Categories.kitchensink,
+                                  table422_1Categories.automaticclotheswasherconnection,
+                                 ];
+
+
+// -- LaundryTray is used PER UNIT OR PER 12 UNITs (Maybe big ones)
+// -- Basically there is 2 ways of calulating it.
+// -- Be very carefull OR YOU WILL BREAK THE PLUMBING CODE
+List<table422_1Categories> _cb3 = [table422_1Categories.kitchensink,
+                                  table422_1Categories.laundrytray,
+                                 ];
+
+List<table422_1Categories> _cb4 = [table422_1Categories.kitchensink,
+                                  table422_1Categories.automaticclotheswasherconnection,
+                                 ];
+
+// Combo 2 For R3-2
+List<table422_1Categories> _cb5 = [table422_1Categories.kitchensink,
+                                  table422_1Categories.automaticclotheswasherconnection
+                                 ];
+
+List<List<table422_1Categories>> _commonOp1 = [_ss, _lt];
+List<List<table422_1Categories>> _r2_3Op2 =[_cb1, _cb2, _cb3, _cb4];
+List<List<table422_1Categories>> _r3_2Op2 = [_cb5];
+
+enum comboOthers{
+  common,
+  r2_3,
+  r3_2,
+}
+
+Map<comboOthers, List<List<table422_1Categories>>> otherCheckSet = {
+  comboOthers.common: _commonOp1,
+  comboOthers.r2_3: _r2_3Op2,
+  comboOthers.r3_2: _r3_2Op2
+};
+
+//Map<table422_1Ids, List<List<table422_1Categories>>> otherFixtureOptions = {
+//  table422_1Ids.A1 : _commonOp1,
+//  table422_1Ids.A2 : _commonOp1,
+//  table422_1Ids.A3 : _commonOp1,
+//  table422_1Ids.A4 : _commonOp1,
+//  table422_1Ids.A5 : _commonOp1,
+//  table422_1Ids.B : _commonOp1,
+//  table422_1Ids.E : _commonOp1,
+//  table422_1Ids.F1 : _commonOp1,
+//  table422_1Ids.F2 : _commonOp1,
+//  table422_1Ids.I1 : _commonOp1,
+//  table422_1Ids.I2_1 : _commonOp1,
+//  table422_1Ids.I3_2 : _commonOp1,
+//  table422_1Ids.I4 : _commonOp1,
+//  table422_1Ids.M : _commonOp1,
+//  table422_1Ids.R1 : _commonOp1,
+//  table422_1Ids.R2_1 : _commonOp1,
+//  table422_1Ids.R2_2 : _commonOp1,
+//  table422_1Ids.R3_1 : _commonOp1,
+//  table422_1Ids.R4 : _commonOp1,
+//  table422_1Ids.S1 : _commonOp1,
+//  table422_1Ids.S2 : _commonOp1,
+//
+//  table422_1Ids.R2_3: _r2_3Op2,
+//  table422_1Ids.R3_2: _r3_2Op2
+//};
 
 
 

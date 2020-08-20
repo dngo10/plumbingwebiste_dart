@@ -1,5 +1,5 @@
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 
 class PatientRoom{
     FixtureUnit fixtureUnit;
@@ -12,19 +12,19 @@ class PatientRoom{
 
     void Setup(FixtureUnit fixtureUnit){
       this.fixtureUnit = fixtureUnit;
-      if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
-        _numOfRoom = fixtureUnit.inputUnit[table422_1Units.room];
+      if(fixtureUnit.inputUnits.containsKey(table422_1Units.room)){
+        _numOfRoom = fixtureUnit.inputUnits[table422_1Units.room];
       }
 
-      if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
-        _numOfPatient = fixtureUnit.inputUnit[table422_1Units.patient];
+      if(fixtureUnit.inputUnits.containsKey(table422_1Units.patient)){
+        _numOfPatient = fixtureUnit.inputUnits[table422_1Units.patient];
       }
     }
 
     bool isValid(){
       if(fixtureUnit != null){
-        if(fixtureUnit.inputUnit.containsKey(table422_1Units.room) &&
-           fixtureUnit.inputUnit.containsKey(table422_1Units.patient)
+        if(fixtureUnit.inputUnits.containsKey(table422_1Units.room) &&
+           fixtureUnit.inputUnits.containsKey(table422_1Units.patient)
         ){
           return true;
         }else{
@@ -39,11 +39,11 @@ class PatientRoom{
          value >= 0 &&
          value != _numOfRoom &&
          fixtureUnit != null){
-          if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
+          if(fixtureUnit.inputUnits.containsKey(table422_1Units.room)){
             _numOfRoom = value;
-            fixtureUnit.inputUnit[table422_1Units.room] = value;
-            if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
-              fixtureUnit.inputUnit[table422_1Units.patient] = 0;
+            fixtureUnit.inputUnits[table422_1Units.room] = value;
+            if(fixtureUnit.inputUnits.containsKey(table422_1Units.patient)){
+              fixtureUnit.inputUnits[table422_1Units.patient] = 0;
               _numOfPatient = 0;
             }
             fixtureUnit.Recalculate();
@@ -57,11 +57,11 @@ class PatientRoom{
          value >= 0 &&
          value != _numOfPatient &&
          fixtureUnit != null){
-          if(fixtureUnit.inputUnit.containsKey(table422_1Units.patient)){
+          if(fixtureUnit.inputUnits.containsKey(table422_1Units.patient)){
             _numOfPatient = value;
-            fixtureUnit.inputUnit[table422_1Units.patient] = value;
-            if(fixtureUnit.inputUnit.containsKey(table422_1Units.room)){
-              fixtureUnit.inputUnit[table422_1Units.room] = 0;
+            fixtureUnit.inputUnits[table422_1Units.patient] = value;
+            if(fixtureUnit.inputUnits.containsKey(table422_1Units.room)){
+              fixtureUnit.inputUnits[table422_1Units.room] = 0;
               _numOfRoom = 0;
             }
             fixtureUnit.Recalculate();

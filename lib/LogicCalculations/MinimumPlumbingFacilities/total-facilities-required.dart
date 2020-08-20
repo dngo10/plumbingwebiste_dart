@@ -1,7 +1,7 @@
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/waterclosets-cal.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/urinals-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/waterclosets-cal.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/urinals-cal.dart';
 
 enum TotMaFe{
     totalFemaleCloset,
@@ -85,8 +85,8 @@ class TotalFacilitiesRequired{
       });
     }
 
-    AddFixtureOccupancy(FixtureUnit occupancy){
-        FixtureUnit newFu = occupancy.Clone();
+    AddFixtureOccupancy(FixtureUnit fixtureUnit){
+        FixtureUnit newFu = fixtureUnit.clone();
         fixtureUnitArray.add(newFu);
     }
 
@@ -101,7 +101,7 @@ class TotalFacilitiesRequired{
 
         fixtureUnitArray.forEach((element) {
           element.Recalculate();
-          AddToTotalFixtureRequired(element.fixtureRequireds);
+          AddToTotalFixtureRequired(element.outputUnits);
         });
 
         ReducableFixture();
@@ -131,12 +131,12 @@ class TotalFacilitiesRequired{
       if(index < 0){return;}
 
       fixtureUnitArray.removeAt(index);
-      fixtureUnitArray.insert(index, fu.Clone());
+      fixtureUnitArray.insert(index, fu.clone());
       isEditing =  false;
     }
 
     CancelFixtureEdit(FixtureUnit fu){
-      fu.Merge(fixtureUnitForEdit.Clone());
+      fu.Merge(fixtureUnitForEdit.clone());
       isEditing = false;
     }
 

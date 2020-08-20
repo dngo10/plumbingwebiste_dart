@@ -9,7 +9,7 @@ class CommonInputList {
 
   CommonInputList(this.fixtureUnit ) {
     if (this.fixtureUnit != null) {
-      fixtureUnit.inputUnits.forEach((key, value) {
+      fixtureUnit.inputUnit.forEach((key, value) {
         DoubleObj douObj = DoubleObj(fixtureUnit, key);
         douObj.value = value;
         tempMap[key] = douObj;
@@ -20,7 +20,7 @@ class CommonInputList {
   void Setup(FixtureUnit fixtureUnit){
     this.fixtureUnit = fixtureUnit;
     if (this.fixtureUnit != null) {
-      fixtureUnit.inputUnits.forEach((key, value) {
+      fixtureUnit.inputUnit.forEach((key, value) {
         DoubleObj douObj = DoubleObj(fixtureUnit, key);
         douObj.value = value;
         tempMap[key] = douObj;
@@ -44,9 +44,9 @@ class DoubleObj {
   void set value(double v) {
     if(v >= 0 && v != null && v != _value){
       if (fixtureUnit != null) {
-        if (fixtureUnit.inputUnits.containsKey(cat)) {
-          if (fixtureUnit.inputUnits[cat] != v) {
-            fixtureUnit.inputUnits[cat] = v;
+        if (fixtureUnit.inputUnit.containsKey(cat)) {
+          if (fixtureUnit.inputUnit[cat] != v) {
+            fixtureUnit.inputUnit[cat] = v;
             fixtureUnit.Recalculate();
             _value = v;
           }
