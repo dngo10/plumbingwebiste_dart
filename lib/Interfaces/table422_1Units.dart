@@ -49,14 +49,14 @@ Set<table422_1Categories> OtherSet = {
 
 Set<table422_1Categories> OutputSet = {
   table422_1Categories.waterClosets,
-  table422_1Categories.automaticclotheswasherconnection,
+  table422_1Categories.urinals,
+  table422_1Categories.lavatories,
   table422_1Categories.bathtubsOrShowers,
   table422_1Categories.drinkingFountains,
-  table422_1Categories.kitchensink,
-  table422_1Categories.laundrytray,
-  table422_1Categories.lavatories,
   table422_1Categories.servicesink,
-  table422_1Categories.urinals,
+  table422_1Categories.laundrytray,
+  table422_1Categories.kitchensink,
+  table422_1Categories.automaticclotheswasherconnection,
 };
 
 Map<table422_1Categories, String> table422_1CategoriesNames  = {  
@@ -242,6 +242,7 @@ enum comboOthers{
   common,
   r2_3,
   r3_2,
+  none
 }
 
 Map<comboOthers, List<List<table422_1Categories>>> otherCheckSet = {
@@ -249,33 +250,6 @@ Map<comboOthers, List<List<table422_1Categories>>> otherCheckSet = {
   comboOthers.r2_3: _r2_3Op2,
   comboOthers.r3_2: _r3_2Op2
 };
-
-//Map<table422_1Ids, List<List<table422_1Categories>>> otherFixtureOptions = {
-//  table422_1Ids.A1 : _commonOp1,
-//  table422_1Ids.A2 : _commonOp1,
-//  table422_1Ids.A3 : _commonOp1,
-//  table422_1Ids.A4 : _commonOp1,
-//  table422_1Ids.A5 : _commonOp1,
-//  table422_1Ids.B : _commonOp1,
-//  table422_1Ids.E : _commonOp1,
-//  table422_1Ids.F1 : _commonOp1,
-//  table422_1Ids.F2 : _commonOp1,
-//  table422_1Ids.I1 : _commonOp1,
-//  table422_1Ids.I2_1 : _commonOp1,
-//  table422_1Ids.I3_2 : _commonOp1,
-//  table422_1Ids.I4 : _commonOp1,
-//  table422_1Ids.M : _commonOp1,
-//  table422_1Ids.R1 : _commonOp1,
-//  table422_1Ids.R2_1 : _commonOp1,
-//  table422_1Ids.R2_2 : _commonOp1,
-//  table422_1Ids.R3_1 : _commonOp1,
-//  table422_1Ids.R4 : _commonOp1,
-//  table422_1Ids.S1 : _commonOp1,
-//  table422_1Ids.S2 : _commonOp1,
-//
-//  table422_1Ids.R2_3: _r2_3Op2,
-//  table422_1Ids.R3_2: _r3_2Op2
-//};
 
 
 

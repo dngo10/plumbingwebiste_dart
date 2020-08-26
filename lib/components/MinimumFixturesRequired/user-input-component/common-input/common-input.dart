@@ -1,14 +1,14 @@
 
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/common-input.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/common-input.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_input/material_number_accessor.dart';
 
 import '../../../../Interfaces/table422_1Units.dart';
-import '../../../../LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import '../../../../LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 
 @Component(
     selector: 'common-input-app',
@@ -41,14 +41,15 @@ class CommonInput implements AfterChanges {
       table422_1Units.female,
       table422_1Units.male,
       table422_1Units.patient,
-      table422_1Units.room
+      table422_1Units.room,
+      table422_1Units.none
     };
   }
 
   @override
   void ngAfterChanges() {
     if (fixtureUnit != null && fakemap != null) {
-      allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
+      allowedSet = fixtureUnit.GetInputPutAllowedEnum();
       unitMap = table422_1Units_Names;
 
       bool isMustChoose = allowedSet.contains(table422_1Units.room) &&

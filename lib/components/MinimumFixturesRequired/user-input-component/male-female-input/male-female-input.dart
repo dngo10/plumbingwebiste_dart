@@ -1,8 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_app/Services/occupant-load-factor-service.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/load-factor/load-factor-based-on-area.dart';
 import 'package:angular_components/material_input/material_input.dart';
@@ -76,19 +76,19 @@ class MaleFemaleInput implements AfterChanges, OnInit {
   void ngAfterChanges() {
     //This MUST RUN MUST to add person or NOT
     if (fixtureUnit != null) {
-      hasm = fixtureUnit.inputUnit.containsKey(emale);
-      hasf = fixtureUnit.inputUnit.containsKey(efemale);
+      hasm = fixtureUnit.inputUnits.containsKey(emale);
+      hasf = fixtureUnit.inputUnits.containsKey(efemale);
       gen = Pfm(fixtureUnit);
 
       if (hasm && hasf) {
-        fixtureUnit.inputUnit[eperson] = 0;
+        fixtureUnit.inputUnits[eperson] = 0;
         hasp = true;
       } else {
-        hasp = fixtureUnit.inputUnit.containsKey(eperson);
+        hasp = fixtureUnit.inputUnits.containsKey(eperson);
       }
       //===== END MANDATORY =====
 
-      allowedSet = fixtureUnit.GetUnitsAllowanceEnum();
+      allowedSet = fixtureUnit.GetInputPutAllowedEnum();
       commonInput = Set<table422_1Units>();
 
       occupantLoadFactorService.mergeLoadFactor(fixtureUnit.occupancy.type, occupantLoadFactor);

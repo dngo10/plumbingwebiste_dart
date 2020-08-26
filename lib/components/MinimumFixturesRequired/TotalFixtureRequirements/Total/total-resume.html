@@ -6,12 +6,12 @@
     </div>
     
     <div *ngIf="items != null" class="listItem">
-        <div *ngFor="let item of items.keys" class="detailsList">
+        <div *ngFor="let key of urlMap.keys" class="detailsList">
             <div class="cardDisplay">
-                <div [style.background-image]= "'url(' + urlMap[item] + ')'" [style.background-size]="'contain'" class="iconFixture" >
+                <div *ngIf="items.containsKey(key)" [style.background-image]= "'url(' + urlMap[key] + ')'" [style.background-size]="'contain'" class="iconFixture" >
                 </div>
-                <div class="value">
-                    {{items[item]}}
+                <div *ngIf="items.containsKey(key)" class="value">
+                    {{items[key]}}
                 </div>
             </div>
         </div>

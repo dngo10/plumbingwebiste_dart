@@ -4,7 +4,7 @@
         <div class="occupancy_choice">
             <p>choose your occupancy:</p>
     
-            <material-dropdown-select [buttonText]="var1">
+            <material-dropdown-select [buttonText]="buttonText">
                 <material-select-dropdown-item
                     ng-style="{'max-height': '400px', 'max-width': '448px'. 'background' : 'red'}"
                    *ngFor="let item of typeOfOccupancy"
@@ -37,19 +37,17 @@
     </div>
     <div>
         <total-fixture-requirement-app
-        [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
-        [(fixtureUnit)] = "fixtureUnit"
-        [(occupantLoadFactor)] = "occupantLoadFactor"
-        [(gen)] = "gen"
-        [(pt)] = "pt"
-        [(fakemap)] = "fakemap"
+            [(totalFacilitiesRequired)] = "totalFacilitiesRequired"
+            [(fixtureUnit)] = "fixtureUnit"
+            [(occupantLoadFactor)] = "occupantLoadFactor"
+            [(gen)] = "gen"
+            [(pt)] = "pt"
+            [(fakemap)] = "fakemap"
         ></total-fixture-requirement-app>
     </div>
 </div>
 
 <!--
-
-    
 -->
 
 <!--materialTooltip="{{item.description}}"-->

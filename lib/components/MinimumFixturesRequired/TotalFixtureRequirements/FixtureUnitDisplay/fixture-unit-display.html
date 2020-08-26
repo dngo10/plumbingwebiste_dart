@@ -1,18 +1,11 @@
 <div *ngIf="items != null" class="container">
     <div class="details1">
-        <div *ngFor="let item of items.keys" class="detailsList">
-            <div *ngIf="item != otherEnum" class="cardDisplay">
-                <p>{{items[item]}}</p>
-            </div>
-            <div *ngIf="item == otherEnum" class="cardDisplay">
-                <p>{{items[item]}}</p>
+        <div *ngFor="let key of urlMap.keys" class="detailsList">
+            <div  class="cardDisplay">
+                <p *ngIf="items.containsKey(key)">{{items[key]}}</p>
             </div>
         </div>
-    </div>
-    <div>
-        <p class="otherText"><i>Other: {{fixtureUnit.otherFixtureString}}</i></p>
-    </div>
-    
+    </div> 
 </div>
 
 <!--

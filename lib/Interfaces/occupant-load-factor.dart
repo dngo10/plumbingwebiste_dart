@@ -1,4 +1,4 @@
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
 
 class OccupantLoadFactor{
   String type;

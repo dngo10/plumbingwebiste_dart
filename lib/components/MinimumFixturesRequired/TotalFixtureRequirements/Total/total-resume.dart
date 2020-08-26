@@ -32,7 +32,8 @@ class TotalResume implements AfterChanges, AfterViewChecked{
   void ngAfterChanges() {
       if(totalFacilitiesRequired != null){
         totalFacilitiesRequired.Recalculate();
-        items = totalFacilitiesRequired.totalRequiredFixture;
+        items = totalFacilitiesRequired.totalRequiredFixture; 
+        
     }
   }
 

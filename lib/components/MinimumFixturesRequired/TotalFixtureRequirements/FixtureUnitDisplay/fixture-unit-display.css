@@ -1,5 +1,5 @@
 .detailsList{
-    width: 250px;
+    width: 360px;
 }
 
 .detailsList > div{
@@ -27,7 +27,7 @@
 .otherText{
     font-weight: lighter;
     color: #adadad;
-    width: 300px;
+    width: 600px;
 }
 
 .container{

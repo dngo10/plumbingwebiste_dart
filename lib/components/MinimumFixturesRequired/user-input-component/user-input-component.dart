@@ -4,10 +4,10 @@ import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/PatientRoom.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/common-input.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/PatientRoom.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/common-input.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/fixture-unit-result/fixture-unit-result.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/patient-room-input/patient-room-input.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -42,16 +42,11 @@ class UserInputBasedOnOccupancy implements AfterChanges{
   @Input() CommonInputList fakemap;
 
   Set<table422_1Units> allowedUnits;
-  
-  LinkedHashMap<table422_1Units,double> abc;
-  LinkedHashMap<table422_1Units,double>old_abc;
 
   @override
   void ngAfterChanges() {
     if(fixtureUnit != null){
-      
-      allowedUnits = fixtureUnit.GetUnitsAllowanceEnum();
-      old_abc = abc;
+      allowedUnits = fixtureUnit.GetInputPutAllowedEnum();
     }
     // TODO: implement ngAfterChanges
   }

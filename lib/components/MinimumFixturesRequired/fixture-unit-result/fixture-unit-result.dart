@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/fixture-icons-url.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 @Component(
@@ -23,36 +23,25 @@ class FixtureUnitResult implements AfterChanges, OnInit {
   Map<table422_1Categories, String> catMap;
   Map<table422_1Categories, String> iconUrl;
   Map<table422_1Units, String> unitMap = table422_1Units_Names;
+  Set<table422_1Categories> otherSet = OtherSet;
 
-  Set<table422_1Units> allowedUnit;
-
-  table422_1Categories otherEnum = table422_1Categories.other;
-
-  String other = "";
+  Set<table422_1Categories> primaryOutput = Set<table422_1Categories>(); // NOT INCLUDED "OTHER" FIXTURES
 
   @override
   void ngOnInit() {
     iconUrl = fixtureIconUrl;
-  }
-  
-  FixtureUnitResult(){
-
+    catMap = table422_1CategoriesNames;
   }
 
   @override
   void ngAfterChanges() {
     if(fixtureUnit != null){
-      catMap = table422_1CategoriesNames;
-      allowedUnit = fixtureUnit.GetUnitsAllowanceEnum();
-
-      if(allowedUnit.contains(table422_1Units.otherMultiple1)){
-        other = unitMap[table422_1Units.otherMultiple1];
-      }else if(allowedUnit.contains(table422_1Units.otherMultiple2)){
-        other = unitMap[table422_1Units.otherMultiple2];
-      }else if(allowedUnit.contains(table422_1Units.servicesinkkOrlaundrytray)){
-        other = unitMap[table422_1Units.servicesinkkOrlaundrytray];
-      }
-
+      primaryOutput.clear();
+      fixtureUnit.outputUnits.forEach((key, value) {
+        if(!otherSet.contains(key)){
+          primaryOutput.add(key);
+        }
+      });
     }
   }
 }

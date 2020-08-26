@@ -17,16 +17,16 @@ class CommonInputList {
     }
   }
 
-  void Setup(FixtureUnit fixtureUnit){
-    this.fixtureUnit = fixtureUnit;
-    if (this.fixtureUnit != null) {
-      fixtureUnit.inputUnits.forEach((key, value) {
-        DoubleObj douObj = DoubleObj(fixtureUnit, key);
-        douObj.value = value;
-        tempMap[key] = douObj;
-      });
-    }
-  }
+  //void Setup(FixtureUnit fixtureUnit){
+  //  this.fixtureUnit = fixtureUnit;
+  //  if (this.fixtureUnit != null) {
+  //    fixtureUnit.inputUnits.forEach((key, value) {
+  //      DoubleObj douObj = DoubleObj(fixtureUnit, key);
+  //      douObj.value = value;
+  //      tempMap[key] = douObj;
+  //    });
+  //  }
+  //}
 }
 
 

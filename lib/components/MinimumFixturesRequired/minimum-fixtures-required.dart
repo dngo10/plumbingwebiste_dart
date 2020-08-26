@@ -1,9 +1,9 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/PatientRoom.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/Pfm.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/common-input.dart';
-import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/fixture-and-units.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/PatientRoom.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/common-input.dart';
+import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/total-facilities-required.dart';
 import 'package:angular_app/components/MinimumFixturesRequired/user-input-component/user-input-component.dart';
 
@@ -74,7 +74,7 @@ class MinimumFixtureRequired implements OnInit{
   CommonInputList fakemap;
 
 
-  String var1 = "choose occupancy type";
+  String buttonText = "choose occupancy type";
 
 
   MinimumFixtureRequired(this.occupancies){
@@ -102,7 +102,7 @@ class MinimumFixtureRequired implements OnInit{
   }
 
   getItem(TypeOfOccupancy item){   
-    var1 = item.type;
+    buttonText = item.type;
     chooseOccupancy = item;
     fixtureUnit = FixtureUnit(item);
     gen = Pfm(fixtureUnit);
