@@ -41,7 +41,7 @@ import 'routes/routes.dart';
     TopBar,
   ],
   exports: [
-    RoutePathPlumbing, Routes,
+    RoutePathPlumbing, Routes, LoginPaths,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -62,5 +62,5 @@ import 'routes/routes.dart';
     'package:angular_components/app_layout/layout.scss.css'],
 )
 class AppComponent {
-  var name = 'Angular';
+  var name = 'Angular'; 
 }
