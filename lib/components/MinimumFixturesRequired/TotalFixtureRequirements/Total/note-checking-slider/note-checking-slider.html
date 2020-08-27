@@ -17,13 +17,13 @@
                 <div [style.background-image]= "'url(' + urlMap[item] + ')'" [style.background-size]="'contain'" class="iconFixture" >
                 </div>
                 <div *ngIf="item != urinal && item != waterCloset " class="value">
-                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item]}}
+                    {{totalFacilitiesRequired.totalRequiredFixture[item]}}
                 </div>
                 <div *ngIf="item == urinal"  class="value">
-                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item] + totalFacilitiesRequired.sliderValue}}
+                    {{totalFacilitiesRequired.totalRequiredFixture[item] + totalFacilitiesRequired.sliderValue}}
                 </div>
                 <div *ngIf="item == waterCloset" class="value">
-                    {{totalFacilitiesRequired.totalRequiredFixturePredict[item] - totalFacilitiesRequired.sliderValue +  totalFacilitiesRequired.femaleWaterClosetAddIn}}
+                    {{totalFacilitiesRequired.totalRequiredFixture[item] - totalFacilitiesRequired.sliderValue +  totalFacilitiesRequired.femaleWaterClosetAddIn}}
                 </div>
             </div>
         </div>

@@ -1,0 +1,20 @@
+.loginButton{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttoninside{
+    margin: auto;
+
+}
+
+.loginButton > *{
+    margin-bottom: 10vh;
+}
+
+.loginButton > p{
+    text-align: center;
+    color: red;
+}

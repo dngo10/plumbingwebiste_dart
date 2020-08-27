@@ -32,7 +32,6 @@ class FixtureUnit {
         return;
       }else{
         _choiceOption = value;
-        _outPutsReset();
         Recalculate();
       }
     }
@@ -76,7 +75,6 @@ class FixtureUnit {
         this._InitUnitMapAndAmmountMap();
         this._GetOtherCheckOptions();
     }
-
     FixtureUnit clone(){
       
       FixtureUnit fixtureUnit = FixtureUnit(this.occupancy.clone());
@@ -92,6 +90,12 @@ class FixtureUnit {
     /// This is to get the options for Other Categories.
     void _GetOtherCheckOptions(){
       if(occupancy != null){
+        if(otherOptions == null){
+          otherOptions = List<List<table422_1Categories>>();
+        }else{
+          otherOptions.clear();
+        }
+
         if(occupancy.id == table422_1Ids.R2_3){
           otherOptions = otherCheckSet[comboOthers.r2_3];
           _choiceOption = 0;
@@ -106,7 +110,7 @@ class FixtureUnit {
           _choiceOption = -1;
           //This means the otherOptions is empty
         } else{
-          otherOptions = otherCheckSet[comboOthers.r2_3];
+          otherOptions = otherCheckSet[comboOthers.common];
           _choiceOption = 0;
         }
       }
@@ -272,7 +276,7 @@ class FixtureUnit {
         return ans;
     }
 
-    int _laundry_tray_cal (){
+    int _Laundry_tray_cal (){
         int ans = 0;
 
         unit.forEach((key, value) { 
@@ -280,20 +284,34 @@ class FixtureUnit {
               if(key.t2 == table422_1Units.none){
                   ans += None_LaundryTrayFixureNeeded(this.occupancy);
               }else if(key.t2 == table422_1Units.apartment){
-                  if(occupancy.id == table422_1Ids.R2_3 && choiceOption == 2){
-                    // this is when user choice _cb3, calculation for per 12 unit.
-                    ans += ApartmentOp2_LaundryTrayFixtureNeeded(this.occupancy, value);
-                  }
-                  else{
                      ans += Apartment_LaundryTrayFixtureNeeded(this.occupancy, value);
-                  }
               }
           }
         });
         return ans;
     }
 
-    int _automatic_clothes_washer_connection_cal(){
+    int _Big_Laundry_tray_cal(){
+      int ans = 0;
+      unit.forEach((key, value) {
+        if(key.t1 == table422_1Categories.big_landrytray){
+          ans += Apartment_Big_LaundryTrayFixtureNeeded(this.occupancy, value, choiceOption);
+        }
+      });
+      return ans;
+    }
+
+    int _Big_Automatic_clothes_washer_connection_cal(){
+      int ans = 0;
+      unit.forEach((key, value) {
+        if(key.t1 == table422_1Categories.big_automaticclotheswasherconnection){
+          ans += Apartment_Big_AutomaticClothesWasherFixtureNeeded(this.occupancy, value, choiceOption);
+        }
+      });
+      return ans;
+    }
+
+    int _Automatic_clothes_washer_connection_cal(){
       int ans = 0;
 
       unit.forEach((key, value) {
@@ -308,11 +326,11 @@ class FixtureUnit {
       return ans;
     }
 
-    int _service_sink_cal(){
+    int _Service_sink_cal(){
       int ans = 0;
 
       unit.forEach((key, value){
-        if(key.t1 == table422_1Categories.automaticclotheswasherconnection){
+        if(key.t1 == table422_1Categories.servicesink){
           if(key.t2 == table422_1Units.none){
             ans += None_ServiceSinkFixureNeeded(this.occupancy);
           }
@@ -321,7 +339,7 @@ class FixtureUnit {
       return ans;
     }
 
-    int _kitchen_sink_cal(){
+    int _Kitchen_sink_cal(){
       int ans = 0;
 
       unit.forEach((key, value) {
@@ -346,17 +364,37 @@ class FixtureUnit {
     }
 
     Map<table422_1Categories, double> Recalculate(){
+      _outPutsReset();
       _MergeInputValueToUnit();
-        if(outputUnits.containsKey(table422_1Categories.drinkingFountains)) this.outputUnits[table422_1Categories.drinkingFountains] = _DrinkingFoutainsCal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.bathtubsOrShowers)) this.outputUnits[table422_1Categories.bathtubsOrShowers] = _BathTubShowersCal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.lavatories)) this.outputUnits[table422_1Categories.lavatories] = _LavatoriesCal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.urinals)) this.outputUnits[table422_1Categories.urinals] = _UrinalsCal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.waterClosets)) this.outputUnits[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.automaticclotheswasherconnection)) this.outputUnits[table422_1Categories.automaticclotheswasherconnection] = _automatic_clothes_washer_connection_cal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.kitchensink)) this.outputUnits[table422_1Categories.kitchensink] = _kitchen_sink_cal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.servicesink)) this.outputUnits[table422_1Categories.servicesink] = _service_sink_cal().toDouble();
-        if(outputUnits.containsKey(table422_1Categories.laundrytray)) this.outputUnits[table422_1Categories.laundrytray] = _laundry_tray_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.drinkingFountains)) this.outputUnits[table422_1Categories.drinkingFountains] = _DrinkingFoutainsCal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.bathtubsOrShowers)) this.outputUnits[table422_1Categories.bathtubsOrShowers] = _BathTubShowersCal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.lavatories)) this.outputUnits[table422_1Categories.lavatories] = _LavatoriesCal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.urinals)) this.outputUnits[table422_1Categories.urinals] = _UrinalsCal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.waterClosets)) this.outputUnits[table422_1Categories.waterClosets] = _WaterclosetCal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.automaticclotheswasherconnection) && _hasOtherFixture(table422_1Categories.automaticclotheswasherconnection))
+        this.outputUnits[table422_1Categories.automaticclotheswasherconnection] = _Automatic_clothes_washer_connection_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.kitchensink) && _hasOtherFixture(table422_1Categories.kitchensink))
+        this.outputUnits[table422_1Categories.kitchensink] = _Kitchen_sink_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.servicesink) && _hasOtherFixture(table422_1Categories.servicesink))
+        this.outputUnits[table422_1Categories.servicesink] = _Service_sink_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.laundrytray) && _hasOtherFixture(table422_1Categories.laundrytray))
+        this.outputUnits[table422_1Categories.laundrytray] = _Laundry_tray_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.big_landrytray))
+        this.outputUnits[table422_1Categories.big_landrytray] = _Big_Laundry_tray_cal().toDouble();
+      if(outputUnits.containsKey(table422_1Categories.big_automaticclotheswasherconnection))
+        this.outputUnits[table422_1Categories.big_automaticclotheswasherconnection] = _Big_Automatic_clothes_washer_connection_cal().toDouble();
 
-        return this.outputUnits; 
+      //print(this.outputUnits);
+      return this.outputUnits;
+    }
+
+    bool _hasOtherFixture(table422_1Categories cat){
+      if(otherOptions == null || otherOptions.length == 0) return false;
+      if(choiceOption == null || choiceOption == -1) return false;
+      if(otherOptions[choiceOption].contains(cat)){
+        return true;
+      }
+      outputUnits[cat] = 0;
+      return false;
     }
 }

@@ -36,8 +36,8 @@ int Apartment_LaundryTrayFixtureNeeded(TypeOfOccupancy occupancy, double numOfAp
   return 0;
 }
 
-int ApartmentOp2_LaundryTrayFixtureNeeded(TypeOfOccupancy typeOfOccupancy, double numOfApartment){
-    if(typeOfOccupancy.id == table422_1Ids.R2_3){
+int Apartment_Big_LaundryTrayFixtureNeeded(TypeOfOccupancy typeOfOccupancy, double numOfApartment, int optionChoice){
+    if(typeOfOccupancy.id == table422_1Ids.R2_3 && optionChoice == 2){
         return (numOfApartment/12).ceil();
     } 
     return 0;

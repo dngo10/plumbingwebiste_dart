@@ -1,22 +1,23 @@
-<div class="container">
-    <h3>Review: </h3>
-  
-    <section class="cardGroup" *ngIf="fixtureUnit != null"> 
-        <div class="mdc-card mdc-card--outlined demo-size" *ngFor="let key of primaryOutput">
-          <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"
-                [style.background-image]= "'url(' + iconUrl[key] + ')'"
-                [style.background-size]= "'contain'"
-          >
-          </div>
-          <div class="demo-card__primary" >
-            <h3 class="demo-card__title">{{fixtureUnit.outputUnits[key]}}</h3>
-            <h6 class="demo-card__subtitle">{{catMap[key]}}</h6>
-          </div>
-        </div>
-    </section>
-    <div>
-      <!--This is used to FOR OTHER FIXTURES-->
-      
-    </div>
-    
+<div class="container"> 
+    <material-radio-group *ngIf="fixtureUnit != null" [(ngModel)]="selectedOption">
+      <material-radio
+        *ngFor="let option of fixtureUnit.otherOptions; let i=index"
+        [checked]="true"
+        [value]="option"
+      ></material-radio>
+    </material-radio-group>
   </div>
+
+  <section class="cardGroup" *ngIf="fixtureUnit != null"> 
+      <div class="mdc-card mdc-card--outlined demo-size" *ngFor="let key of selectedOption">
+        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"
+              [style.background-image]= "'url(' + iconUrl[key] + ')'"
+              [style.background-size]= "'contain'"
+        >
+        </div>
+        <div class="demo-card__primary" >
+          <h3 class="demo-card__title">{{fixtureUnit.outputUnits[key]}}</h3>
+          <h6 class="demo-card__subtitle">{{catMap[key]}}</h6>
+        </div>
+      </div>
+  </section>

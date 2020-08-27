@@ -17,13 +17,7 @@ class Pfm {
   var emale = table422_1Units.male;
   var efemale = table422_1Units.female;
   var eperson = table422_1Units.person;
-
-  void Setup(FixtureUnit fixtureUnit){
-    reset();
-    this.fixtureUnit = fixtureUnit;
-    setHasmHasf();
-  }
-
+  
   void setHasmHasf(){
       hasm = fixtureUnit.inputUnits.containsKey(emale);
       hasf = fixtureUnit.inputUnits.containsKey(efemale);

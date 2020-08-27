@@ -37,10 +37,10 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
     items = Map<table422_1Categories, double>();
     if(fixtureUnit != null){
       fixtureUnit.outputUnits.forEach((key, value) {
-        if(!otherEnum.contains(key)){
+        //if(!otherEnum.contains(key)){
           items[key] =value;
           
-        }
+        //}
       });
     }
   }

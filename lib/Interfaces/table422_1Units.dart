@@ -25,6 +25,7 @@ Set<table422_1Units> InputSet = {
   table422_1Units.cell,
   table422_1Units.sleepingroom,
   table422_1Units.patient,
+  table422_1Units.familydwelling,
   table422_1Units.none
 };
 
@@ -38,6 +39,8 @@ enum table422_1Categories{ // this is also outputset
     laundrytray,
     kitchensink,
     automaticclotheswasherconnection,
+    big_landrytray,
+    big_automaticclotheswasherconnection
 }
 
 Set<table422_1Categories> OtherSet = {
@@ -45,6 +48,8 @@ Set<table422_1Categories> OtherSet = {
     table422_1Categories.laundrytray,
     table422_1Categories.kitchensink,
     table422_1Categories.automaticclotheswasherconnection,
+    table422_1Categories.big_landrytray,
+    table422_1Categories.big_automaticclotheswasherconnection,
 };
 
 Set<table422_1Categories> OutputSet = {
@@ -57,6 +62,8 @@ Set<table422_1Categories> OutputSet = {
   table422_1Categories.laundrytray,
   table422_1Categories.kitchensink,
   table422_1Categories.automaticclotheswasherconnection,
+  table422_1Categories.big_landrytray,
+  table422_1Categories.big_automaticclotheswasherconnection,
 };
 
 Map<table422_1Categories, String> table422_1CategoriesNames  = {  
@@ -69,6 +76,8 @@ Map<table422_1Categories, String> table422_1CategoriesNames  = {
   table422_1Categories.laundrytray: "LAUNDRY TRAY",
   table422_1Categories.kitchensink: "KITCHEN SINK",
   table422_1Categories.automaticclotheswasherconnection: "AUTOMATIC CLOTHES WASHER CONNECTION",
+  table422_1Categories.big_landrytray: "LAUNDRY ROOM",
+  table422_1Categories.big_automaticclotheswasherconnection: "PUBLIC AUTOMATIC LAUNDRY"
 };
 
 enum table422_1Ids{
@@ -202,6 +211,10 @@ class PairEntry{
     PairEntry(table422_1Categories.automaticclotheswasherconnection, table422_1Units.apartment): [table422_1Ids.R2_3],
     
     PairEntry(table422_1Categories.automaticclotheswasherconnection, table422_1Units.familydwelling):[table422_1Ids.R3_2],
+
+    PairEntry(table422_1Categories.big_landrytray, table422_1Units.apartment): [table422_1Ids.R2_3],
+
+    PairEntry(table422_1Categories.big_automaticclotheswasherconnection, table422_1Units.apartment): [table422_1Ids.R2_3],
 };
 
 // Service Sink or Laundry Tray
@@ -222,11 +235,11 @@ List<table422_1Categories> _cb2 = [table422_1Categories.kitchensink,
 // -- Basically there is 2 ways of calulating it.
 // -- Be very carefull OR YOU WILL BREAK THE PLUMBING CODE
 List<table422_1Categories> _cb3 = [table422_1Categories.kitchensink,
-                                  table422_1Categories.laundrytray,
+                                  table422_1Categories.big_landrytray,
                                  ];
 
 List<table422_1Categories> _cb4 = [table422_1Categories.kitchensink,
-                                  table422_1Categories.automaticclotheswasherconnection,
+                                  table422_1Categories.big_automaticclotheswasherconnection,
                                  ];
 
 // Combo 2 For R3-2

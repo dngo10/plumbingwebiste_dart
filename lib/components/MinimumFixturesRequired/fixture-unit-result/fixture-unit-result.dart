@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/fixture-icons-url.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
+import 'package:angular_app/components/MinimumFixturesRequired/fixture-unit-result/other-fixtures-result/other-fixtures-result.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 @Component(
@@ -15,6 +16,7 @@ import 'package:angular_forms/angular_forms.dart';
   directives: [
     coreDirectives,
     formDirectives,
+    OtherFixturesResult,
   ],
   pipes: [commonPipes]
 )

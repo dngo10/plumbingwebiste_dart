@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
@@ -48,6 +46,5 @@ class UserInputBasedOnOccupancy implements AfterChanges{
     if(fixtureUnit != null){
       allowedUnits = fixtureUnit.GetInputPutAllowedEnum();
     }
-    // TODO: implement ngAfterChanges
   }
 }

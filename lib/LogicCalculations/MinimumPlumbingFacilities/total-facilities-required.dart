@@ -20,8 +20,6 @@ class TotalFacilitiesRequired{
     List<FixtureUnit> fixtureUnitArray;
     Map<table422_1Categories, double> totalRequiredFixture;
 
-    Map<table422_1Categories, double> totalRequiredFixturePredict;
-
     double femaleWaterClosetAddIn;
     double maleUrinalsAllowedToBeAdded;
     double userUrinalsAdded;
@@ -106,7 +104,6 @@ class TotalFacilitiesRequired{
 
         ReducableFixture();
         AddFemaleWaterCloset();
-        totalRequiredFixturePredict = Map<table422_1Categories, double>.from(totalRequiredFixture);
     }
 
     AddToTotalFixtureRequired(Map<table422_1Categories, double> item){

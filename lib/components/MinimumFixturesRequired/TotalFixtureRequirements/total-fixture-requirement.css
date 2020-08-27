@@ -24,7 +24,7 @@
 }
 
 .listItemContainer1{
-    margin-top: 5vh;
+    margin-top: 1vh;
     border-top: 1px solid #e0e0e0;
     width: 100%;
     display: grid;
@@ -46,7 +46,6 @@
 .itemList:hover{
     cursor: pointer;
     background-color: aliceblue;
-    
 }
 
 
