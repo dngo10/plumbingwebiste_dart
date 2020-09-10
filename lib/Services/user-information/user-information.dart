@@ -15,6 +15,7 @@ class UserInformation{
   static String authorizationCode;
   static String expiredTime;
   static String previousUrl;
+  static String status;
 
   static String _tenant = "common";
   static String _clientID = "0c0b0622-f612-41a6-874c-b5182b5183f1";
@@ -60,9 +61,17 @@ class UserInformation{
       authorizationCode = map[_code];
       http.Response reponse = await http.post(_serverAuth2, body: json.encode(map));
       Map data = json.decode(reponse.body);
-      if(data != null && data["status"] == "ok"){
-        email = data["email"];
-        givenName = data["displayName"];
+      if(data != null ){
+        status = data["status"];
+        if(data["status"] == "ok"){
+          email = data["email"];
+          givenName = data["displayName"];
+        }else{
+          //print(email);
+          await Logout();
+        }
+      }else{
+        status = "failed";
       }
     }
   }
@@ -77,15 +86,9 @@ class UserInformation{
     givenName = null;
     authorizationCode = null;
     html.window.location.href = GoToLogout();
-    clearcookies();
   }
 
   static bool isValid(){
     return false;
   }
-
-  static void clearcookies(){
-    
-  }
-
 }

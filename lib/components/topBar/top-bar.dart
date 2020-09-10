@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_app/LogicCalculations/LoginControl/user-topbar.dart';
 
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/app_layout/material_stackable_drawer.dart';
@@ -24,6 +25,7 @@ import '../../Services/user-information/user-information.dart';
   ],
 )
 class TopBar{
+  UserTopBar user = UserTopBar();
   Router _router;
 
   bool end = false;
@@ -32,22 +34,15 @@ class TopBar{
   bool drawerVisible = false;
   bool drawer2Visible = false;
 
-  String email;
-  String name;
-
   TopBar(this._router){
   }
 
-  void logout(){
-    UserInformation.GoToLogout();
-    email = null;
-    name = null;
+  void logout() async{
+    await UserInformation.Logout();
   }
 
   void login() async{
     await UserInformation.GoToLogin();
-    print(UserInformation.email);
-    email = UserInformation.email;
-    name = UserInformation.givenName;
+    //await UserInformation.GetUserInformation(_router);
   }
 }
