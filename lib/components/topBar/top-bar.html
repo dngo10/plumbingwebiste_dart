@@ -28,8 +28,9 @@
       </material-button>
       <span class="material-header-title">Gouvis Plumbing Tools</span>
       <div class="material-spacer"></div>
-
-      <material-button raised class="loginButton">Login</material-button>
+      <p *ngIf="name != null && email != null"> Hello {name} ({email})</p>
+      <material-button *ngIf="email != null" raised class="loginButton" (click)="logout">Logout</material-button>
+      <material-button *ngIf="email == null" raised class="loginButton" (click)="login">Login</material-button>
     </div>
   </header>
 </div>

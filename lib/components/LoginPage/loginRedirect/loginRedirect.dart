@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_app/components/LoginPage/login-page.dart';
+import 'package:angular_app/Services/user-information/user-information.dart';
 import 'package:angular_app/routes/route_path.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:http/http.dart' as http;
 
 
 @Component(
@@ -22,12 +24,7 @@ class  LoginRedirect implements OnActivate {
 
   @override
   void onActivate(_, RouterState current) async{
-    Uri url = Uri.parse(window.location.href);
-    map = url.queryParameters;
-
-    print(map['code']);
-    if(map == null || map.length == 0){
-      _router.navigate(LoginPaths.loginPage.toUrl());
-    }
+    await UserInformation.GetUserInformation(_router);
+    _router.navigate(RoutePathPlumbing.minimumFixtureRequired.toUrl());
   }
 }

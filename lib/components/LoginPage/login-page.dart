@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import 'package:angular_app/LogicCalculations/LoginControl/MicrosoftLoginControl.dart';
+import 'package:angular_app/Services/user-information/user-information.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_app/routes/route_path.dart';
@@ -30,9 +30,6 @@ class LoginPage{
   }
 
   void goToMicrosoftLogin(){
-    MicrosoftLoginControl ms = MicrosoftLoginControl();
-    print(ms.baseLink);
-    //print(ms.baseLink);
-    html.window.location.href = ms.baseLink;
+    UserInformation.GoToLogin();
   }
 }

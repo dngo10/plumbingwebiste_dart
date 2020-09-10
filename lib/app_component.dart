@@ -37,7 +37,6 @@ import 'routes/routes.dart';
     MaterialSliderComponent,
     materialInputDirectives,
     materialNumberInputDirectives,
-
     TopBar,
   ],
   exports: [
@@ -60,6 +59,8 @@ import 'routes/routes.dart';
   styleUrls:[
     'app_component.css',
     'package:angular_components/app_layout/layout.scss.css'],
+  providers: [
+  ]
 )
 class AppComponent {
   var name = 'Angular'; 

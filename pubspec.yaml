@@ -18,3 +18,4 @@ dev_dependencies:
   angular_router: any
   markdown: ^2.1.7
   sass_builder: any
+  http: any
