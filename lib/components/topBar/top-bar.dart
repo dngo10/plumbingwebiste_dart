@@ -1,5 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/LogicCalculations/LoginControl/user-topbar.dart';
+import 'package:angular_app/Services/user-information/GoogleLogin/google-login.dart';
+import 'package:angular_app/Services/user-information/YahooLogin/yahoo-login.dart';
+import 'package:angular_app/routes/routes.dart';
 
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/app_layout/material_stackable_drawer.dart';
@@ -38,11 +41,11 @@ class TopBar{
   }
 
   void logout() async{
-    await UserInformation.Logout();
+    await UserInformation.logout();
   }
 
   void login() async{
-    await UserInformation.GoToLogin();
+    _router.navigate(LoginPaths.loginPage.toUrl());
     //await UserInformation.GetUserInformation(_router);
   }
 }

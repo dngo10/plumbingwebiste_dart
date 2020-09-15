@@ -1,0 +1,81 @@
+import 'dart:convert';
+
+import 'package:angular_app/routes/route_path.dart';
+import 'package:angular_router/angular_router.dart';
+import 'dart:html' as html;
+import 'package:http/http.dart' as http;
+import '../../../routes/route_path.dart';
+import 'package:angular_app/Services/user-information/user-information.dart';
+
+
+class GoogleLogin{
+
+  static String _baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth?';
+  static String _clientId = '990439782684-t224hulo9aegba964mqluborhhckhi5r.apps.googleusercontent.com';
+  static String _redirectUri = 'http://localhost:8080';
+  static String _response_type = 'code';
+  static String _access_type = 'offline';
+  static String _scope = 'https://www.googleapis.com/auth/cloud-platform.read-only';
+
+  static String _server_login = '${UserInformation.serverhost}/google/login'; 
+  static String _server_logout = '${UserInformation.serverhost}/google/logout';
+
+  static String _loginUrl(){
+    String url = "${_baseUrl}";
+    url += "scope=${_scope}&";
+    url += "access_type=${_access_type}&";
+    url += "response_type=${_response_type}&";
+    url += "redirect_uri=${_redirectUri}&";
+    url += "client_id=${_clientId}";
+
+    return url;
+  }
+
+  static Future<void> GetUserInformation(Router router) async{
+    Uri url = Uri.parse(html.window.location.href);
+    Map<String,String> map = url.queryParameters;
+    if(map == null || map.length == 0 || !map.containsKey(_response_type)){
+      router.navigate(LoginPaths.loginPage.toUrl());
+    }else{
+      UserInformation.authorizationCode = map[_response_type];
+      http.Response reponse = await http.post(_server_login, body: jsonEncode(map));
+      Map data = jsonDecode(reponse.body);
+      if(data != null ){
+        UserInformation.status = data["status"];
+        if(data["status"] == "ok"){
+          UserInformation.email = data["email"];
+          UserInformation.givenName = data["displayName"];
+        }else{
+          //print(email);
+          await Logout();
+        }
+      }else{
+        UserInformation.status = "failed";
+      }
+    }
+  }
+
+  static void GoToLogin(){
+    UserInformation.vendor = oauth2Vendor.google;
+    html.window.location.href = _loginUrl();
+  }
+
+  static void _goToLogout(){
+    // There is no logout for Google... damn this company...
+  }
+
+  static void Logout() async{
+    await http.post(_server_logout,
+    body: {
+      "code": UserInformation.authorizationCode
+    }
+    );
+    UserInformation.email = null;
+    UserInformation.givenName = null;
+    UserInformation.authorizationCode = null;
+    UserInformation.vendor = null;
+    //html.window.location.href = _goToLogout();      
+  }
+
+
+}
