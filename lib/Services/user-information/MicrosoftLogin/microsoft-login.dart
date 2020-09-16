@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:html' as html;
+import 'package:angular_app/Services/local-storage-manager/local-storage-manager.dart';
 import 'package:angular_app/Services/user-information/user-information.dart';
 import 'package:http/http.dart' as http;
 import 'package:angular_router/angular_router.dart';
@@ -27,7 +28,7 @@ class MicrosoftLogin{
   }
 
   static Future<void> GoToLogin() async{
-    UserInformation.vendor = oauth2Vendor.microsoft;
+    LocalStorageManager.addToStorage(UserInformation.vendor, "microsoft");
     html.window.location.href = _loginUrl();
   }
 
@@ -46,7 +47,6 @@ class MicrosoftLogin{
     UserInformation.email = null;
     UserInformation.givenName = null;
     UserInformation.authorizationCode = null;
-    UserInformation.vendor = null;
     html.window.location.href = _goToLogout();   
   }
 

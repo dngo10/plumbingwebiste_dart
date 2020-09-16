@@ -24,8 +24,9 @@ class  LoginRedirect implements OnActivate {
   Map<String,String> map;
 
   @override
-  void onActivate(_, RouterState current) async{
+  Future<void> onActivate(_, RouterState current) async{
     await UserInformation.GetUserInformation(_router);
+
     if(UserInformation.status == null ||
         UserInformation.status != "ok" ||
         UserInformation.email == null

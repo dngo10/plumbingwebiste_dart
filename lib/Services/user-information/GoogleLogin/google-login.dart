@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:angular_app/Services/local-storage-manager/local-storage-manager.dart';
 import 'package:angular_app/routes/route_path.dart';
 import 'package:angular_router/angular_router.dart';
 import 'dart:html' as html;
@@ -15,10 +16,10 @@ class GoogleLogin{
   static String _redirectUri = 'http://localhost:8080';
   static String _response_type = 'code';
   static String _access_type = 'offline';
-  static String _scope = 'https://www.googleapis.com/auth/cloud-platform.read-only';
+  static String _scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
 
-  static String _server_login = '${UserInformation.serverhost}/google/login'; 
-  static String _server_logout = '${UserInformation.serverhost}/google/logout';
+  static String _server_login = '${UserInformation.serverhost}/oauth2'; 
+  static String _server_logout = '${UserInformation.serverhost}/oauth2';
 
   static String _loginUrl(){
     String url = "${_baseUrl}";
@@ -27,7 +28,6 @@ class GoogleLogin{
     url += "response_type=${_response_type}&";
     url += "redirect_uri=${_redirectUri}&";
     url += "client_id=${_clientId}";
-
     return url;
   }
 
@@ -35,16 +35,22 @@ class GoogleLogin{
     Uri url = Uri.parse(html.window.location.href);
     Map<String,String> map = url.queryParameters;
     if(map == null || map.length == 0 || !map.containsKey(_response_type)){
-      router.navigate(LoginPaths.loginPage.toUrl());
+      await router.navigate(LoginPaths.loginPage.toUrl());
     }else{
       UserInformation.authorizationCode = map[_response_type];
-      http.Response reponse = await http.post(_server_login, body: jsonEncode(map));
+
+      // MUST SPECIFY THIS
+      Map accessMap = Map.from(map);
+      accessMap["vendor"] = "google";
+      print(accessMap);
+      http.Response reponse = await http.post(_server_login, body: jsonEncode(accessMap));
       Map data = jsonDecode(reponse.body);
+      print(data);
       if(data != null ){
         UserInformation.status = data["status"];
         if(data["status"] == "ok"){
           UserInformation.email = data["email"];
-          UserInformation.givenName = data["displayName"];
+          UserInformation.givenName = data["name"];
         }else{
           //print(email);
           await Logout();
@@ -56,7 +62,7 @@ class GoogleLogin{
   }
 
   static void GoToLogin(){
-    UserInformation.vendor = oauth2Vendor.google;
+    LocalStorageManager.addToStorage(UserInformation.vendor, "google");
     html.window.location.href = _loginUrl();
   }
 
@@ -73,7 +79,7 @@ class GoogleLogin{
     UserInformation.email = null;
     UserInformation.givenName = null;
     UserInformation.authorizationCode = null;
-    UserInformation.vendor = null;
+
     //html.window.location.href = _goToLogout();      
   }
 

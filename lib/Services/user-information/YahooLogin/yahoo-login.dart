@@ -1,4 +1,5 @@
 import 'dart:html' as html;
+import 'package:angular_app/Services/local-storage-manager/local-storage-manager.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -27,7 +28,7 @@ class YahooLogin{
   }
 
   static void GoToLogin(){
-    UserInformation.vendor = oauth2Vendor.yahoo;
+    LocalStorageManager.addToStorage(UserInformation.vendor, "yahoo");
     html.window.location.href = _getLoginUrl();
   }
 
@@ -40,7 +41,6 @@ class YahooLogin{
     UserInformation.email = null;
     UserInformation.givenName = null;
     UserInformation.authorizationCode = null;
-    UserInformation.vendor = null;
   }
 
   static Future<void> GetUserInformation(Router router) async{
@@ -52,11 +52,12 @@ class YahooLogin{
       UserInformation.authorizationCode = map[_response_type];
       http.Response reponse = await http.post(_server_login, body: jsonEncode(map));
       Map data = jsonDecode(reponse.body);
+      print(data);
       if(data != null ){
         UserInformation.status = data["status"];
         if(data["status"] == "ok"){
           UserInformation.email = data["email"];
-          UserInformation.givenName = data["displayName"];
+          UserInformation.givenName = data["name"];
         }else{
           //print(email);
           await Logout();
