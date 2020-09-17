@@ -14,8 +14,8 @@ class YahooLogin{
   static String _redirect_uri = Uri.encodeFull("https://gouvisgroup.xyz");
   static String _language = "en-us";
 
-  static String _server_login =  "${UserInformation.serverhost}/yahoo/login";
-  static String _server_logout = "${UserInformation.serverhost}/yahoo/logout";
+  static String _server_login =  "${UserInformation.serverhost}/oauth2";
+  static String _server_logout = "${UserInformation.serverhost}/logout";
 
   static String _getLoginUrl(){
     String url = _baseUrl;
@@ -28,7 +28,7 @@ class YahooLogin{
   }
 
   static void GoToLogin(){
-    LocalStorageManager.addToStorage(UserInformation.vendor, "yahoo");
+    UserInformation.vendor = "yahoo";
     html.window.location.href = _getLoginUrl();
   }
 

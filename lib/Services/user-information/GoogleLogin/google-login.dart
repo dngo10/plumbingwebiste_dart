@@ -42,10 +42,8 @@ class GoogleLogin{
       // MUST SPECIFY THIS
       Map accessMap = Map.from(map);
       accessMap["vendor"] = "google";
-      print(accessMap);
       http.Response reponse = await http.post(_server_login, body: jsonEncode(accessMap));
       Map data = jsonDecode(reponse.body);
-      print(data);
       if(data != null ){
         UserInformation.status = data["status"];
         if(data["status"] == "ok"){
@@ -62,12 +60,14 @@ class GoogleLogin{
   }
 
   static void GoToLogin(){
-    LocalStorageManager.addToStorage(UserInformation.vendor, "google");
+    UserInformation.vendor = "google";
     html.window.location.href = _loginUrl();
   }
 
   static void _goToLogout(){
     // There is no logout for Google... damn this company...
+
+
   }
 
   static void Logout() async{

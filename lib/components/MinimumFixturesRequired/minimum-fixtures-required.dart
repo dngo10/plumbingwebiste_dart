@@ -1,4 +1,8 @@
 import 'package:angular/angular.dart';
+import 'package:angular_app/Services/user-information/check_user.dart';
+import 'package:angular_app/Services/user-information/user-information.dart';
+import 'package:angular_app/routes/routes.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/PatientRoom.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
@@ -72,12 +76,13 @@ class MinimumFixtureRequired implements OnInit{
   Pfm gen;
   PatientRoom pt;
   CommonInputList fakemap;
+  Router _router;
 
 
   String buttonText = "choose occupancy type";
 
 
-  MinimumFixtureRequired(this.occupancies){
+  MinimumFixtureRequired(this.occupancies, this._router){
     totalFacilitiesRequired = TotalFacilitiesRequired();
     occupantLoadFactor = OccupantLoadFactor.Init();
     fixtureUnit = FixtureUnit.Void();
@@ -94,7 +99,10 @@ class MinimumFixtureRequired implements OnInit{
   }
 
   @override
-  void ngOnInit() {
+  void ngOnInit() async{
+    if(!await CheckUser.IsValidUser()){
+      _router.navigate(LoginPaths.loginPage.toUrl());
+    }
     typeOfOccupancy = occupancies.getTypeOfOccupancy();
     typeOfOccupancy.forEach((element) {
     });

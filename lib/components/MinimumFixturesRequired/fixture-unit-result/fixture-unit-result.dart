@@ -30,7 +30,7 @@ class FixtureUnitResult implements AfterChanges, OnInit {
   Set<table422_1Categories> primaryOutput = Set<table422_1Categories>(); // NOT INCLUDED "OTHER" FIXTURES
 
   @override
-  void ngOnInit() {
+  void ngOnInit(){
     iconUrl = fixtureIconUrl;
     catMap = table422_1CategoriesNames;
   }

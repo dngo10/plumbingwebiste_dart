@@ -10,8 +10,8 @@ class MicrosoftLogin{
   static String _client_id = '0c0b0622-f612-41a6-874c-b5182b5183f1';
   static String _redirect_url = "http://localhost:8080";
   static String _code = "code";
-  static String _server_logout = "${UserInformation.serverhost}/microsoft/logout";
-  static String _server_login = "${UserInformation.serverhost}/microsoft/login";
+  static String _server_logout = "${UserInformation.serverhost}/logout";
+  static String _server_login = "${UserInformation.serverhost}/oauth2";
   
   static String _loginUrl(){
     String _tenant = "common";
@@ -28,7 +28,7 @@ class MicrosoftLogin{
   }
 
   static Future<void> GoToLogin() async{
-    LocalStorageManager.addToStorage(UserInformation.vendor, "microsoft");
+    UserInformation.vendor = "microsoft";
     html.window.location.href = _loginUrl();
   }
 
@@ -57,13 +57,19 @@ class MicrosoftLogin{
       router.navigate(LoginPaths.loginPage.toUrl());
     }else{
       UserInformation.authorizationCode = map[_code];
-      http.Response reponse = await http.post(_server_login, body: json.encode(map));
+      LocalStorageManager.addToStorage(UserInformation.code, map[_code]);
+      Map accessMap = Map.from(map);
+
+      //MUST SPECIFY THIS
+      accessMap["vendor"] = "microsoft";      
+      http.Response reponse = await http.post(_server_login, body: json.encode(accessMap));
       Map data = jsonDecode(reponse.body);
+      print(reponse.body);
       if(data != null ){
         UserInformation.status = data["status"];
         if(data["status"] == "ok"){
           UserInformation.email = data["email"];
-          UserInformation.givenName = data["displayName"];
+          UserInformation.givenName = data["name"];
         }else{
           //print(email);
           await Logout();

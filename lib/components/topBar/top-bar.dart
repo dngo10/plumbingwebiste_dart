@@ -1,7 +1,4 @@
 import 'package:angular/angular.dart';
-import 'package:angular_app/LogicCalculations/LoginControl/user-topbar.dart';
-import 'package:angular_app/Services/user-information/GoogleLogin/google-login.dart';
-import 'package:angular_app/Services/user-information/YahooLogin/yahoo-login.dart';
 import 'package:angular_app/routes/routes.dart';
 
 import 'package:angular_router/angular_router.dart';
@@ -28,7 +25,14 @@ import '../../Services/user-information/user-information.dart';
   ],
 )
 class TopBar{
-  UserTopBar user = UserTopBar();
+  String getName(){
+    return UserInformation.givenName;
+  }
+
+  String getEmail(){
+    return UserInformation.email;
+  }
+
   Router _router;
 
   bool end = false;
@@ -42,6 +46,7 @@ class TopBar{
 
   void logout() async{
     await UserInformation.logout();
+    await _router.navigate(LoginPaths.loginPage.toUrl());
   }
 
   void login() async{
