@@ -3,7 +3,7 @@ import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureM
 
 class CommonInputList {
   FixtureUnit fixtureUnit;
-  Map<table422_1Units, DoubleObj> tempMap = Map<table422_1Units, DoubleObj> ();
+  Map<String, DoubleObj> tempMap = Map<String, DoubleObj> ();
 
   CommonInputList.Init();
 
@@ -34,7 +34,7 @@ class CommonInputList {
 class DoubleObj {
   //WRONG, BUT FIXTUREUNIT HERE, MUST RECALCULATE
   FixtureUnit fixtureUnit;
-  table422_1Units cat;
+  String cat;
   double _value = 0;
 
   double get value {

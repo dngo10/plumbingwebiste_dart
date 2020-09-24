@@ -21,11 +21,11 @@ class NoteCheckingSlider{
   
   bool disabled= false;
 
-  Map<table422_1Categories, String> catMap = table422_1CategoriesNames;
-  Map<table422_1Categories, String> urlMap =  fixtureIconUrl;
+  Set<String> catMap = Table422_1Categories.OutputSet;
+  Map<String, String> urlMap =  fixtureIconUrl;
 
-  table422_1Categories urinal = table422_1Categories.urinals;
-  table422_1Categories waterCloset = table422_1Categories.waterClosets;
+  String urinal = Table422_1Categories.urinals;
+  String waterCloset = Table422_1Categories.waterClosets;
 
   NoteCheckingSlider(){
     

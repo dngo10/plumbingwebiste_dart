@@ -22,17 +22,17 @@ import 'package:angular_forms/angular_forms.dart';
 )
 class FixtureUnitResult implements AfterChanges, OnInit {
   @Input() FixtureUnit fixtureUnit;
-  Map<table422_1Categories, String> catMap;
-  Map<table422_1Categories, String> iconUrl;
-  Map<table422_1Units, String> unitMap = table422_1Units_Names;
-  Set<table422_1Categories> otherSet = OtherSet;
+  Set<String> catSet;
+  Map<String, String> iconUrl;
+  Set<String> unitSet = Table422_1Units.InputSet;
+  Set<String> otherSet = Table422_1Categories.OtherSet;
 
-  Set<table422_1Categories> primaryOutput = Set<table422_1Categories>(); // NOT INCLUDED "OTHER" FIXTURES
+  Set<String> primaryOutput = Set<String>(); // NOT INCLUDED "OTHER" FIXTURES
 
   @override
   void ngOnInit(){
     iconUrl = fixtureIconUrl;
-    catMap = table422_1CategoriesNames;
+    catSet = Table422_1Categories.OutputSet;
   }
 
   @override

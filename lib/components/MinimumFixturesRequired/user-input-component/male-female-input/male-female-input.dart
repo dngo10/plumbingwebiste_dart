@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
+//import 'package:angular_app/Interfaces/table422-1.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
@@ -34,7 +35,8 @@ import 'package:angular_components/material_icon/material_icon.dart';
       ClassProvider(OccupantLoadFactorService)
     ])
 class MaleFemaleInput implements AfterChanges, OnInit {
-  Set<table422_1Units> allowedSet;
+  //
+  Set<String> allowedSet;
 
   @Input() FixtureUnit fixtureUnit;
   @Input() OccupantLoadFactor occupantLoadFactor;
@@ -45,13 +47,12 @@ class MaleFemaleInput implements AfterChanges, OnInit {
   double area = 0;
 
   //Map<table422_1Units, double> amountReturn;
-  Set<table422_1Units> commonInput;
+  Set<String> commonInput;
 
   var unitMap;
-
-  var emale = table422_1Units.male;
-  var efemale = table422_1Units.female;
-  var eperson = table422_1Units.person;
+  String emale = Table422_1Units.male;
+  String efemale = Table422_1Units.female;
+  String eperson = Table422_1Units.person;
 
   bool hasp = false; // has person in fixture unit
   bool hasm = false; // has male in fixture unit
@@ -63,13 +64,11 @@ class MaleFemaleInput implements AfterChanges, OnInit {
 
   //double male = 0, female = 0, person = 0;
   OccupantLoadFactorService occupantLoadFactorService;
-  
 
   bool hasLoadFactor = false;
 
   @override
   void ngOnInit() {
-    unitMap = table422_1Units_Names;
   }
 
   @override
@@ -89,7 +88,7 @@ class MaleFemaleInput implements AfterChanges, OnInit {
       //===== END MANDATORY =====
 
       allowedSet = fixtureUnit.GetInputPutAllowedEnum();
-      commonInput = Set<table422_1Units>();
+      commonInput = Set<String>();
 
       occupantLoadFactorService.mergeLoadFactor(fixtureUnit.occupancy.type, occupantLoadFactor);
       occupantLoadFactor.gen = gen;

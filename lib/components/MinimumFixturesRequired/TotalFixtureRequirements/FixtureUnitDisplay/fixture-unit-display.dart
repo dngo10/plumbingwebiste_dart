@@ -22,11 +22,11 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
   
   @Input() FixtureUnit fixtureUnit;
 
-  Map<table422_1Categories, double> items;
-  Map<table422_1Categories, String> catMap = table422_1CategoriesNames;
-  Map<table422_1Categories, String> urlMap =  fixtureIconUrl;
-  Map<table422_1Units, String> unitMap = table422_1Units_Names;
-  Set<table422_1Categories> otherEnum = OtherSet;
+  Map<String, double> items;
+  Set<String> catMap = Table422_1Categories.OtherSet;
+  Map<String, String> urlMap =  fixtureIconUrl;
+  Set<String> unitMap = Table422_1Units.InputSet;
+  Set<String> otherEnum = Table422_1Categories.OtherSet;
 
   @override
   void ngOnInit() {
@@ -34,7 +34,7 @@ class FixtureUnitDisplay implements OnInit, AfterChanges{
 
   @override
   void ngAfterChanges() {
-    items = Map<table422_1Categories, double>();
+    items = Map<String, double>();
     if(fixtureUnit != null){
       fixtureUnit.outputUnits.forEach((key, value) {
         //if(!otherEnum.contains(key)){

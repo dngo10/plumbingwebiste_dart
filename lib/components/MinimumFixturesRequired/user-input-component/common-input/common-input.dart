@@ -30,19 +30,19 @@ class CommonInput implements AfterChanges {
   @Input()
   CommonInputList fakemap;
 
-  Set<table422_1Units> allowedSet;
-  Map<table422_1Units, String> unitMap;
-  Set<table422_1Units> commonSet;
-  Set<table422_1Units> restrictedSet;
+  Set<String> allowedSet;
+  Map<String, String> unitMap;
+  Set<String> commonSet;
+  Set<String> restrictedSet;
 
   CommonInput() {
     restrictedSet = {
-      table422_1Units.person,
-      table422_1Units.female,
-      table422_1Units.male,
-      table422_1Units.patient,
-      table422_1Units.room,
-      table422_1Units.none
+      Table422_1Units.person,
+      Table422_1Units.female,
+      Table422_1Units.male,
+      Table422_1Units.patient,
+      Table422_1Units.room,
+      Table422_1Units.none
     };
   }
 
@@ -50,19 +50,18 @@ class CommonInput implements AfterChanges {
   void ngAfterChanges() {
     if (fixtureUnit != null && fakemap != null) {
       allowedSet = fixtureUnit.GetInputPutAllowedEnum();
-      unitMap = table422_1Units_Names;
 
-      bool isMustChoose = allowedSet.contains(table422_1Units.room) &&
-          allowedSet.contains(table422_1Units.patient);
+      bool isMustChoose = allowedSet.contains(Table422_1Units.room) &&
+          allowedSet.contains(Table422_1Units.patient);
 
-      commonSet = Set<table422_1Units>();
+      commonSet = Set<String>();
 
       allowedSet.forEach((element) {
         if (!restrictedSet.contains(element)) {
           commonSet.add(element);
         } else if (!isMustChoose &&
-            (element == table422_1Units.room ||
-                element == table422_1Units.patient)) {
+            (element == Table422_1Units.room ||
+                element == Table422_1Units.patient)) {
           commonSet.add(element);
         }
       });

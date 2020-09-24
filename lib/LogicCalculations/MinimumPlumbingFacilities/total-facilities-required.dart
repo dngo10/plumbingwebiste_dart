@@ -18,7 +18,9 @@ class TotalFacilitiesRequired{
     bool isEditing =  false;
 
     List<FixtureUnit> fixtureUnitArray;
-    Map<table422_1Categories, double> totalRequiredFixture;
+
+    ///Map<Table422_1Categories, double>
+    Map<String, double> totalRequiredFixture;
 
     double femaleWaterClosetAddIn;
     double maleUrinalsAllowedToBeAdded;
@@ -34,9 +36,9 @@ class TotalFacilitiesRequired{
 
     TotalFacilitiesRequired(){
         fixtureUnitArray = List<FixtureUnit>();
-        totalRequiredFixture = Map<table422_1Categories, double>();
+        totalRequiredFixture = Map<String, double>();
 
-        table422_1CategoriesNames.forEach((key, value) {
+        Table422_1Categories.OutputSet.forEach((key) {
           totalRequiredFixture[key] = 0;
         });
     }
@@ -66,11 +68,11 @@ class TotalFacilitiesRequired{
 
         fixtureUnitArray.forEach((element) {
           element.unit.forEach((key, value) {
-            if(key.t1 == table422_1Categories.urinals && key.t2 == table422_1Units.male){
+            if(key.t1 == Table422_1Categories.urinals && key.t2 == Table422_1Units.male){
               totalFixtureBasedOnGender[TotMaFe.totalMaleUrinals] += MaleUrinalsCount(element.occupancy, value);
-            }else if(key.t1 == table422_1Categories.waterClosets && key.t2 == table422_1Units.male){
+            }else if(key.t1 == Table422_1Categories.waterClosets && key.t2 == Table422_1Units.male){
               totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] += MaleWaterClosetsCount(element.occupancy, value);
-            } else if(key.t1 == table422_1Categories.waterClosets && key.t2 == table422_1Units.female){
+            } else if(key.t1 == Table422_1Categories.waterClosets && key.t2 == Table422_1Units.female){
               totalFixtureBasedOnGender[TotMaFe.totalFemaleCloset] += FemaleWaterClosetsCount(element.occupancy, value);
             }
           });
@@ -106,7 +108,7 @@ class TotalFacilitiesRequired{
         AddFemaleWaterCloset();
     }
 
-    AddToTotalFixtureRequired(Map<table422_1Categories, double> item){
+    AddToTotalFixtureRequired(Map<String, double> item){
       item.forEach((key, v) {
         if(totalRequiredFixture.containsKey(key)){
           totalRequiredFixture[key] +=  v;

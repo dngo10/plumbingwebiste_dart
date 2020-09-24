@@ -1,7 +1,7 @@
 import 'table422_1Units.dart';
 
 class TypeOfOccupancy {
-  table422_1Ids id;
+  String id;
   String type;
   String sub_type;
   String description;

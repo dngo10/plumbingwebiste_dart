@@ -14,9 +14,9 @@ class Pfm {
 
   Pfm.Init();
 
-  var emale = table422_1Units.male;
-  var efemale = table422_1Units.female;
-  var eperson = table422_1Units.person;
+  String emale = Table422_1Units.male;
+  String efemale = Table422_1Units.female;
+  String eperson = Table422_1Units.person;
   
   void setHasmHasf(){
       hasm = fixtureUnit.inputUnits.containsKey(emale);

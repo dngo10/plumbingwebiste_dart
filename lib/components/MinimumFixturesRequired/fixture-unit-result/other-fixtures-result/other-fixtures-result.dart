@@ -29,12 +29,12 @@ class OtherFixturesResult implements AfterChanges{
   @Input() FixtureUnit fixtureUnit;
   int numOfOptions = 0;
   int i = 0;
-  List<table422_1Categories> _selectedOption;
-  Map<table422_1Categories, String> iconUrl = fixtureIconUrl;
-  Map<table422_1Categories, String> catMap = table422_1CategoriesNames;
+  List<String> _selectedOption;
+  Map<String, String> iconUrl = fixtureIconUrl;
+  Set<String> catMap = Table422_1Categories.OutputSet;
 
-  List<table422_1Categories> get selectedOption => _selectedOption;
-  void set selectedOption(List<table422_1Categories> option){
+  List<String> get selectedOption => _selectedOption;
+  void set selectedOption(List<String> option){
     if(_selectedOption == option) return;
     _selectedOption = option;
     fixtureUnit.choiceOption = fixtureUnit.otherOptions.indexOf(selectedOption);

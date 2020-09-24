@@ -51,7 +51,9 @@ class TotalFixtureRequirement implements OnInit {
   @Input() CommonInputList fakemap;
 
   OccupantLoadFactorService occupantLoadFactorService;
-  Map<table422_1Categories, String> urlMap =  fixtureIconUrl;
+
+  //Map<Table422_1Categories, String>
+  Map<String, String> urlMap =  fixtureIconUrl;
 
   //CanvasElement canvas;
 

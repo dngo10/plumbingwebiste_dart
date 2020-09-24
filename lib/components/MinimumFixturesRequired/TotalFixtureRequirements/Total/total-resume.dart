@@ -24,9 +24,9 @@ class TotalResume implements AfterChanges, AfterViewChecked{
   TotMaFe cMale = TotMaFe.totalMaleCloset;
   TotMaFe cFemale = TotMaFe.totalFemaleCloset;
 
-  Map<table422_1Categories, double> items;
-  Map<table422_1Categories, String> catMap = table422_1CategoriesNames;
-  Map<table422_1Categories, String> urlMap =  fixtureIconUrl;
+  Map<String, double> items;
+  Set<String> catSet = Table422_1Categories.OutputSet;
+  Map<String, String> urlMap =  fixtureIconUrl;
 
   @override
   void ngAfterChanges() {

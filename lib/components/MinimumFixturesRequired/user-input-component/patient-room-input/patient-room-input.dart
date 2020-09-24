@@ -29,22 +29,25 @@ import 'package:angular_components/material_radio/material_radio_group.dart';
 class PatientRoomInput implements OnInit, AfterChanges {
   @Input() FixtureUnit fixtureUnit;
   bool checkAvailable = false;
-  Set<table422_1Units> allowedSet;
-  Set<table422_1Units> commonUnit;
 
-  Map<table422_1Units, String> unitMap;
+  //Set<Table422_1Units>
+  Set<String> allowedSet;
+
+  //Set<Table422_1Units>
+  Set<String> commonUnit;
+  //Set<Table422_1Units>
+  Map<String, String> unitMap;
 
   List<Option> choice;
   Option selected;
   PatientRoom pt;
 
-  table422_1Units ePatient, eRoom;
+  String ePatient, eRoom;
 
   PatientRoomInput(){
     pt = PatientRoom.Init();
-    ePatient = table422_1Units.patient;
-    eRoom = table422_1Units.room;
-    unitMap = table422_1Units_Names;
+    ePatient = Table422_1Units.patient;
+    eRoom = Table422_1Units.room;
   }
 
   @override
@@ -88,7 +91,7 @@ class PatientRoomInput implements OnInit, AfterChanges {
 
 class Option {
     final String label;
-    table422_1Units unit;
+    String unit;
     bool selected;
     bool disabled;
 

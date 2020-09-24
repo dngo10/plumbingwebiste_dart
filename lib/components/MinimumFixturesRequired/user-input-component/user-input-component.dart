@@ -39,7 +39,8 @@ class UserInputBasedOnOccupancy implements AfterChanges{
   @Input() PatientRoom pt;
   @Input() CommonInputList fakemap;
 
-  Set<table422_1Units> allowedUnits;
+  ///Set<Table422_1Units>
+  Set<String> allowedUnits;
 
   @override
   void ngAfterChanges() {
