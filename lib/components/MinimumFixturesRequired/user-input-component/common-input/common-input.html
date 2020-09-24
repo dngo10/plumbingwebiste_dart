@@ -3,7 +3,7 @@
         <material-input *ngFor="let item of commonSet"
             floatingLabel
             [(ngModel)]="fakemap.tempMap[item].value"
-            label="{{unitMap[item]}}"
+            label="{{item}}"
             type="number">
         </material-input>
     </div>

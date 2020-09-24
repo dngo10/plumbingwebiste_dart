@@ -35,8 +35,6 @@ class PatientRoomInput implements OnInit, AfterChanges {
 
   //Set<Table422_1Units>
   Set<String> commonUnit;
-  //Set<Table422_1Units>
-  Map<String, String> unitMap;
 
   List<Option> choice;
   Option selected;
@@ -67,8 +65,8 @@ class PatientRoomInput implements OnInit, AfterChanges {
         }
 
         choice = [
-           Option(unitMap[ePatient], true, false, ePatient),
-           Option(unitMap[eRoom], false, false, eRoom),
+           Option(ePatient, true, false, ePatient),
+           Option(eRoom, false, false, eRoom),
          ];
 
          selected = choice.firstWhere((o) => o.selected);

@@ -9,16 +9,16 @@
 
     <div class="maleFemaleInput">
         <div *ngIf="allowedSet != null && allowedSet.contains(eperson)">
-            <material-input floatingLabel [(ngModel)]="gen.person" label="{{unitMap[eperson]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.person" label="{{gen.eperson}}" type="number"></material-input>
 
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(emale)">
-            <material-input floatingLabel [(ngModel)]="gen.male" label="{{unitMap[emale]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.male" label="{{gen.emale}}" type="number"></material-input>
         </div>
 
         <div *ngIf="allowedSet != null && allowedSet.contains(efemale)">
-            <material-input floatingLabel [(ngModel)]="gen.female" label="{{unitMap[efemale]}}" type="number"></material-input>
+            <material-input floatingLabel [(ngModel)]="gen.female" label="{{gen.efemale}}" type="number"></material-input>
         </div>
     </div>
 </div>
