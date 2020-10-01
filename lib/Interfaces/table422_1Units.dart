@@ -89,6 +89,13 @@ class PairEntry{
     };
     return json.encode(map);
   }
+
+  static PairEntry fromJson(String json){
+    Map m = jsonDecode(json);
+    String t1 = m["t1"];
+    String t2 = m["t2"];
+    return PairEntry(t1, t2);
+  }
 }
 
 ///PairEntry is: <table422_1Categories,table422_1Units> , the biggest, most important map

@@ -2,7 +2,9 @@ import 'package:angular_router/angular_router.dart';
 
 
 class RoutePathPlumbing{
+  static String idParam = 'id';
   static final minimumFixtureRequired = RoutePath(path: 'minimumfixturerequirement');
+  static final minimumFixtureRequiredData = RoutePath(path: '${minimumFixtureRequired.path}?id=:$idParam');
 }
 
 class LoginPaths{

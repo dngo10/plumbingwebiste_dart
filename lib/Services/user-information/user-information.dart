@@ -60,6 +60,7 @@ class UserInformation{
 
       LocalStorageManager.deleteValue(UserInformation.vendor);
       LocalStorageManager.deleteValue(UserInformation.code);
+      LocalStorageManager.deleteValue(UserInformation.previousUrl);
       //window.location.href = 
 
     }

@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_app/Services/user-information/user-information.dart';
 import 'package:angular_app/routes/route_path.dart';
 import 'package:angular_router/angular_router.dart';
+import 'dart:html' as html;
 
 
 @Component(
@@ -27,7 +28,13 @@ class  LoginRedirect implements OnActivate {
         UserInformation.email == null
         ){
       _router.navigate(LoginPaths.loginPage.toUrl());
-    }else{
+    }else if(UserInformation.previousUrl != null && UserInformation.previousUrl != "null"){
+      String pre = UserInformation.previousUrl;
+      UserInformation.previousUrl = null;
+      html.window.location.href = pre;
+    }
+    else{
+      //LATER THIS WILL CHANGE TO LOCAL PANEL
       _router.navigate(RoutePathPlumbing.minimumFixtureRequired.toUrl());
     }
     

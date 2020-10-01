@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:angular_app/Services/local-storage-manager/local-storage-manager.dart';
+import 'package:http/http.dart' as  http;
+import 'dart:html' as html;
 import 'package:angular/angular.dart';
 import 'package:angular_app/Services/user-information/check_user.dart';
 import 'package:angular_app/Services/user-information/user-information.dart';
@@ -63,6 +68,7 @@ import 'TotalFixtureRequirements/total-fixture-requirement.dart';
     ],
 )
 class MinimumFixtureRequired implements OnInit{
+  int id;
   TypeOfOccupancyService occupancies;
   List<TypeOfOccupancy> typeOfOccupancy;
   TypeOfOccupancy chooseOccupancy;
@@ -101,12 +107,25 @@ class MinimumFixtureRequired implements OnInit{
   @override
   void ngOnInit() async{
     if(!await CheckUser.IsValidUser()){
+      UserInformation.previousUrl = html.window.location.href;
       _router.navigate(LoginPaths.loginPage.toUrl());
     }
+    String path = html.window.location.href.replaceFirst(html.window.location.host + "/#/", "");
+    Map queryMap = Uri.parse(path).queryParameters;
+    if(queryMap != null && queryMap.containsKey(RoutePathPlumbing.idParam)){
+      int id = int.parse(queryMap[RoutePathPlumbing.idParam]);
+      String url = UserInformation.serverhost + "/data";
+      url += "?code=${UserInformation.authorizationCode}&id=${id}";
+      
+      http.Response response  = await http.get(url);
+      if(response == null || response.body.isEmpty) return;
+
+      Map map = jsonDecode(response.body);
+      String dataStr = map["data"] as String;
+      if(dataStr != null)
+        totalFacilitiesRequired = TotalFacilitiesRequired.fromJson(dataStr);
+    }
     typeOfOccupancy = occupancies.getTypeOfOccupancy();
-    typeOfOccupancy.forEach((element) {
-    });
-    // TODO: implement ngOnInit
   }
 
   getItem(TypeOfOccupancy item){   
@@ -125,5 +144,49 @@ class MinimumFixtureRequired implements OnInit{
       totalFacilitiesRequired.AddFixtureOccupancy(fixtureUnit);
       totalFacilitiesRequired.Recalculate();
     }
+  }
+
+  createJson() async{
+    String jsonData = totalFacilitiesRequired.toJson();
+    Map map = {
+      "DATA": jsonData,
+      "DATE": DateTime.now().toUtc().toString(),
+      "COMMAND": "minimumfixturerequirement",
+      "code" : UserInformation.authorizationCode
+    };
+
+    String tempHrefUrl = html.window.location.href;
+    tempHrefUrl =  tempHrefUrl.replaceAll(html.window.location.host + "/#/", '');
+    Map urlMap = Uri.parse(tempHrefUrl).queryParameters;
+    if(urlMap != null && urlMap.containsKey("id")){
+      map["id"] = int.tryParse(urlMap["id"]);
+    }
+    http.Response response = await http.post(UserInformation.serverhost + "/data", body: jsonEncode(map));
+    Map jsonResponse = jsonDecode(response.body);
+    if(jsonResponse.containsKey("id")){
+      Map mapToClipBoard = {
+        "id": jsonResponse["id"],
+        "data": jsonData
+      };
+      html.document.execCommand("copy");
+      _copyToClipboardHack(jsonEncode(mapToClipBoard));
+    }
+    html.window.close();
+  }
+
+  bool _copyToClipboardHack(String text) {
+    final textarea = html.TextAreaElement();
+    html.document.body.append(textarea);
+    textarea.style.border = '0';
+    textarea.style.margin = '0';
+    textarea.style.padding = '0';
+    textarea.style.opacity = '0';
+    textarea.style.position = 'absolute';
+    textarea.readOnly = true;
+    textarea.value = text;
+    textarea.select();
+    final result = html.document.execCommand('copy');
+    textarea.remove();
+    return result;
   }
 }

@@ -1,17 +1,17 @@
+import 'dart:convert';
+
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/waterclosets-cal.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/urinals-cal.dart';
 
-enum TotMaFe{
-    totalFemaleCloset,
-    totalMaleCloset,
-    totalMaleUrinals
+class TotMaFe{
+  static String totalFemaleCloset = "totalFemaleCloset";
+  static String totalMaleCloset = "totalMaleCloset";
+  static String totalMaleUrinals = "totalMaleUrinals";
 }
 
-
 class TotalFacilitiesRequired{
-
 
     FixtureUnit fixtureUnitForEdit;
     FixtureUnit outItem;
@@ -22,13 +22,13 @@ class TotalFacilitiesRequired{
     ///Map<Table422_1Categories, double>
     Map<String, double> totalRequiredFixture;
 
-    double femaleWaterClosetAddIn;
-    double maleUrinalsAllowedToBeAdded;
-    double userUrinalsAdded;
+    double femaleWaterClosetAddIn = 0;
+    double maleUrinalsAllowedToBeAdded = 0;
+    double userUrinalsAdded = 0;
 
     int sliderValue = 0; // This is for slider;
 
-    Map<TotMaFe, double> totalFixtureBasedOnGender = <TotMaFe, double>{
+    Map<String, double> totalFixtureBasedOnGender = <String, double>{
       TotMaFe.totalFemaleCloset : 0 ,
       TotMaFe.totalMaleCloset : 0,
       TotMaFe.totalMaleUrinals : 0
@@ -139,6 +139,60 @@ class TotalFacilitiesRequired{
       isEditing = false;
     }
 
-    
+    String toJson(){
+      List<String> list = List<String>();
+      fixtureUnitArray.forEach((element) {
+        list.add(element?.toJson());
+      });
+
+      Map map = {
+        "fixtureUnitForEdit" : fixtureUnitForEdit?.toJson(),
+        "outItem": outItem?.toJson(),
+        "isEditing": isEditing,
+        "totalRequiredFixture": totalRequiredFixture,
+        "fixtureUnitArray": list,
+        "femaleWaterClosetAddIn": femaleWaterClosetAddIn,
+        "maleUrinalsAllowedToBeAdded": maleUrinalsAllowedToBeAdded,
+        "userUrinalsAdded" : userUrinalsAdded,
+        "sliderValue" : sliderValue,
+        "totalFixtureBasedOnGender" : totalFixtureBasedOnGender
+
+      };
+      return jsonEncode(map);
+    }
+
+    static TotalFacilitiesRequired fromJson(String json){ 
+      Map map = jsonDecode(json);
+      TotalFacilitiesRequired total = TotalFacilitiesRequired();
+
+
+      total.fixtureUnitForEdit = FixtureUnit.fromJson(map["fixtureUnitForEdit"]); 
+      total.outItem = FixtureUnit.fromJson(map["outItem"]);
+      total.femaleWaterClosetAddIn = map["femaleWaterClosetAddIn"];
+      total.isEditing = map["isEditing"];
+      total.maleUrinalsAllowedToBeAdded = map["maleUrinalsAllowedToBeAdded"];
+      total.userUrinalsAdded = map["userUrinalsAdded"];
+      total.sliderValue = map["sliderValue"];
+      total.totalRequiredFixture = Map.castFrom(map["totalRequiredFixture"]);
+      total.totalFixtureBasedOnGender = Map.castFrom(map["totalFixtureBasedOnGender"]);
+
+      //Cast FixtureArray
+      List<String> fixtureArray = List<String>();
+      List FArr = map["fixtureUnitArray"];
+      if(FArr != null){
+        List<String> list = List<String>();
+        FArr.forEach((element) {
+          list.add(element.toString());
+        });
+        fixtureArray = list;
+      }
+
+      List<FixtureUnit> fixtures = List<FixtureUnit>();
+      fixtureArray.forEach((element) {
+        fixtures.add(FixtureUnit.fromJson(element));
+      });
+      total.fixtureUnitArray = fixtures;
+      return total;
+    }
     
 }

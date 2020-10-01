@@ -20,9 +20,9 @@ import 'package:angular_forms/angular_forms.dart';
 class TotalResume implements AfterChanges, AfterViewChecked{
   @Input() TotalFacilitiesRequired totalFacilitiesRequired;
 
-  TotMaFe uMale = TotMaFe.totalMaleUrinals;
-  TotMaFe cMale = TotMaFe.totalMaleCloset;
-  TotMaFe cFemale = TotMaFe.totalFemaleCloset;
+  String uMale = TotMaFe.totalMaleUrinals;
+  String cMale = TotMaFe.totalMaleCloset;
+  String cFemale = TotMaFe.totalFemaleCloset;
 
   Map<String, double> items;
   Set<String> catSet = Table422_1Categories.OutputSet;

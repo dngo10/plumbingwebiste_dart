@@ -1,7 +1,7 @@
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 
-int None_LaundryTrayFixureNeeded(TypeOfOccupancy typeOfOccupancy) {
+int None_LaundryTrayFixureNeeded(TypeOfOccupancy typeOfOccupancy, double unitNumber) {
     if(typeOfOccupancy.id == Table422_1Ids.A1 ||
        typeOfOccupancy.id == Table422_1Ids.A2 ||    
        typeOfOccupancy.id == Table422_1Ids.A3 ||    

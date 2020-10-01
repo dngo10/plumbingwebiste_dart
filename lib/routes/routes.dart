@@ -23,6 +23,11 @@ class Routes{
     component: login_redirect.LoginRedirectNgFactory,
   );
 
+  static final minFixtureData = RouteDefinition(
+    routePath: RoutePathPlumbing.minimumFixtureRequiredData,
+    component: min_fixture.MinimumFixtureRequiredNgFactory,
+  );
+
     static final all = <RouteDefinition>[
       //RouteDefinition.redirect(
       //  path: '',

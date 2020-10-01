@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/automatic-clothes-washer-connection-cal.dart';
@@ -287,7 +289,7 @@ class FixtureUnit {
         unit.forEach((key, value) { 
           if(key.t1 == Table422_1Categories.laundrytray){
               if(key.t2 == Table422_1Units.none){
-                  ans += None_LaundryTrayFixureNeeded(this.occupancy);
+                  ans += None_LaundryTrayFixureNeeded(this.occupancy, value);
               }else if(key.t2 == Table422_1Units.apartment){
                      ans += Apartment_LaundryTrayFixtureNeeded(this.occupancy, value);
               }
@@ -337,7 +339,7 @@ class FixtureUnit {
       unit.forEach((key, value){
         if(key.t1 == Table422_1Categories.servicesink){
           if(key.t2 == Table422_1Units.none){
-            ans += None_ServiceSinkFixureNeeded(this.occupancy);
+            ans += None_ServiceSinkFixureNeeded(this.occupancy, value);
           }
         }
       });
@@ -404,11 +406,50 @@ class FixtureUnit {
     }
 
     String toJson(){
+      Map<String,double> unitStr = Map<String,double>();
+      unit.forEach((key, value) {
+         unitStr[key.toString()] = value;
+      });
       Map map = {
-        "unit" : unit,
-        "inputUnits": inputUnits,
-        "outputUnits": outputUnits,
-        "_choiceOption": _choiceOption,
+        "unit" : jsonEncode(unitStr),
+        "inputUnits": jsonEncode(inputUnits),
+        "outputUnits": jsonEncode(outputUnits),
+        "choiceOption": jsonEncode(choiceOption),
+        "otherOptions": jsonEncode(otherOptions),
+        "occupancy": occupancy.toJson(),
       };
+
+      return jsonEncode(map);
+    }
+
+    static FixtureUnit fromJson(dynamic json){
+      if(json != null){
+        Map map = jsonDecode(json);
+        TypeOfOccupancy occupancy = TypeOfOccupancy.fromJson(map["occupancy"]);
+        FixtureUnit unit = FixtureUnit(occupancy);
+        unit.inputUnits = Map.castFrom(jsonDecode(map["inputUnits"])); 
+        unit.outputUnits = Map.castFrom(jsonDecode(map["outputUnits"]));
+
+        //unit.otherOptions
+        List temp = List.castFrom(jsonDecode(map["otherOptions"]));
+        for(int i = 0; i < temp.length; i++){
+          List<String> temp1 = List<String>();
+          temp[i].forEach((element) {
+            temp1.add(element.toString());
+          });
+          unit.otherOptions[i] = temp1;
+        }
+        unit.choiceOption = jsonDecode(map["choiceOption"]);
+
+        //unit
+        Map unitMap = jsonDecode(map["unit"]);
+        Map<PairEntry,double> unt = Map<PairEntry,double>();
+        unitMap.forEach((key, value) {
+          unt[PairEntry.fromJson(key.toString())] = value;
+        });
+        unit.unit = unt;
+        return unit;
+      }
+      return null;
     }
 }
