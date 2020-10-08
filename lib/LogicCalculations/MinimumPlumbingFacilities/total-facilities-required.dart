@@ -60,7 +60,11 @@ class TotalFacilitiesRequired{
     // This is to make it will compli to Note 4 of Table 422_1.
     ReducableFixture(){
         GetTotalMaleFemaleClosetUrinals();
-        maleUrinalsAllowedToBeAdded = (totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] * 2.0/3.0).floor().toDouble();
+        if(totalRequiredFixture.containsKey(Table422_1Categories.urinals)){
+          maleUrinalsAllowedToBeAdded = (totalFixtureBasedOnGender[TotMaFe.totalMaleCloset] * 2.0/3.0).floor().toDouble();
+        }else{
+          maleUrinalsAllowedToBeAdded = 0;
+        }
     }
 
     void GetTotalMaleFemaleClosetUrinals(){

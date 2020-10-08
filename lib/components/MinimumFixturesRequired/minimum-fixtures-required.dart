@@ -121,11 +121,23 @@ class MinimumFixtureRequired implements OnInit{
       if(response == null || response.body.isEmpty) return;
 
       Map map = jsonDecode(response.body);
+      String commandName = _trim(map["command"]);
       String dataStr = map["data"] as String;
-      if(dataStr != null)
+      if(dataStr != null && commandName != null && commandName == "minimumfixturerequirement")
         totalFacilitiesRequired = TotalFacilitiesRequired.fromJson(dataStr);
     }
     typeOfOccupancy = occupancies.getTypeOfOccupancy();
+  }
+
+  String _trim(String dataString){
+    if(dataString != null && dataString.length > 2){
+      if(dataString[0] == '\'' && dataString[dataString.length - 1] == '\''){
+        return dataString.substring(1, dataString.length - 1);
+      }else if(dataString[0] == '\"' && dataString[dataString.length -1] == '\"'){
+        return dataString.substring(1, dataString.length - 1);
+      }
+    }
+    return "";
   }
 
   getItem(TypeOfOccupancy item){   
