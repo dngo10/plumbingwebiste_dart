@@ -28,7 +28,7 @@ class  LoginRedirect implements OnActivate {
         UserInformation.email == null
         ){
       _router.navigate(LoginPaths.loginPage.toUrl());
-    }else if(UserInformation.previousUrl != null && UserInformation.previousUrl != "null"){
+    }else if(UserInformation.previousUrl != null && !UserInformation.previousUrl.contains("login")){
       String pre = UserInformation.previousUrl;
       UserInformation.previousUrl = null;
       html.window.location.href = pre;

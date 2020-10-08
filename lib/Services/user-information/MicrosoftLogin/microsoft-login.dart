@@ -8,7 +8,7 @@ import '../../../routes/route_path.dart';
 
 class MicrosoftLogin{
   static String _client_id = '0c0b0622-f612-41a6-874c-b5182b5183f1';
-  static String _redirect_url = "http://localhost:8080";
+  static String _redirect_url = UserInformation.redirectUri;
   static String _code = "code";
   static String _server_logout = "${UserInformation.serverhost}/logout";
   static String _server_login = "${UserInformation.serverhost}/oauth2";

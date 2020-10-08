@@ -11,7 +11,7 @@ class YahooLogin{
   static String _baseUrl = 'https://api.login.yahoo.com/oauth2/request_auth?';
   static String _client_id = "dj0yJmk9Snk0aHdEZVNKRDBDJmQ9WVdrOVVVaHpTM050TjNNbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTll";
   static String _response_type = "code";
-  static String _redirect_uri = Uri.encodeFull("https://gouvisgroup.xyz");
+  static String _redirect_uri = Uri.encodeFull(UserInformation.redirectUri);
   static String _language = "en-us";
 
   static String _server_login =  "${UserInformation.serverhost}/oauth2";

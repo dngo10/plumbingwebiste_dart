@@ -13,7 +13,7 @@ class GoogleLogin{
 
   static String _baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth?';
   static String _clientId = '990439782684-t224hulo9aegba964mqluborhhckhi5r.apps.googleusercontent.com';
-  static String _redirectUri = 'http://localhost:8080';
+  static String _redirectUri = UserInformation.redirectUri;
   static String _response_type = 'code';
   static String _access_type = 'offline';
   static String _scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';

@@ -9,7 +9,9 @@ import 'package:angular_router/angular_router.dart';
 import 'package:http/http.dart' as http;
 
 class UserInformation{
-  static const String serverhost = "http://localhost:4040";
+  //static const String serverhost = "http://localhost:4040";
+  static const String serverhost = "https://spacex.page";
+  static const String redirectUri = "https://gouvisgroup.xyz";
 
   static void set givenName(String value){return LocalStorageManager.addToStorage(_givenName, value);}
   static String get givenName {return LocalStorageManager.getValue(_givenName);}

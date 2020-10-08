@@ -162,6 +162,8 @@ class TotalFacilitiesRequired{
     }
 
     static TotalFacilitiesRequired fromJson(String json){ 
+      if(json[0] == '\'' && json[json.length-1] == '\'')
+        json = json.substring(1, json.length-1); 
       Map map = jsonDecode(json);
       TotalFacilitiesRequired total = TotalFacilitiesRequired();
 
