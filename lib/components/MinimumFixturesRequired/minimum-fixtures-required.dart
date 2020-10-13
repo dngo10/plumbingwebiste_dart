@@ -183,7 +183,8 @@ class MinimumFixtureRequired implements OnInit{
       html.document.execCommand("copy");
       _copyToClipboardHack(jsonEncode(mapToClipBoard));
     }
-    html.window.close();
+    html.window.open('','_self').close();
+    //html.window.close();
   }
 
   bool _copyToClipboardHack(String text) {
