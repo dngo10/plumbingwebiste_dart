@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:angular_app/Services/local-storage-manager/local-storage-manager.dart';
 import 'package:http/http.dart' as  http;
 import 'dart:html' as html;
 import 'package:angular/angular.dart';
@@ -68,7 +67,7 @@ import 'TotalFixtureRequirements/total-fixture-requirement.dart';
     ],
 )
 class MinimumFixtureRequired implements OnInit{
-  int id;
+  int id = -1;
   TypeOfOccupancyService occupancies;
   List<TypeOfOccupancy> typeOfOccupancy;
   TypeOfOccupancy chooseOccupancy;
@@ -84,9 +83,7 @@ class MinimumFixtureRequired implements OnInit{
   CommonInputList fakemap;
   Router _router;
 
-
   String buttonText = "choose occupancy type";
-
 
   MinimumFixtureRequired(this.occupancies, this._router){
     totalFacilitiesRequired = TotalFacilitiesRequired();
@@ -102,27 +99,32 @@ class MinimumFixtureRequired implements OnInit{
     fakemap = CommonInputList.Init();
     fakemap.fixtureUnit = fixtureUnit;
 
+    
   }
 
   @override
   void ngOnInit() async{
+
     if(!await CheckUser.IsValidUser()){
       UserInformation.previousUrl = html.window.location.href;
       _router.navigate(LoginPaths.loginPage.toUrl());
     }
     String path = html.window.location.href.replaceFirst(html.window.location.host + "/#/", "");
+    print(path);
     Map queryMap = Uri.parse(path).queryParameters;
     if(queryMap != null && queryMap.containsKey(RoutePathPlumbing.idParam)){
-      int id = int.parse(queryMap[RoutePathPlumbing.idParam]);
+      id = int.parse(queryMap[RoutePathPlumbing.idParam]);
       String url = UserInformation.serverhost + "/data";
       url += "?code=${UserInformation.authorizationCode}&id=${id}";
       
       http.Response response  = await http.get(url);
       if(response == null || response.body.isEmpty) return;
 
-      Map map = jsonDecode(response.body);
+      Map map = await jsonDecode(response.body);
       String commandName = _trim(map["command"]);
       String dataStr = map["data"] as String;
+      print(dataStr);
+      dataStr = _trim(dataStr);
       if(dataStr != null && commandName != null && commandName == "minimumfixturerequirement")
         totalFacilitiesRequired = TotalFacilitiesRequired.fromJson(dataStr);
     }
@@ -131,13 +133,14 @@ class MinimumFixtureRequired implements OnInit{
 
   String _trim(String dataString){
     if(dataString != null && dataString.length > 2){
+      dataString = dataString.trim();
       if(dataString[0] == '\'' && dataString[dataString.length - 1] == '\''){
-        return dataString.substring(1, dataString.length - 1);
-      }else if(dataString[0] == '\"' && dataString[dataString.length -1] == '\"'){
-        return dataString.substring(1, dataString.length - 1);
+        dataString = dataString.substring(1, dataString.length - 1);
+      }if(dataString[0] == '\"' && dataString[dataString.length -1] == '\"'){
+        dataString = dataString.substring(1, dataString.length - 1);
       }
     }
-    return "";
+    return dataString;
   }
 
   getItem(TypeOfOccupancy item){   
@@ -172,6 +175,8 @@ class MinimumFixtureRequired implements OnInit{
     Map urlMap = Uri.parse(tempHrefUrl).queryParameters;
     if(urlMap != null && urlMap.containsKey("id")){
       map["id"] = int.tryParse(urlMap["id"]);
+    }else if(id != -1){
+      map["id"] = id;
     }
     http.Response response = await http.post(UserInformation.serverhost + "/data", body: jsonEncode(map));
     Map jsonResponse = jsonDecode(response.body);
@@ -183,7 +188,8 @@ class MinimumFixtureRequired implements OnInit{
       html.document.execCommand("copy");
       _copyToClipboardHack(jsonEncode(mapToClipBoard));
     }
-    html.window.open('','_self').close();
+    html.window.open('','_parent', '');
+    html.window.close();
     //html.window.close();
   }
 

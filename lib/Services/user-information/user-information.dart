@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 
 class UserInformation{
   //static const String serverhost = "http://localhost:4040";
+  //static const String redirectUri = "http://localhost:8080";
+
   static const String serverhost = "https://spacex.page";
   static const String redirectUri = "https://gouvisgroup.xyz";
 

@@ -61,7 +61,8 @@ class MicrosoftLogin{
       Map accessMap = Map.from(map);
 
       //MUST SPECIFY THIS
-      accessMap["vendor"] = "microsoft";      
+      accessMap["vendor"] = "microsoft";    
+      accessMap["redirect_uri"] = UserInformation.redirectUri;  
       http.Response reponse = await http.post(_server_login, body: json.encode(accessMap));
       Map data = jsonDecode(reponse.body);
       print(reponse.body);

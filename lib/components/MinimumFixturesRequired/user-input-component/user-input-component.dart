@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
+import 'package:angular/core.dart';
 import 'package:angular_app/Interfaces/occupancy-category.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
-import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/PatientRoom.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/common-input.dart';
@@ -27,7 +27,6 @@ import 'occupancy-infor-card/occupancy-infor-card.dart';
                PatientRoomInput,
                CommonInput,
                FixtureUnitResult,
-
   ]
 )
 class UserInputBasedOnOccupancy implements AfterChanges{
@@ -40,7 +39,7 @@ class UserInputBasedOnOccupancy implements AfterChanges{
   @Input() CommonInputList fakemap;
 
   ///Set<Table422_1Units>
-  Set<String> allowedUnits;
+  Set<String> allowedUnits; 
 
   @override
   void ngAfterChanges() {

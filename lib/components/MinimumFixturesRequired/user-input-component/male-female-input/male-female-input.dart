@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
 import 'package:angular_app/Interfaces/occupant-load-factor.dart';
-//import 'package:angular_app/Interfaces/table422-1.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/Pfm.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureModel/fixture-and-units.dart';
@@ -50,7 +49,7 @@ class MaleFemaleInput implements AfterChanges, OnInit {
   Set<String> commonInput;
 
   var unitMap;
-  String emale = Table422_1Units.male;
+  String emale   = Table422_1Units.male;
   String efemale = Table422_1Units.female;
   String eperson = Table422_1Units.person;
 
@@ -150,5 +149,3 @@ class MaleFemaleInput implements AfterChanges, OnInit {
     }
   }
 }
-
-/// Person - Male -Female class, use it to do binary binding

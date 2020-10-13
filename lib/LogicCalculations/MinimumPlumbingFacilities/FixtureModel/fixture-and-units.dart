@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:angular_app/Interfaces/occupancy-category.dart';
+import 'package:angular_app/Interfaces/table422-1.dart';
 import 'package:angular_app/Interfaces/table422_1Units.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/automatic-clothes-washer-connection-cal.dart';
 import 'package:angular_app/LogicCalculations/MinimumPlumbingFacilities/FixtureCalculations/kitchen-sink-cal.dart';
@@ -107,7 +108,7 @@ class FixtureUnit {
           otherOptions = otherCheckSet[ComboOthers.r2_3];
           _choiceOption = 0;
         } else if(occupancy.id == Table422_1Ids.R3_2){
-          otherOptions = otherCheckSet[ComboOthers.r2_3];
+          otherOptions = otherCheckSet[ComboOthers.r3_2];
         } else if(occupancy.id == Table422_1Ids.I2_2 ||
                   occupancy.id == Table422_1Ids.I2_3 ||
                   occupancy.id == Table422_1Ids.I3_1 ||
@@ -325,7 +326,7 @@ class FixtureUnit {
         if(key.t1 == Table422_1Categories.automaticclotheswasherconnection){
           if(key.t2 == Table422_1Units.apartment){
             ans += Apartment_AutomaticClothesWasherFixtureNeeded(this.occupancy, value);
-          } else if(key.t2 == Table422_1Units.familydwelling){
+          }else if(key.t2 == Table422_1Units.familydwelling){
             ans += FamilyDwelling_AutomaticClothesWasherFixtureNeeded(this.occupancy, value);
           }
         }
@@ -353,6 +354,8 @@ class FixtureUnit {
         if(key.t1 == Table422_1Categories.kitchensink){
           if(key.t2 == Table422_1Units.apartment){
             ans += Apartment_KitchenSinkFixtureNeeded(this.occupancy, value);
+          }if(key.t2 == Table422_1Units.familydwelling){
+            ans += FamilyDwelling_KitchenSinkFixtureNeeded(this.occupancy, value);
           }
         }
       });

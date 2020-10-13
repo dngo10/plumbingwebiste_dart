@@ -42,6 +42,7 @@ class GoogleLogin{
       // MUST SPECIFY THIS
       Map accessMap = Map.from(map);
       accessMap["vendor"] = "google";
+      accessMap["redirect_uri"] = UserInformation.redirectUri;
       http.Response reponse = await http.post(_server_login, body: jsonEncode(accessMap));
       Map data = jsonDecode(reponse.body);
       if(data != null ){
